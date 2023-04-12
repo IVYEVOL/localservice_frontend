@@ -42,7 +42,7 @@ function Login() {
                 if (res.code == 200) {
                   message.success('Login Successful');
                   setToken(res.data.token);
-                  // 此处可以使用服务器返回的用户角色数据.
+                  // return user data
                   navigate('/admin/dashboard');
                 } 
               } catch(err:any) {
