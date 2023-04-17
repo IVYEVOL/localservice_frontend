@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import MyLayout from "./components/MyLayout"
 import Dashboard from './pages/dashboard'
-import Users from './pages/user'
+import Users from './pages/customer/profile'
 import NewServiceProvider from './pages/admin/NewServiceProvider'
 import ServiceAudit from './pages/admin/ServiceAudit'
 import VerifiedServiceProvider from './pages/admin/VerifiedServiceProvider'
