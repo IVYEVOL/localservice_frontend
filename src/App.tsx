@@ -1,7 +1,10 @@
 import { Routes, Route } from 'react-router-dom'
 import MyLayout from "./components/MyLayout"
 import Dashboard from './pages/dashboard'
-import Users from './pages/customer/profile'
+import Users from './pages/user'
+import NewServiceProvider from './pages/admin/NewServiceProvider'
+import ServiceAudit from './pages/admin/ServiceAudit'
+import VerifiedServiceProvider from './pages/admin/VerifiedServiceProvider'
 
 function App() {
 
@@ -10,6 +13,9 @@ function App() {
       <Routes>
         <Route path='dashboard' element={<Dashboard/>} />
         <Route path='users' element={<Users />} />
+        <Route path='new_service_provider' element={<NewServiceProvider />} />
+        <Route path='service_audit' element={<ServiceAudit />} />
+        <Route path='verified_service_provider' element={<VerifiedServiceProvider />} />
       </Routes>
     </MyLayout>
   )

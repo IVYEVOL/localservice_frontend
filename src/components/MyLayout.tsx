@@ -14,45 +14,46 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 const sideMenuData = [
   {
-    key: '/admin/dashboard',
+    key: '/admin/new_service_provider',
     icon: <DashboardOutlined />,
-    label: 'nav 1',
+    label: 'New Server Provider',
   },
   {
-    key: '/admin/users',
+    key: '/admin/service_audit',
     icon: <UserOutlined />,
-    label: 'Profile',
+    label: 'Service Audit',
   },
   {
-    key: '/admin/order',
+    key: '/admin/verified_service_provider',
     icon: <UserOutlined />,
-    label: 'Order',
+    label: 'service删除不好的评论',
   },
-  {
-    key: '/admin/message',
-    icon: <UserOutlined />,
-    label: 'Message',
-  },
-  {
-    key: '/logout',
-    icon: <UserOutlined />,
-    label: 'Log out',
-  },
-  {
-    key: '3',
-    icon: <UploadOutlined />,
-    label: 'nav 3',
-    children: [
-      {
-        label: 'sub1',
-        key: '/admin/sub1',
-      },
-      {
-        label: 'sub2',
-        key: '/admin/sub2',
-      },
-    ],
-  },
+
+  // {
+  //   key: '/admin/message',
+  //   icon: <UserOutlined />,
+  //   label: 'Message',
+  // },
+  // {
+  //   key: '/logout',
+  //   icon: <UserOutlined />,
+  //   label: 'Log out',
+  // },
+  // {
+  //   key: '3',
+  //   icon: <UploadOutlined />,
+  //   label: 'nav 3',
+  //   children: [
+  //     {
+  //       label: 'sub1',
+  //       key: '/admin/sub1',
+  //     },
+  //     {
+  //       label: 'sub2',
+  //       key: '/admin/sub2',
+  //     },
+  //   ],
+  // },
 ]
 const findOpenKeys = (key: string) => {
   const result: string[] = [];
