@@ -6,7 +6,7 @@ export const defaultImg = logo;
  * Back-end server address
  */
 // export const serverUrl = 'http://localhost:3006';
-export const serverUrl = 'http://localhost:8090/api/v1';
+export const serverUrl = 'http://51.104.196.52:8090/api/v1';
 
 /**
  * Set token
