@@ -111,8 +111,8 @@ function Register() {
       name="role"
       label="role">
         <Radio.Group>
-          <Radio value={1}>Customer</Radio>
-          <Radio value={2}>Provider</Radio>
+          <Radio value={"Customer"}>Customer</Radio>
+          <Radio value={"Provider"}>Provider</Radio>
         </Radio.Group>
       </Form.Item>
 
