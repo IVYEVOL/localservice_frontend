@@ -22,12 +22,19 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/login' element={<Login />} />
+<<<<<<< HEAD
         <Route path='/register' element={<Register />} />
         <Route path='/admin/*' element={<AdminRoutes />} />
         <Route path='/provider/*' element={<ProviderRoutes />} />
         <Route path='/customer/*' element={<CustomerRoutes />}>
           <Route path='messagelist' element={<MesssageList />}></Route>
         </Route>
+=======
+        <Route path='/register' element={<Register />}/>
+        <Route path='/admin/*' element={<AdminRoutes />} />
+        <Route path='/provider/*' element={<ProviderRoutes />} />
+        <Route path='/customer/*' element={<CustomerRoutes />} />
+>>>>>>> 1bf789d574e9f7a3c2d52524a374381e9e6a4b27
       </Routes>
     </ConfigProvider>
   </Router>
