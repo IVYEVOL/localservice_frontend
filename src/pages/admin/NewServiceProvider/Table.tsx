@@ -54,17 +54,17 @@ const App: React.FC = () => {
     // let [total, setTotal] = useState(0);
 
 
-    window.timer = null;
+    // window.timer = null;
 
     /* 在组件挂载或者即将挂载的时候调用*/
     useEffect(() => {
         console.log(document.getElementsByClassName('ant-table-cell')[0])
         /* 利用防抖来解决useEffect执行两次的问题 */
-        clearTimeout(window.timer);
-        window.timer = setTimeout(() => {
-            showTable();
-        }, 0)
-
+        // clearTimeout(window.timer);
+        // window.timer = setTimeout(() => {
+        //     showTable();
+        // }, 0)
+        showTable();
         // window.timer 实在还是爆红的话，直接下面这行
         // showTable();
 
