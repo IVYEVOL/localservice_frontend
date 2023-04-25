@@ -1,17 +1,22 @@
 import { Routes, Route } from 'react-router-dom'
-import MyLayout from "./components/MyLayout"
+import MyLayoutProvider from "./components/MyLayout_provider"
+import AddService from './pages/provider/AddService'
+import ServiceRequest from './pages/provider/ServiceRequest'
 import Dashboard from './pages/dashboard'
-import Users from './pages/customer/profile'
-
+import ServiceList from './pages/provider/ServiceList'
 
 function ProviderRoutes() {
 
   return (
-    <MyLayout>
+
+    <MyLayoutProvider>
       <Routes>
-      
+      <Route path='Addservice' element={<AddService />} />
+      <Route path='ServiceRequest' element={<ServiceRequest />} />
+      <Route path='ServiceList' element={<ServiceList />} />
+      {/* <Route path='dashboard' element={<Dashboard/>} /> */}
       </Routes>
-    </MyLayout>
+    </MyLayoutProvider>
   )
 }
 
