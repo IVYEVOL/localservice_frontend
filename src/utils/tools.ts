@@ -1,4 +1,5 @@
 import logo from '../assets/logo.png';
+import axios from 'axios';
 
 export const defaultImg = logo;
 
@@ -20,4 +21,11 @@ export const setToken = (token: string) =>
  * Get token
  * @returns
  */
-export const getToken = () => sessionStorage.getItem('token');
+export const getToken = () => "Bearer: " + sessionStorage.getItem('token');
+
+/**
+ * Get authorization
+ * @returns
+ */
+export const getAuthorization = () => axios.defaults.headers.common['Authorization'] = getToken();
+
