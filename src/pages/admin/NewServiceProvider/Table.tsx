@@ -1,37 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Tag, Pagination, message } from 'antd';
+import { Space, Table, Tag, Pagination, message, Button, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
-import { getToken } from '../../../utils/tools';
-
-// interface DataType {
-//     key: string;
-//     name: string;
-//     age: number;
-//     address: string;
-//     tags: string[];
-// }
-
-
-
-
-
-
-
+import {getAuthorization, getToken } from '../../../utils/tools';
+import { ExclamationCircleFilled } from '@ant-design/icons';
 
 
 const App: React.FC = () => {
 
+    const { confirm } = Modal;
+
+    const providerBan = (r: any) => {
+      confirm({
+        title: 'Do you Want to Ban this provider?',
+        icon: <ExclamationCircleFilled />,
+        content: 'Are you sure?',
+        onOk() {
+          del(r)
+          console.log('OK');
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
+    };
+
     const columns = [
+        {
+            title: 'No',
+            dataIndex: 'key',
+            key: 'key',
+        },
         {
             title: 'ID',
             dataIndex: 'ID',
             key: 'ID',
         },
         {
-            title: 'Name',
-            dataIndex: 'Name',
-            key: 'Name',
+            title: 'Service Provider Name',
+            dataIndex: 'nick_name',
+            key: 'nick_name',
+        },
+        {
+            title: 'Phone number',
+            dataIndex: 'mobile',
+            key: 'mobile',
         },
     
         {
@@ -40,7 +53,10 @@ const App: React.FC = () => {
             render: (text: any) => (
                 <Space size="middle">
                     <a>check Detail</a>
-                    <a onClick={del.bind(this,text)}>Reject</a>
+                    <Button type="primary" onClick={providerBan.bind(this,text)} danger>
+                        Ban
+                    </Button>
+                    {/* <a onClick={del.bind(this,text)}>Reject</a> */}
                 </Space>
             ),
         },
@@ -81,41 +97,41 @@ const App: React.FC = () => {
         // showTable();
 
     }, [])
+
     
     // 删除的逻辑
     const del = (r: any) =>{
-        console.log(r)
-        axios.delete('http://51.104.196.52:8090/api/v1/public/service/category/', {
-            // headers:{
-            //     // Authorization.sessionStorage.token
-            //     Authorization: "Bearer:" + getToken()
-            // }
-            params: {
-                id: r.ID
-            },
+        // console.log(r)
+        getAuthorization();
+        axios.delete('http://51.104.196.52:8090/api/v1/user/'+r.ID, {
+
+            // params: {
+            //     id: r.ID
+            // },
         })
             .then(res => {
+                // console.log(res);
+                // console.log(res.data.code)
                 // 删除成功后提示
-                let { meta } = res.data;
-                if (meta.status == 200) {
-                  message.success(meta.msg);
+                // let { meta } = res.data;
+                if (res.data.code == 200) {
+                  message.success(res.data.msg);
                 } else {
-                  message.error(meta.msg);
+                  message.error(res.data.msg);
                 }
+                // 删除后延迟两秒重新加载table
+                setTimeout(() => {
+                    showTable();
+                }, 200)
+
             })
     }
 
 
     const showTable = () => {
-        axios.get('http://51.104.196.52:8090/api/v1/public/service/category', {
-            // headers:{
-            //     Authorization.sessionStorage.token
-            // }
-            // params: {
-            //     pagenum,
-            //     pagesize,
-            //     query
-            // },
+        getAuthorization();
+        axios.post('http://51.104.196.52:8090/api/v1/user/provider_list', {
+
         })
             .then(res => {
 
@@ -130,7 +146,7 @@ const App: React.FC = () => {
                 //     r.key = i;
                 // });
                 data.forEach((r: { key: any; }, i: any) => {
-                    r.key = i;
+                    r.key = i+1;
                 });
                 setData(data)
             })
