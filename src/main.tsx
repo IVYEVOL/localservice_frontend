@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { ConfigProvider } from 'antd';
 import 'antd/dist/antd.compact.css'; // compact theme
 import en_GB from 'antd/lib/locale/en_GB';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import App from './App';
-import App_provider from './App_provider';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import CustomerRoutes from './CustomerRoutes';
+import AdminRoutes from './AdminRoutes';
+import ProviderRoutes from './ProviderRoutes';
 import './index.css';
 import Login from './pages/login';
 import Register from './pages/register';
@@ -21,14 +22,12 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />}/>
-        <Route path='/admin/*' element={<App />} />
-        <Route path='/provider/*' element={<App_provider />} />
-        <Route path='/customer' element={<Customer />} />
-        <Route path='/customer/messagelist' element={<MesssageList />} />
-        <Route path='/customer/viewservice' element={<ViewService />} />
-        <Route path='/customer/viewservice/payservice' element={<PayService />} />
-
+        <Route path='/register' element={<Register />} />
+        <Route path='/admin/*' element={<AdminRoutes />} />
+        <Route path='/provider/*' element={<ProviderRoutes />} />
+        <Route path='/customer/*' element={<CustomerRoutes />}>
+          <Route path='messagelist' element={<MesssageList />}></Route>
+        </Route>
       </Routes>
     </ConfigProvider>
   </Router>

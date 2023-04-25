@@ -30,7 +30,7 @@ instance.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    NProgress.done();
+    NProgress.done();//请求开始时显示进度条
     return response;
   },
   function (error) {

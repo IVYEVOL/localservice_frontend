@@ -35,15 +35,15 @@ function Login() {
               },
             }}
             onFinish={async (v) => {
-              // console.log(v);
+              console.log(v);
               try {
                 const res = await loginAPI(v);
-                // console.log(res);
+                console.log(res);
                 if (res.code == 200) {
                   message.success('Login Successful');
                   setToken(res.data.token);
                   // return user data
-                  navigate('/admin/dashboard');
+                  navigate('/admin/new_service_provider');
                 } 
               } catch(err:any) {
                 message.error(err.response.data.msg);
