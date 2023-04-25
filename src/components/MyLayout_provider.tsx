@@ -23,6 +23,11 @@ const sideMenuData = [
     icon: <UserOutlined />,
     label: 'Service Request',
   },
+  {
+    key: '/provider/ServiceList',
+    icon: <UserOutlined />,
+    label: 'Service List',
+  },
   // {
   //   key: '/provider/users',
   //   icon: <UserOutlined />,
@@ -150,7 +155,7 @@ const MyLayoutProvider = ({ children }: any) => {
             minHeight: 280,
           }}
         >
-           <span className='provider-main'>Service List</span>
+           <span className='provider-main'></span>
           { children }
         </Content>
       </Layout>
