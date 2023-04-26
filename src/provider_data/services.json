@@ -1,0 +1,18 @@
+[
+    {
+        "id" : 1,
+        "name" : "Pet grooming",
+        "price" : 20,
+        "city" : "Southampton",
+        "category" : "Pet servive",
+        "imgUel" : "/imgs/petGrooming.png"
+    },
+    {
+        "id" : 2,
+        "name" : "Pet grooming",
+        "price" : 20,
+        "city" : "Southampton",
+        "category" : "Pet servive",
+        "imgUel" : "/imgs/petGrooming.png"
+    }
+]
