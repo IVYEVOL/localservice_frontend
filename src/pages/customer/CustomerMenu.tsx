@@ -34,17 +34,22 @@ const items: MenuProps['items'] = [
             label: <a href="" target="_blank" rel="noopener noreferrer">
               Log out
             </a>,
-          key: 'Log out',
+            key: 'Log out',
           },
-      //     <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-      //   Navigation Four - Link
-      // </a>
+
+
+        ],
+      },
 
     ],
   },
-
-],
-  },
+  {
+    label: <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
+      Log in
+    </a>,
+    key: 'Log in',
+    // icon: <MailOutlined />,
+  }
 ];
 
 const CustomerMenu: React.FC = () => {
