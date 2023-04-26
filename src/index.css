@@ -36,3 +36,10 @@
   width: 80px;
   max-height: 110px;
 }
+
+/* 以下为customer CSS样式 */
+
+.ProductCard{
+  width: 400px;
+
+}

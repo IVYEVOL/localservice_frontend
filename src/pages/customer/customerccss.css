@@ -1,0 +1,202 @@
+/* 以下为customer ProducntCard样式 */
+
+.ProductCard {
+    float: left;
+    width: 400px;
+    box-sizing: border-box;
+    width: 259px;
+    height: 450px;
+    filter: drop-shadow(0px 2px 31px rgba(0, 0, 0, 0.1));
+    margin: 50px 100px;
+}
+
+.ProductCard image {
+
+    height: 100px;
+    left: 16px;
+    right: 16px;
+    top: 16px;
+    border-radius: 4px;
+}
+
+.priceFont {
+    margin-top: 8px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 150%;
+    /* identical to box height, or 36px */
+
+    display: flex;
+    align-items: center;
+}
+
+.view {
+    margin-top: 20px;
+}
+
+.nav-link {
+    display: inline;
+    color: black;
+    padding-left: 145px;
+}
+
+
+
+/* 以下为MessageList样式 */
+.messagecard {
+    /* display: flex; */
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    gap: 9px;
+
+    margin: 20px 40px;
+
+    width: 1400px;
+    height: 156px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 5px 43px rgba(0, 0, 0, 0.1);
+    border-radius: 31px;
+
+}
+
+/* viewservice */
+.serviceimage {
+    margin: 15px 140px;
+    height: 250px;
+    /* left: 150px;
+    right: 600px;
+    top: 100px; */
+
+    background: url(06.jpg);
+    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.25));
+    border-radius: 4px;
+}
+
+.serviceprice {
+
+    width: 226px;
+    height: 60px;
+    left: 215px;
+    top: 847px;
+    margin: 15px 140px 0px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 150%;
+
+    align-items: center;
+
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.servicedesc {
+
+    width: 398px;
+    height: 21px;
+    right: 827px;
+    top: 926px;
+    margin: 15px 140px 0px;
+
+    /* Inter / Body Small */
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 143%;
+    /* or 20px */
+
+    /* display: flex; */
+    align-items: center;
+    letter-spacing: 0.018em;
+
+    /* Gray / 50 */
+
+    color: #787885;
+}
+
+.servicerate {
+    width: 398px;
+    height: 21px;
+    right: 827px;
+    top: 926px;
+    margin: 15px 140px 0px;
+
+    /* Inter / Body Small */
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 143%;
+    /* or 20px */
+
+    /* display: flex; */
+    align-items: center;
+    letter-spacing: 0.018em;
+
+    /* Gray / 50 */
+
+    color: #787885;
+}
+
+.paybutton {
+    margin: 15px 500px 0px;
+}
+
+.servicename {
+
+    margin: 15px 140px;
+
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 150%;
+    /* identical to box height, or 48px */
+
+    display: flex;
+    align-items: center;
+}
+
+/* ServiceReview */
+.ServiceReview {
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 9px;
+    margin: 15px 140px 0px;
+    width: 676px;
+    height: 62px;
+}
+
+/* payservice */
+.contactdetails {
+    width: 290.42px;
+    height: 24.32px;
+    left: 166px;
+    top: 675.18px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    /* or 100% */
+
+    font-feature-settings: 'tnum' on, 'lnum' on;
+
+    color: #585858;
+}
