@@ -19,21 +19,31 @@ const items: MenuProps['items'] = [
         // label: 'Item 1',
         children: [
           {
-            label: 'Message',
+            label: <a href="" target="_blank" rel="noopener noreferrer">
+              Message
+            </a>,
             key: 'Message',
           },
           {
-            label: 'Booking',
+            label: <a href="" target="_blank" rel="noopener noreferrer">
+              Booking
+            </a>,
             key: 'Booking',
           },
           {
-            label: 'Log out',
-            key: 'Log out',
+            label: <a href="" target="_blank" rel="noopener noreferrer">
+              Log out
+            </a>,
+          key: 'Log out',
           },
-        ],
-      },
-      
+      //     <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
+      //   Navigation Four - Link
+      // </a>
+
     ],
+  },
+
+],
   },
 ];
 
@@ -49,4 +59,6 @@ const CustomerMenu: React.FC = () => {
 };
 
 export default CustomerMenu;
+
+
 
