@@ -5,7 +5,6 @@ import CustomerMenu from './CustomerMenu'
 const MesssageList =()=>{
     return (
         <div>
-            <CustomerMenu/>
             <MessageCard/>
         </div>
     )

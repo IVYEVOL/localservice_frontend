@@ -15,6 +15,7 @@ import Customer from './pages/customer';
 import MesssageList from './pages/customer/MessageList';
 import ViewService from './pages/customer/ViewService';
 import PayService from './pages/customer/PayService';
+import CustomerHome from './pages/customer/CustomerHome';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Router>
@@ -26,8 +27,12 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path='/admin/*' element={<AdminRoutes />} />
         <Route path='/provider/*' element={<ProviderRoutes />} />
         <Route path='/customer/*' element={<CustomerRoutes />}>
+          <Route index element={<CustomerHome />}></Route>
           <Route path='messagelist' element={<MesssageList />}></Route>
-          <Route path='viewsevice' element={<ViewService />}></Route>
+          <Route path='login' element={<Login />}></Route>
+          <Route path='viewsevice' element={<ViewService />}>
+            {/* <Route path='payservice' element={<PayService />} /> */}
+          </Route>
         </Route>
       </Routes>
     </ConfigProvider>

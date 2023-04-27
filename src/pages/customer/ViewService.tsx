@@ -7,12 +7,13 @@ import ServiceReview from './ServiceReview'
 const ViewService = () => {
     return (
         <div>
-            <CustomerMenu />
+          
             <ServiceDesc/>
             <ServiceReview/>
             <ServiceReview/>
             <ServiceReview/>
             <ServiceReview/>
+            
         </div>
     )
 }

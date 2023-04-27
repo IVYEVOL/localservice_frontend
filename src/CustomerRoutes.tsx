@@ -11,6 +11,8 @@ import HeaderMenu from './pages/customer/HeaderMenu'
 import SearchCity from './pages/customer/SearchCity'
 import ProductCard from './pages/customer/ProductCard'
 import './pages/customer/customerccss.css'
+import { Outlet } from 'react-router-dom'
+
 
 
 
@@ -28,25 +30,23 @@ function CustomerRoutes() {
         }}
       > */}
         <CustomerMenu />
+        {/* <HeaderMenu/>
         <SearchCity />
         <ProductCard />
         <ProductCard />
         <ProductCard />
         <ProductCard />
-        <ProductCard />
+        <ProductCard />  */}
       {/* </Content> */}
-{/* 
-      <MyFooter /> */}
-      
 
+      {/* <MyFooter /> */}
+           {/* <Outlet /> */}
     </div>
 
 
-
-
-
-
+ 
+  
   )
-}
 
+}
 export default CustomerRoutes
