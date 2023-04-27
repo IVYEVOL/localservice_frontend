@@ -15,12 +15,12 @@ const App: React.FC = () => {
         title: 'Do you Want to Ban this provider?',
         icon: <ExclamationCircleFilled />,
         content: 'Are you sure?',
+        okText: 'Yes',
+        cancelText: 'No',
         onOk() {
           del(r)
-          console.log('OK');
         },
         onCancel() {
-          console.log('Cancel');
         },
       });
     };
@@ -69,22 +69,18 @@ const App: React.FC = () => {
     // 这个total用作花式分页，如果api传来的数据中有‘total’这一项的话
     // let [total, setTotal] = useState(0);
 
-
-    // window.timer = null;
-
     /* 在组件挂载或者即将挂载的时候调用*/
     useEffect(() => {
-        console.log(document.getElementsByClassName('ant-table-cell')[0])
-        /* 利用防抖来解决useEffect执行两次的问题 */
-        // clearTimeout(window.timer);
-        // window.timer = setTimeout(() => {
-        //     showTable();
-        // }, 0)
-        showTable();
-        // window.timer 实在还是爆红的话，直接下面这行
-        // showTable();
+        // console.log(document.getElementsByClassName('ant-table-cell')[0])
+        let timer = setTimeout(() => {
+            showTable();
+        }, 0)
 
+        return () => clearTimeout(timer)
     }, [])
+
+    // useEffect(() => {},[])的‘[]’意味着只有数据第一次被捕获时才应该渲染数组
+    // 已经测试过，如果这里不用useEffect()，showTable()会无限渲染
 
     
     // 删除的逻辑
