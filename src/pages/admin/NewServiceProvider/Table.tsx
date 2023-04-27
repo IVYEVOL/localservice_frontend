@@ -7,11 +7,7 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 
 
 const App: React.FC = () => {
-        return(
-            <div>以下代码爆红，防止其他页面运行不了，先用此代替，恢复原来把以下注释取消即可</div>
-        )
-//     const { confirm } = Modal;
-
+       
     const { confirm } = Modal;
 
     const providerBan = (r: any) => {
@@ -51,20 +47,20 @@ const App: React.FC = () => {
             key: 'mobile',
         },
     
-//         {
-//             title: 'Action',
-//             key: 'action',
-//             render: (text: any) => (
-//                 <Space size="middle">
-//                     <a>check Detail</a>
-//                     <Button type="primary" onClick={providerBan.bind(this,text)} danger>
-//                         Ban
-//                     </Button>
-//                     {/* <a onClick={del.bind(this,text)}>Reject</a> */}
-//                 </Space>
-//             ),
-//         },
-//     ];
+        {
+            title: 'Action',
+            key: 'action',
+            render: (text: any) => (
+                <Space size="middle">
+                    <a>check Detail</a>
+                    <Button type="primary" onClick={providerBan.bind(this,text)} danger>
+                        Ban
+                    </Button>
+                    {/* <a onClick={del.bind(this,text)}>Reject</a> */}
+                </Space>
+            ),
+        },
+    ];
 
 //     /* 在函数式组件里面使用useState来定义数据 []就是初始值
 //  setData是在给data赋值的时候使用 */
@@ -88,74 +84,75 @@ const App: React.FC = () => {
 
     
 //     // 删除的逻辑
-//     const del = (r: any) =>{
-//         // console.log(r)
-//         getAuthorization();
-//         axios.delete('http://51.104.196.52:8090/api/v1/user/'+r.ID, {
+    const del = (r: any) =>{
+        // console.log(r)
+        getAuthorization();
+        axios.delete('http://51.104.196.52:8090/api/v1/user/'+r.ID, {
 
-//             // params: {
-//             //     id: r.ID
-//             // },
-//         })
-//             .then(res => {
-//                 // console.log(res);
-//                 // console.log(res.data.code)
-//                 // 删除成功后提示
-//                 // let { meta } = res.data;
-//                 if (res.data.code == 200) {
-//                   message.success(res.data.msg);
-//                 } else {
-//                   message.error(res.data.msg);
-//                 }
-//                 // 删除后延迟两秒重新加载table
-//                 setTimeout(() => {
-//                     showTable();
-//                 }, 200)
+            // params: {
+            //     id: r.ID
+            // },
+        })
+            .then(res => {
+                // console.log(res);
+                // console.log(res.data.code)
+                // 删除成功后提示
+                // let { meta } = res.data;
+                if (res.data.code == 200) {
+                  message.success(res.data.msg);
+                } else {
+                  message.error(res.data.msg);
+                }
+                // 删除后延迟两秒重新加载table
+                setTimeout(() => {
+                    showTable();
+                }, 200)
 
-//             })
-//     }
+            })
+    }
 
+    const[data, setData] = useState()
+    const showTable = () => {
+        
+        getAuthorization();
+        axios.post('http://51.104.196.52:8090/api/v1/user/provider_list', {
 
-//     const showTable = () => {
-//         getAuthorization();
-//         axios.post('http://51.104.196.52:8090/api/v1/user/provider_list', {
+        })
+            .then(res => {
 
-//         })
-//             .then(res => {
+                let { data, total } = res.data;
+                // let { data: { users, total } } = res.data;
 
-//                 let { data, total } = res.data;
-//                 // let { data: { users, total } } = res.data;
+                console.log(res.data)
+                // 这里的r是data里的每一个对象 i初始值为零每一轮+1
 
-//                 console.log(res.data)
-//                 // 这里的r是data里的每一个对象 i初始值为零每一轮+1
-
-//                 // js 的写法
-//                 // data.forEach((r, i) => {
-//                 //     r.key = i;
-//                 // });
-//                 data.forEach((r: { key: any; }, i: any) => {
-//                     r.key = i+1;
-//                 });
-//                 setData(data)
-//             })
-//     }
-
-
-//     return (
-//         <div>
-//             <Table columns={columns} dataSource={data}/>
-//             {/* <Table columns={columns} dataSource={data} pagination={false} /> */}
-//             {/* <Pagination
-//             style={{marginTop:'10px'}}
-//                 total={total}
-//                 showSizeChanger
-//                 showQuickJumper
-//                 showTotal={(total) => `Total ${total} providers`}
-//             /> */}
-//         </div>
+                // js 的写法
+                // data.forEach((r, i) => {
+                //     r.key = i;
+                // });
+                data.forEach((r: { key: any; }, i: any) => {
+                    r.key = i+1;
+                });
+                setData(data)
+            })
+    }
 
 
-//     )
+    return (
+        <div>
+            <Table columns={columns} dataSource={data}/>
+            {/* <Table columns={columns} dataSource={data} pagination={false} /> */}
+            {/* <Pagination
+            style={{marginTop:'10px'}}
+                total={total}
+                showSizeChanger
+                showQuickJumper
+                showTotal={(total) => `Total ${total} providers`}
+            /> */}
+        </div>
+
+
+    )
 }
 
 export default App;
