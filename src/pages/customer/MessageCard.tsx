@@ -4,7 +4,11 @@ import './customerccss.css';
 
 const MessageCard: React.FC = () => (
   <Card title="Message List">
-    <Card className='messagecard' type="inner" title="Request updating for your order" extra={<a href="#">More</a>}>
+    <Card
+      className='messagecard'
+      type="inner"
+      title="Request updating for your order"
+      extra={<a href="#">More</a>}>
       There are some details for you to update
     </Card>
     <Card

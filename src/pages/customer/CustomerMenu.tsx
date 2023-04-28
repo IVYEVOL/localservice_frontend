@@ -31,9 +31,7 @@ const items: MenuProps['items'] = [
             key: 'Message',
           },
           {
-            label: <a href="" target="_blank" rel="noopener noreferrer">
-              Booking
-            </a>,
+            label: <NavLink to="bookinglist">Booking</NavLink>,
             key: 'Booking',
           },
           {
@@ -65,10 +63,10 @@ const CustomerMenu: React.FC = () => {
   };
 
   return (
-  <div>
-    <Menu theme='dark' onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
-  <Outlet/>
-  </div>
+    <div>
+      <Menu theme='dark' onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+      <Outlet />
+    </div>
   );
 };
 

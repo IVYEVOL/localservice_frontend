@@ -2,7 +2,8 @@ import React from 'react'
 import { Rate, Avatar, Space, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import './customerccss.css';
-
+import { NavLink } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 
 const ServiceDesc = () => {
@@ -21,7 +22,8 @@ const ServiceDesc = () => {
             <div className='servicedesc'>Eligible for Shipping To Southampton or somewhere else</div>
             <div className='servicerate'>Rate：<Rate disabled defaultValue={3} /></div>
 
-            <PayButton />
+           <NavLink to='payservice'><PayButton /></NavLink> 
+<Outlet/>
         </div>
     );
 
