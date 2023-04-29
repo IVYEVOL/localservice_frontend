@@ -15,10 +15,17 @@ import Customer from './pages/customer';
 import MesssageList from './pages/customer/MessageList';
 import ViewService from './pages/customer/ViewService';
 import PayService from './pages/customer/PayService';
+// <<<<<<< HEAD
 import "bootstrap/dist/css/bootstrap.min.css"
 
 
 
+
+import CustomerHome from './pages/customer/CustomerHome';
+import BookingList from './pages/customer/BookingList';
+import Order from './pages/customer/Order';
+import UpdateOrder from './pages/customer/UpdateOrder';
+// >>>>>>> 301687729728d7e8db15e5a700103aee2083e211
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Router>
@@ -30,8 +37,17 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path='/admin/*' element={<AdminRoutes />} />
         <Route path='/provider/*' element={<ProviderRoutes />} />
         <Route path='/customer/*' element={<CustomerRoutes />}>
-          {/* <Route path='messagelist' element={<MesssageList />}></Route>
-          <Route path='viewsevice' element={<ViewService />}></Route> */}
+          <Route index element={<CustomerHome />}></Route>
+          <Route path='messagelist' element={<MesssageList />}></Route>
+          <Route path='login' element={<Login />}></Route>
+          <Route path='viewsevice' element={<ViewService />}></Route>
+          <Route path='payservice' element={<PayService />} ></Route>
+
+
+          <Route path='bookinglist' element={<BookingList />}></Route>
+          <Route path='order' element={<Order />}></Route>
+          <Route path='updateorder' element={<UpdateOrder />}></Route>
+
         </Route>
       </Routes>
     </ConfigProvider>
