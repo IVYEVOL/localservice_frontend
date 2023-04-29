@@ -15,6 +15,10 @@ import Customer from './pages/customer';
 import MesssageList from './pages/customer/MessageList';
 import ViewService from './pages/customer/ViewService';
 import PayService from './pages/customer/PayService';
+import "bootstrap/dist/css/bootstrap.min.css"
+
+
+
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Router>
