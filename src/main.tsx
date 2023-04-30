@@ -15,10 +15,17 @@ import Customer from './pages/customer';
 import MesssageList from './pages/customer/MessageList';
 import ViewService from './pages/customer/ViewService';
 import PayService from './pages/customer/PayService';
+// <<<<<<< HEAD
+import "bootstrap/dist/css/bootstrap.min.css"
+
+
+
+
 import CustomerHome from './pages/customer/CustomerHome';
 import BookingList from './pages/customer/BookingList';
 import Order from './pages/customer/Order';
 import UpdateOrder from './pages/customer/UpdateOrder';
+// >>>>>>> 301687729728d7e8db15e5a700103aee2083e211
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Router>

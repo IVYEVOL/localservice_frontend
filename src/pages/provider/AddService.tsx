@@ -2,7 +2,7 @@ import React from 'react'
 
 function AddService() {
   return (
-    <div>AddServic</div>
+    <div>Add Service</div>
   )
 }
 
