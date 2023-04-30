@@ -16,10 +16,7 @@ import MesssageList from './pages/customer/MessageList';
 import ViewService from './pages/customer/ViewService';
 import PayService from './pages/customer/PayService';
 // <<<<<<< HEAD
-import "bootstrap/dist/css/bootstrap.min.css"
-
-
-
+// import "bootstrap/dist/css/bootstrap.min.css"
 
 import CustomerHome from './pages/customer/CustomerHome';
 import BookingList from './pages/customer/BookingList';
@@ -44,15 +41,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Route index element={<ViewService />} ></Route>
             <Route path='payservice' element={<PayService />} ></Route>
           </Route>
-          {/* <Route index path='viewservice/payservice' element={<PayService />}></Route> */}
-          {/* <Route path='payservice' element={<PayService />} ></Route> */}
           <Route path='bookinglist/*'>
             <Route index element={<BookingList />}></Route>
             <Route path='order' element={<Order />}></Route>
           </Route>
-          {/* <Route path='order' element={<Order />}></Route> */}
           <Route path='updateorder' element={<UpdateOrder />}></Route>
-
         </Route>
       </Routes>
     </ConfigProvider>
