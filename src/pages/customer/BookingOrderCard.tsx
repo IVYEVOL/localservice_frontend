@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card } from 'antd';
 import './customerccss.css';
+import { NavLink } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 const BookingOrderCard: React.FC = () => (
     <Card title="BoookingOrder List">
@@ -14,11 +16,15 @@ const BookingOrderCard: React.FC = () => (
             className='messagecard'
             type="inner"
             title="Home cleanning Service"
-            extra={<a href="#">More</a>}>
+            extra={
+           
+            <NavLink to="order">MORE</NavLink>
+        }>
             <div>Booking Date:13/5/20023</div>
             <div>Booking Status: pending</div>
             <div>Booking Price: 96</div>
         </Card>
+        <Outlet/>
     </Card>
 );
 

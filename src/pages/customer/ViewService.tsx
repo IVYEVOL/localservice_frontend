@@ -7,7 +7,6 @@ import ServiceReview from './ServiceReview'
 const ViewService = () => {
     return (
         <div>
-          
             <ServiceDesc/>
             <ServiceReview/>
             <ServiceReview/>

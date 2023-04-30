@@ -22,7 +22,7 @@ const ProductCard = () => {
                 <div className='priceFont'>￡49.50</div>
                 <div className='view'>
                     <div style={{ marginTop: '10px',display:'inline'}}>Rating: 4.5</div>
-                    <NavLink  className="nav-link" to="viewsevice" >VIEW</NavLink>
+                    <NavLink  className="nav-link" to="viewservice" >VIEW</NavLink>
                 </div>
 
             </Card>

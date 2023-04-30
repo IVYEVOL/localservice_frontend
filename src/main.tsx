@@ -33,12 +33,17 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <Route index element={<CustomerHome />}></Route>
           <Route path='messagelist' element={<MesssageList />}></Route>
           <Route path='login' element={<Login />}></Route>
-          <Route path='viewsevice' element={<ViewService />}></Route>
-          <Route path='payservice' element={<PayService />} ></Route>
-
-
-          <Route path='bookinglist' element={<BookingList />}></Route>
-          <Route path='order' element={<Order />}></Route>
+          <Route path='viewservice/*'>
+            <Route index element={<ViewService />} ></Route>
+            <Route path='payservice' element={<PayService />} ></Route>
+          </Route>
+          {/* <Route index path='viewservice/payservice' element={<PayService />}></Route> */}
+          {/* <Route path='payservice' element={<PayService />} ></Route> */}
+          <Route path='bookinglist/*'>
+            <Route index element={<BookingList />}></Route>
+            <Route path='order' element={<Order />}></Route>
+          </Route>
+          {/* <Route path='order' element={<Order />}></Route> */}
           <Route path='updateorder' element={<UpdateOrder />}></Route>
 
         </Route>
