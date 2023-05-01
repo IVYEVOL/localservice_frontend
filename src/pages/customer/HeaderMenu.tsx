@@ -3,13 +3,16 @@ import { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import { NavLink, Outlet } from "react-router-dom";
+
 
 const items: MenuProps['items'] = [
     {
         label: (
-            <a href="" target="_blank" rel="noopener noreferrer">
+            <NavLink to='cleaning'>
                 Cleaning
-            </a>
+            </NavLink>
+
         ),
         key: 'Cleaning',
     },
@@ -24,7 +27,7 @@ const items: MenuProps['items'] = [
     {
         label: (
             <a href="" target="_blank" rel="noopener noreferrer">
-                Babysitting         
+                Babysitting
             </a>
         ),
         key: 'Babysitting ',
@@ -71,7 +74,9 @@ const HeaderMenu: React.FC = () => {
         setCurrent(e.key);
     };
 
-    return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+    return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items}>
+        <Outlet />
+    </Menu>;
 };
 
 export default HeaderMenu;
