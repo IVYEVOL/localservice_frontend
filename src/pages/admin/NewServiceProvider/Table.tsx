@@ -116,7 +116,7 @@ const App: React.FC = () => {
         
         getAuthorization();
         axios.post('http://51.104.196.52:8090/api/v1/user/provider_list', {
-
+            
         })
             .then(res => {
 
