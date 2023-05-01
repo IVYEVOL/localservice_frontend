@@ -24,6 +24,7 @@ import BookingList from './pages/customer/BookingList';
 import Order from './pages/customer/Order';
 import UpdateOrder from './pages/customer/UpdateOrder';
 import RequestUpdatingMessage from './pages/customer/RequestUpdatingMessage';
+import MapSearching from './pages/customer/MapSearching';
 // >>>>>>> 301687729728d7e8db15e5a700103aee2083e211
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -38,6 +39,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path='/customer/*' element={<CustomerRoutes />}>
           <Route index element={<CustomerHome />}></Route>
           <Route path='login' element={<Login />}></Route>
+          <Route path='mapsearching' element={<MapSearching />}></Route>
           <Route path='messagelist/*'>
             <Route index element={<MesssageList />} ></Route>
             <Route path='servicereviewmessage' element={<ServiceReviewMessage />} ></Route>
