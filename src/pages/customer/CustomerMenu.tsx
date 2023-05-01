@@ -12,10 +12,15 @@ const items: MenuProps['items'] = [
     key: 'Home',
     // icon: <MailOutlined />,
   },
+  // {
+  //   label: <NavLink to="mapsearching">Map Searching</NavLink>,
+  //   key: 'mail',
+  //   // icon: <MailOutlined />,
+  // },
   {
-    label: 'Map Searching',
-    key: 'mail',
-    icon: <MailOutlined />,
+    label: <NavLink to="mapsearching">Map Searching</NavLink>,
+    key: 'map',
+    // icon: <MailOutlined />,
   },
   {
     label: 'IVY',
@@ -55,7 +60,7 @@ const items: MenuProps['items'] = [
 ];
 
 const CustomerMenu: React.FC = () => {
-  const [current, setCurrent] = useState('mail');
+  const [current, setCurrent] = useState('Home');
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);

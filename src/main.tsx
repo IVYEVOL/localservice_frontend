@@ -15,6 +15,7 @@ import Customer from './pages/customer';
 import MesssageList from './pages/customer/MessageList';
 import ViewService from './pages/customer/ViewService';
 import PayService from './pages/customer/PayService';
+import ServiceReviewMessage from './pages/customer/ServiceReviewMessage';
 // <<<<<<< HEAD
 // import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -22,6 +23,8 @@ import CustomerHome from './pages/customer/CustomerHome';
 import BookingList from './pages/customer/BookingList';
 import Order from './pages/customer/Order';
 import UpdateOrder from './pages/customer/UpdateOrder';
+import RequestUpdatingMessage from './pages/customer/RequestUpdatingMessage';
+import MapSearching from './pages/customer/MapSearching';
 // >>>>>>> 301687729728d7e8db15e5a700103aee2083e211
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -35,8 +38,13 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path='/provider/*' element={<ProviderRoutes />} />
         <Route path='/customer/*' element={<CustomerRoutes />}>
           <Route index element={<CustomerHome />}></Route>
-          <Route path='messagelist' element={<MesssageList />}></Route>
           <Route path='login' element={<Login />}></Route>
+          <Route path='mapsearching' element={<MapSearching />}></Route>
+          <Route path='messagelist/*'>
+            <Route index element={<MesssageList />} ></Route>
+            <Route path='servicereviewmessage' element={<ServiceReviewMessage />} ></Route>
+            <Route path='requestupdatingmessage' element={<RequestUpdatingMessage />} ></Route>
+          </Route>
           <Route path='viewservice/*'>
             <Route index element={<ViewService />} ></Route>
             <Route path='payservice' element={<PayService />} ></Route>
@@ -51,3 +59,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </ConfigProvider>
   </Router>
 )
+
