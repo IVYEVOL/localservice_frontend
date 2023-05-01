@@ -22,8 +22,8 @@ const ServiceDesc = () => {
             <div className='servicedesc'>Eligible for Shipping To Southampton or somewhere else</div>
             <div className='servicerate'>Rate：<Rate disabled defaultValue={3} /></div>
 
-           <NavLink to='payservice'><PayButton /></NavLink> 
-<Outlet/>
+            <NavLink to='payservice'><PayButton /></NavLink>
+            <Outlet />
         </div>
     );
 
