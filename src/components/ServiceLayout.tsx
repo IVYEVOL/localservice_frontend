@@ -1,6 +1,7 @@
 import { Button, Card, Nav } from "react-bootstrap"
 import { formatCurrency } from "../utils/formatCurrency"
 import { NavLink, useNavigate } from 'react-router-dom'
+
 import ServiceList from "../pages/provider/ServiceList"
 
 
@@ -26,7 +27,7 @@ type ServiceLayoutProps = {
         navigate("ServiceDetail", {
             state: {id: myId}
         })
-        alert(`I am here: ${id}!`);
+        alert(`My id: ${id}!`);
       }
 
     // const sayHello = (name: string) => {

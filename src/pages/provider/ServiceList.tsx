@@ -1,6 +1,7 @@
 import React from 'react'
 
 import serviceList from '../../provider_data/services.json'
+import "bootstrap/dist/css/bootstrap.min.css"
 import { Col, Row } from "react-bootstrap"
 import {ServiceLayout}  from '../../components/ServiceLayout'
 

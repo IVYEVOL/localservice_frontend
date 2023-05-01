@@ -4,7 +4,7 @@
         "name" : "Pet grooming",
         "price" : 20,
         "area" : "London",
-        "category" : "Pet servive",
+        "category" : "Pet service",
         "imgUrl" : "/imags/petGrooming.png"
     },
     {
@@ -12,7 +12,7 @@
         "name" : "Pet grooming",
         "price" : 20,
         "area" : "Southampton",
-        "category" : "Pet servive",
+        "category" : "Pet service",
         "imgUrl" : "/imags/petGrooming.png"
     },
     {
@@ -20,15 +20,15 @@
         "name" : "Pet grooming",
         "price" : 20,
         "area" : "Birmingham",
-        "category" : "Pet servive",
+        "category" : "Pet service",
         "imgUrl" : "/imags/petGrooming.png"
     },
     {
         "id" : 4,
         "name" : "Pet grooming",
         "price" : 20,
-        "area" : "Edingbugh",
-        "category" : "Pet servive",
+        "area" : "YorK",
+        "category" : "Pet service",
         "imgUrl" : "/imags/petGrooming.png"
     }
 ]
