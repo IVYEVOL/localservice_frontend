@@ -12,7 +12,7 @@ const App: React.FC = () => {
 
     const providerBan = (r: any) => {
       confirm({
-        title: 'Do you Want to Ban this provider?',
+        title: 'Do you want to Ban this provider?',
         icon: <ExclamationCircleFilled />,
         content: 'Are you sure?',
         okText: 'Yes',
@@ -141,17 +141,7 @@ const App: React.FC = () => {
     return (
         <div>
             <Table columns={columns} dataSource={data}/>
-            {/* <Table columns={columns} dataSource={data} pagination={false} /> */}
-            {/* <Pagination
-            style={{marginTop:'10px'}}
-                total={total}
-                showSizeChanger
-                showQuickJumper
-                showTotal={(total) => `Total ${total} providers`}
-            /> */}
         </div>
-
-
     )
 }
 
