@@ -18,7 +18,9 @@ const App: React.FC = () => {
         okText: 'Yes',
         cancelText: 'No',
         onOk() {
-          del(r)
+          console.log(r)
+            del(r)
+
         },
         onCancel() {
         },
@@ -83,7 +85,7 @@ const App: React.FC = () => {
     // 已经测试过，如果这里不用useEffect()，showTable()会无限渲染
 
     
-//     // 删除的逻辑
+    // 删除的逻辑
     const del = (r: any) =>{
         // console.log(r)
         getAuthorization();
@@ -140,7 +142,7 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <Table columns={columns} dataSource={data}/>
+            <Table columns={columns} dataSource={data} bordered/>
         </div>
     )
 }
