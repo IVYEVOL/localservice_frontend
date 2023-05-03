@@ -1,18 +1,20 @@
 import "react"
 import { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
+import { Button, MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { NavLink, Outlet } from "react-router-dom";
 
+interface HeaderMenuProps {
+    onFilterCategory: (category: string) => void;
+}
 
 const items: MenuProps['items'] = [
     {
         label: (
-            <NavLink to='cleaning'>
+            <Button style={{ border: 'none' }} onClick={() => onFilterCategory('Cleaning')}>
                 Cleaning
-            </NavLink>
-
+            </Button>
         ),
         key: 'Cleaning',
     },
@@ -66,7 +68,7 @@ const items: MenuProps['items'] = [
     },
 ];
 
-const HeaderMenu: React.FC = () => {
+const HeaderMenu: React.FC<HeaderMenuProps> = ({ onFilterCategory }) => {
     const [current, setCurrent] = useState('mail');
 
     const onClick: MenuProps['onClick'] = (e) => {
@@ -74,9 +76,14 @@ const HeaderMenu: React.FC = () => {
         setCurrent(e.key);
     };
 
-    return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items}>
-        <Outlet />
-    </Menu>;
+
+
+
+    return (
+        <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items}>
+            <Outlet />
+        </Menu>
+    );
 };
 
 export default HeaderMenu;
