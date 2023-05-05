@@ -1,53 +1,117 @@
-// import React from 'react'
-
-// function Profile() {
-//   return (
-//     <div>Profile</div>
-//   )
-// }
-
-// export default Profile
-
+import { PlusOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Cascader,
+  Checkbox,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Switch,
+  TreeSelect,
+  Upload,
+} from 'antd';
 import React, { useState } from 'react';
-import { Rate, Avatar, Space } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import './providerCss.css';
-import profileImg from '../../assets/logo.png'
-import { Button, Card, Nav } from "react-bootstrap"
 
-const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+const { RangePicker } = DatePicker;
+const { TextArea } = Input;
 
-const ServiceReview: React.FC = () => {
-    const [value, setValue] = useState(3);
-   // const id = profile.name
-
-    return (
-        <div>
-            <img
-                src={profileImg}
-                style={{
-                display: 'block',
-                margin: '20px auto',
-                borderRadius: '16px',
-                width: '200px',
-          }}
-        />  
-            <div className='servicedesc'>Name: Alex</div>
-            <div className='servicedesc'>City: London</div>
-            <div className='servicedesc'>Mobile: 12345667 </div>
-            <div className='servicedesc'>category: Pet </div>
-            {/* <span style={{ display: 'inline' }}>
-                <Rate disabled defaultValue={2} />
-                {value ? <span className="ant-rate-text">{desc[value - 1]}</span> : ''}
-            </span> */}
-        </div>
-
-    );
+const normFile = (e: any) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e?.fileList;
 };
 
-export default ServiceReview;
+const Profile: React.FC = () => {
+  const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
 
+  return (
+    <>
+      <Checkbox
+        checked={componentDisabled}
+        onChange={(e) => setComponentDisabled(e.target.checked)}
+      >
+        Form disabled
+      </Checkbox>
+      <Form
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="horizontal"
+        disabled={componentDisabled}
+        style={{ maxWidth: 600 }}
+      >
+        <Form.Item label="Checkbox" name="disabled" valuePropName="checked">
+          <Checkbox>Checkbox</Checkbox>
+        </Form.Item>
+        <Form.Item label="Radio">
+          <Radio.Group>
+            <Radio value="apple"> Apple </Radio>
+            <Radio value="pear"> Pear </Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="Input">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Select">
+          <Select>
+            <Select.Option value="demo">Demo</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="TreeSelect">
+          <TreeSelect
+            treeData={[
+              { title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item label="Cascader">
+          <Cascader
+            options={[
+              {
+                value: 'zhejiang',
+                label: 'Zhejiang',
+                children: [
+                  {
+                    value: 'hangzhou',
+                    label: 'Hangzhou',
+                  },
+                ],
+              },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item label="DatePicker">
+          <DatePicker />
+        </Form.Item>
+        <Form.Item label="RangePicker">
+          <RangePicker />
+        </Form.Item>
+        <Form.Item label="InputNumber">
+          <InputNumber />
+        </Form.Item>
+        <Form.Item label="TextArea">
+          <TextArea rows={4} />
+        </Form.Item>
+        <Form.Item label="Switch" valuePropName="checked">
+          <Switch />
+        </Form.Item>
+        <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
+          <Upload action="/upload.do" listType="picture-card">
+            <div>
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Upload</div>
+            </div>
+          </Upload>
+        </Form.Item>
+        <Form.Item label="Button">
+          <Button>Button</Button>
+        </Form.Item>
+      </Form>
+    </>
+  );
+};
 
-
-
-
+export default () => <Profile />;

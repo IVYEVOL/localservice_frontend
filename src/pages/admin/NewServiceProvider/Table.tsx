@@ -7,20 +7,20 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 
 
 const App: React.FC = () => {
-       
+
     const { confirm } = Modal;
 
     const providerBan = (r: any) => {
       confirm({
-        title: 'Do you want to Ban this provider?',
+        title: 'Do you Want to Ban this provider?',
         icon: <ExclamationCircleFilled />,
         content: 'Are you sure?',
-        okText: 'Yes',
-        cancelText: 'No',
         onOk() {
           del(r)
+          console.log('OK');
         },
         onCancel() {
+          console.log('Cancel');
         },
       });
     };
@@ -62,28 +62,32 @@ const App: React.FC = () => {
         },
     ];
 
-//     /* 在函数式组件里面使用useState来定义数据 []就是初始值
-//  setData是在给data赋值的时候使用 */
-//     let [data, setData] = useState([]);
+    /* 在函数式组件里面使用useState来定义数据 []就是初始值
+ setData是在给data赋值的时候使用 */
+    let [data, setData] = useState([]);
 
-//     // 这个total用作花式分页，如果api传来的数据中有‘total’这一项的话
-//     // let [total, setTotal] = useState(0);
+    // 这个total用作花式分页，如果api传来的数据中有‘total’这一项的话
+    // let [total, setTotal] = useState(0);
+
+
+    // window.timer = null;
 
     /* 在组件挂载或者即将挂载的时候调用*/
     useEffect(() => {
-        // console.log(document.getElementsByClassName('ant-table-cell')[0])
-        let timer = setTimeout(() => {
-            showTable();
-        }, 0)
+        console.log(document.getElementsByClassName('ant-table-cell')[0])
+        /* 利用防抖来解决useEffect执行两次的问题 */
+        // clearTimeout(window.timer);
+        // window.timer = setTimeout(() => {
+        //     showTable();
+        // }, 0)
+        showTable();
+        // window.timer 实在还是爆红的话，直接下面这行
+        // showTable();
 
-        return () => clearTimeout(timer)
     }, [])
 
-    // useEffect(() => {},[])的‘[]’意味着只有数据第一次被捕获时才应该渲染数组
-    // 已经测试过，如果这里不用useEffect()，showTable()会无限渲染
-
     
-//     // 删除的逻辑
+    // 删除的逻辑
     const del = (r: any) =>{
         // console.log(r)
         getAuthorization();
@@ -111,9 +115,9 @@ const App: React.FC = () => {
             })
     }
 
-    const[data, setData] = useState()
+
+    //后端请求
     const showTable = () => {
-        
         getAuthorization();
         axios.post('http://51.104.196.52:8090/api/v1/user/provider_list', {
 
@@ -141,7 +145,17 @@ const App: React.FC = () => {
     return (
         <div>
             <Table columns={columns} dataSource={data}/>
+            {/* <Table columns={columns} dataSource={data} pagination={false} /> */}
+            {/* <Pagination
+            style={{marginTop:'10px'}}
+                total={total}
+                showSizeChanger
+                showQuickJumper
+                showTotal={(total) => `Total ${total} providers`}
+            /> */}
         </div>
+
+
     )
 }
 
