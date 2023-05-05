@@ -49,7 +49,7 @@ function Register() {
           console.log(res);
           if (res.code == 200) {
             message.success('Register Successful');
-            navigate('/dashboard');
+            navigate('/login');
           } 
         } catch(err:any) {
           message.error(err.response.data.msg);

@@ -39,11 +39,15 @@ function Login() {
               try {
                 const res = await loginAPI(v);
                 console.log(res);
+                console.log(res.data)
                 if (res.code == 200) {
+                  
                   message.success('Login Successful');
                   setToken(res.data.token);
                   // return user data
-                  navigate('/admin/new_service_provider');
+                  if(res.data.user_role == 'Admin') navigate('/admin/new_service_provider');
+                  else if (res.data.user_role == 'Provider') navigate('/provider');
+                  else navigate('/customer');
                 } 
               } catch(err:any) {
                 message.error(err.response.data.msg);

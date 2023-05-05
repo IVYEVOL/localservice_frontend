@@ -16,14 +16,9 @@ const App: React.FC = () => {
         icon: <ExclamationCircleFilled />,
         content: 'Are you sure?',
         onOk() {
-<<<<<<< HEAD
-          del(r)
-          console.log('OK');
-=======
           console.log(r)
             del(r)
 
->>>>>>> ec92d62385fbdf61ec0eb726d5d68174649142ab
         },
         onCancel() {
           console.log('Cancel');
@@ -150,19 +145,7 @@ const App: React.FC = () => {
 
     return (
         <div>
-<<<<<<< HEAD
-            <Table columns={columns} dataSource={data}/>
-            {/* <Table columns={columns} dataSource={data} pagination={false} /> */}
-            {/* <Pagination
-            style={{marginTop:'10px'}}
-                total={total}
-                showSizeChanger
-                showQuickJumper
-                showTotal={(total) => `Total ${total} providers`}
-            /> */}
-=======
             <Table columns={columns} dataSource={data} bordered/>
->>>>>>> ec92d62385fbdf61ec0eb726d5d68174649142ab
         </div>
 
 
