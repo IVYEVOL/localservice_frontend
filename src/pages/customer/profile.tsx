@@ -1,9 +1,15 @@
 import React from 'react'
 
-function Users() {
+const Profile =()=>{
   return (
-    <div>User</div>
+    <div>
+      <h2>User Profile</h2>
+      <img alt="Profile" />
+      <h3>Name: {}</h3>
+      <p>Age: {}</p>
+      <p>Bio: {}</p>
+    </div>
   )
 }
 
-export default Users
+export default Profile;

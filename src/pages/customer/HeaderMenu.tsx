@@ -9,74 +9,77 @@ interface HeaderMenuProps {
     onFilterCategory: (category: string) => void;
 }
 
-const items: MenuProps['items'] = [
-    {
-        label: (
-            <Button style={{ border: 'none' }} onClick={() => onFilterCategory('Cleaning')}>
-                Cleaning
-            </Button>
-        ),
-        key: 'Cleaning',
-    },
-    {
-        label: (
-            <a href="" target="_blank" rel="noopener noreferrer">
-                Electrical repairs
-            </a>
-        ),
-        key: 'Electrical repairs',
-    },
-    {
-        label: (
-            <a href="" target="_blank" rel="noopener noreferrer">
-                Babysitting
-            </a>
-        ),
-        key: 'Babysitting ',
-    },
-    {
-        label: (
-            <a href="" target="_blank" rel="noopener noreferrer">
-                Beauty
-            </a>
-        ),
-        key: 'Beauty',
-    },
-    {
-        label: (
-            <a href="" target="_blank" rel="noopener noreferrer">
-                Pest control
-            </a>
-        ),
-        key: 'Pest control',
-    },
-    {
-        label: (
-            <a href="" target="_blank" rel="noopener noreferrer">
-                Plumbing
-            </a>
-        ),
-        key: 'Plumbing',
-    },
-    {
-        label: (
-            <a href="" target="_blank" rel="noopener noreferrer">
-                Other services
-            </a>
-        ),
-        key: 'Other services',
-    },
-];
-
 const HeaderMenu: React.FC<HeaderMenuProps> = ({ onFilterCategory }) => {
-    const [current, setCurrent] = useState('mail');
 
+    const items: MenuProps['items'] = [
+        {
+            label: (
+                <Button style={{ border: 'none' }} onClick={() => onFilterCategory('')}>
+                    All
+                </Button>
+            ),
+            key: 'All',
+        },
+        {
+            label: (
+                <Button style={{ border: 'none' }} onClick={() => onFilterCategory('Cleaning')}>
+                    Cleaning
+                </Button>
+            ),
+            key: 'Cleaning',
+        },
+        {
+            label: (
+                <Button style={{ border: 'none' }} onClick={() => onFilterCategory('Electrical Repairs')}>
+                    Electrical Repairs
+                </Button>
+            ),
+            key: 'Electrical repairs',
+        },
+        {
+            label: (
+                <Button style={{ border: 'none' }} onClick={() => onFilterCategory('Babysitting')}>
+                    Babysitting
+                </Button>
+
+            ),
+            key: 'Babysitting ',
+        },
+        {
+            label: (
+                <Button style={{ border: 'none' }} onClick={() => onFilterCategory('Beauty')}>
+                    Beauty    
+                </Button>
+            ),
+            key: 'Beauty',
+        },
+        {
+            label: (
+                <Button style={{ border: 'none' }} onClick={() => onFilterCategory('Pest Control')}>
+                    Pest Control
+                </Button>
+            ),
+            key: 'Pest Control',
+        },
+        {
+            label: (
+                <Button style={{ border: 'none' }} onClick={() => onFilterCategory('Plumbing')}>
+                    Plumbing
+                </Button>
+            ),
+            key: 'Plumbing',
+        },
+    ];
+
+    const [current, setCurrent] = useState('mail');
     const onClick: MenuProps['onClick'] = (e) => {
         console.log('click ', e);
         setCurrent(e.key);
+        // if (e.key === 'Cleaning') {
+        //     onFilterCategory('Cleaning');
+        // }
+        onFilterCategory(e.key);
     };
-
-
 
 
     return (

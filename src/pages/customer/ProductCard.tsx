@@ -134,7 +134,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function ProductCard(props:any) {
+function ProductCard(props:any) {   
 
     let a=JSON.stringify(props.data.data)
   console.log(JSON.stringify(props.data.data))

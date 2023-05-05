@@ -12,16 +12,6 @@ const items: MenuProps['items'] = [
     key: 'Home',
     // icon: <MailOutlined />,
   },
-  // {
-  //   label: <NavLink to="mapsearching">Map Searching</NavLink>,
-  //   key: 'mail',
-  //   // icon: <MailOutlined />,
-  // },
-  {
-    label: <NavLink to="mapsearching">Map Searching</NavLink>,
-    key: 'map',
-    // icon: <MailOutlined />,
-  },
   {
     label: 'IVY',
     key: 'SubMenu',
@@ -31,6 +21,10 @@ const items: MenuProps['items'] = [
         type: 'group',
         // label: 'Item 1',
         children: [
+          {
+            label: <NavLink to="profile">Profile</NavLink>,
+            key: 'profile',
+          },
           {
             label: <NavLink to="messagelist">Message</NavLink>,
             key: 'Message',
