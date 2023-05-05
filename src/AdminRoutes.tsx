@@ -2,8 +2,9 @@ import { Routes, Route } from 'react-router-dom'
 import MyLayout from "./components/MyLayout"
 import NewServiceProvider from './pages/admin/NewServiceProvider/NewServiceProvider'
 import Test from './pages/admin/NewServiceProvider/Table'
-import ServiceAudit from './pages/admin/ServiceAudit'
-import VerifiedServiceProvider from './pages/admin/VerifiedServiceProvider'
+import ServiceAudit from './pages/admin/ServiceAudit/ServiceAudit'
+import VerifiedServiceProvider from './pages/admin/VerifiedServiceProvider/VerifiedServiceProvider'
+import React from 'react'
 
 
 function AdminRoutes() {
