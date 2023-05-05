@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { Button, Card, Table } from 'antd';
+import { Button, Card, Pagination, Table } from 'antd';
 import './customerccss.css';
 import { NavLink } from 'react-router-dom';
 import ViewService from './ViewService';
@@ -36,6 +36,7 @@ interface Service {
 
 
 export const ServiceContext = React.createContext<Service[]>([]);
+const PAGE_SIZE = 6; // 每页显示的条目数
 
 
 const ProductCard = () => {
@@ -43,9 +44,8 @@ const ProductCard = () => {
     // const [data, setData] = useState<Service[]>([]); //获取所有的service，这里使用了泛型 <Service[]>，它是一种类型注解，表示 data 是一个数组，其中每个元素都是 Service 类型的对象。
     const [services, setServices] = useState<Service[]>([]);//获取所有的service
     const [filteredServices, setFilteredServices] = useState<Service[]>([]);//获取筛选状态后的service
-    const [category, setCategory] = useState<string>('none');//获取当前用户选中的category\
-
-
+    const [category, setCategory] = useState<string>('none');//获取当前用户选中的category
+    const [currentPage, setCurrentPage] = useState(1);
 
 
 
@@ -93,9 +93,6 @@ const ProductCard = () => {
                 // console.log(filteredServices)
 
                 ServiceContext.Provider({ value: filteredServices });
-
-
-
             })
             .catch((err) => {
                 console.log(err);
@@ -118,9 +115,15 @@ const ProductCard = () => {
             console.log(filteredServices)
             console.log("进入" + category)
         }
-
+        // setCurrentPage(1); // 每次筛选完后，回到第一页
     };
 
+    const onPageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    const endIndex = startIndex + PAGE_SIZE;
+    const paginatedServices = filteredServices.slice(startIndex, endIndex);
 
     // const showAllServices = () => {//获取所有service
     //     setFilteredServices(services);
@@ -146,12 +149,15 @@ const ProductCard = () => {
 
     };
 
+
+
     return (
         <div>
 
             <HeaderMenu onFilterCategory={filterServicesCategory} />
             <SearchCity onCityChange={filterServicesCity} />
-            {filteredServices.map((item) => {
+            {/* {filteredServices.map((item) => { */}
+            {paginatedServices.map((item) => {
                 return (
                     <Card
                         key={item.ID}
@@ -172,6 +178,15 @@ const ProductCard = () => {
                         <Outlet />
                     </Card>)
             })}
+
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                <Pagination
+                    current={currentPage}
+                    pageSize={PAGE_SIZE}
+                    total={filteredServices.length}
+                    onChange={onPageChange}
+                />
+            </div>
 
         </div>
     );
