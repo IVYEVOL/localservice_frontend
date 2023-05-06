@@ -14,7 +14,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ onFilterCategory }) => {
     const items: MenuProps['items'] = [
         {
             label: (
-                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:12, }}  onClick={() => onFilterCategory('')}>
+                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:14, }}  onClick={() => onFilterCategory('')}>
                     All
                 </Button>
             ),
@@ -22,7 +22,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ onFilterCategory }) => {
         },
         {
             label: (
-                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:12, }} onClick={() => onFilterCategory('Cleaning')}>
+                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:14, }} onClick={() => onFilterCategory('Cleaning')}>
                     Cleaning
                 </Button>
             ),
@@ -30,7 +30,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ onFilterCategory }) => {
         },
         {
             label: (
-                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:12, }} onClick={() => onFilterCategory('Electrical Repairs')}>
+                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:14, }} onClick={() => onFilterCategory('Electrical Repairs')}>
                     Electrical Repairs
                 </Button>
             ),
@@ -38,7 +38,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ onFilterCategory }) => {
         },
         {
             label: (
-                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:12, }} onClick={() => onFilterCategory('Babysitting')}>
+                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:14, }} onClick={() => onFilterCategory('Babysitting')}>
                     Babysitting
                 </Button>
 
@@ -47,7 +47,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ onFilterCategory }) => {
         },
         {
             label: (
-                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:12, }} onClick={() => onFilterCategory('Beauty')}>
+                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:14, }} onClick={() => onFilterCategory('Beauty')}>
                     Beauty
                 </Button>
             ),
@@ -55,7 +55,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ onFilterCategory }) => {
         },
         {
             label: (
-                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:12, }} onClick={() => onFilterCategory('Pest Control')}>
+                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:14, }} onClick={() => onFilterCategory('Pest Control')}>
                     Pest Control
                 </Button>
             ),
@@ -63,7 +63,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ onFilterCategory }) => {
         },
         {
             label: (
-                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:12, }} onClick={() => onFilterCategory('Plumbing')}>
+                <Button style={{ border: 'none', fontWeight: 'bold' ,fontSize:14, }} onClick={() => onFilterCategory('Plumbing')}>
                     Plumbing
                 </Button>
             ),

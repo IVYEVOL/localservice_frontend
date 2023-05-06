@@ -15,7 +15,7 @@ const SearchCity: React.FC<SearchCityProps> = ({ onCityChange }) => {
   return (
     <Select
       showSearch
-      style={{ width: 200 }}
+      style={{ width: 200, marginLeft:110, marginTop:20 }}
       placeholder="Search to Select City"
       optionFilterProp="children"
       filterOption={(input, option) => (option?.label ?? '').includes(input)}

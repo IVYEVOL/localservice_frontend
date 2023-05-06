@@ -314,6 +314,17 @@ input:focus::placeholder {
     text-align: center;
   }
 
+  .profile-button {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 4px;
+    margin-right: 16px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
   /* customerMenu */
   .right-aligned-menu .ant-menu-item {
     float: right;

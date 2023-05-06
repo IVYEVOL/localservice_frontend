@@ -68,7 +68,7 @@ const items: MenuProps['items'] = [
     style: { margin: 10},
   },
   {
-    label: <NavLink to="/login" style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}>Log in</NavLink>,
+    label: <NavLink to="/customer/login" style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}>Log in</NavLink>,
     key: 'Log in',
     // icon: <MailOutlined />,
     style: { margin: 10},

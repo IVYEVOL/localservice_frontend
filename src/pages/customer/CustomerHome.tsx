@@ -35,34 +35,40 @@ interface Service {
 }
 
 
-export const ServiceContext = React.createContext<Service[]>([]);
+
 const PAGE_SIZE = 6; // 每页显示的条目数
 
 
 const ProductCard = () => {
 
     // const [data, setData] = useState<Service[]>([]); //获取所有的service，这里使用了泛型 <Service[]>，它是一种类型注解，表示 data 是一个数组，其中每个元素都是 Service 类型的对象。
-    const [services, setServices] = useState<Service[]>([]);//获取所有的service
+    const [services, setServices] = useState<Service[]>([]);//获取所有的service(包括pendig和approved状态)
     const [filteredServices, setFilteredServices] = useState<Service[]>([]);//获取筛选状态后的service
     const [category, setCategory] = useState<string>('none');//获取当前用户选中的category
-    const [currentPage, setCurrentPage] = useState(1);
-
-
+    const [currentPage, setCurrentPage] = useState(1);//当前页码
+    const [total, setTotal] = useState(0);//获取到所有的service数量，用于分页
 
     console.log('初始值' + category)
 
+    // useEffect(() => {
+    //     let timer = setTimeout(() => {
+    //         showTable(currentPage);
+    //     }, 0);
+    //     return () => clearTimeout(timer);
+    // }, [currentPage]);
+
     useEffect(() => {
-        let timer = setTimeout(() => {
-            showTable();
-        }, 0);
-
-        return () => clearTimeout(timer);
-    }, []);
+        // 请求第一页数据
+        showTable(currentPage);
+    }, [currentPage]);
 
 
-    const showTable = () => {//获取数据
+    const showTable = (page: number) => {//获取数据
         axios
-            .get('http://51.104.196.52:8090/api/v1/public/service/all_service', {})//获取所有service
+            .post('http://51.104.196.52:8090/api/v1/public/service/all_service', {
+                page,
+                limit: 6
+            })//获取所有service
             .then((res) => {
                 const services: Service[] = res.data.data.map((service: any, index: number) => ({
                     key: index,
@@ -83,21 +89,24 @@ const ProductCard = () => {
                     user_id: service.user_id,
                 }));
                 setServices(services);//获取所有数据
-                console.log(res.data.data)
+                // console.log(res.data.data)
+                setTotal(res.data.total)
+                // console.log(res.data.total)
 
-                const filteredServices = services.filter((service: Service) =>
+                const filteredServices = services.filter((service: Service) =>//获取显示在页面内的数据
                     service.Status === 'Approved' && service.DeletedAt === null
                 );
+
                 //获取所有 approvedservice
                 setFilteredServices(filteredServices);
-                // console.log(filteredServices)
+                console.log(filteredServices)
 
-                ServiceContext.Provider({ value: filteredServices });
             })
             .catch((err) => {
                 console.log(err);
             });
     };
+
 
     const filterServicesCategory = (category: string) => {//headermenu 的回调函数，通过这样使headermenu在点击button时可以传递需要筛选的种类
         if (category == 'All') {
@@ -118,12 +127,14 @@ const ProductCard = () => {
         // setCurrentPage(1); // 每次筛选完后，回到第一页
     };
 
+
     const onPageChange = (page: number) => {
-        setCurrentPage(page);
+        // setCurrentPage(page); // 更新当前页码
+        showTable(page)
+        console.log(page)
     };
     const startIndex = (currentPage - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
-    const paginatedServices = filteredServices.slice(startIndex, endIndex);
 
     // const showAllServices = () => {//获取所有service
     //     setFilteredServices(services);
@@ -157,7 +168,7 @@ const ProductCard = () => {
             <HeaderMenu onFilterCategory={filterServicesCategory} />
             <SearchCity onCityChange={filterServicesCity} />
             {/* {filteredServices.map((item) => { */}
-            {paginatedServices.map((item) => {
+            {filteredServices.slice(startIndex, endIndex).map((item) => {
                 return (
                     <Card
                         key={item.ID}
@@ -183,11 +194,10 @@ const ProductCard = () => {
                 <Pagination
                     current={currentPage}
                     pageSize={PAGE_SIZE}
-                    total={filteredServices.length}
+                    total={total}
                     onChange={onPageChange}
                 />
             </div>
-
         </div>
     );
 };
