@@ -141,8 +141,8 @@ const App: React.FC = () => {
   const [data, setData] = useState()
   const showTable = () => {
 
-    // getAuthorization();
-    axios.get('http://51.104.196.52:8090/api/v1/public/service/all_service', {
+    getAuthorization();
+    axios.post('http://51.104.196.52:8090/api/v1/public/service/all_service', {
 
     })
       .then(res => {

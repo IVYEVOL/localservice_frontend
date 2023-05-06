@@ -116,7 +116,7 @@ const App: React.FC = () => {
           <Space size="middle">
             <a href='#'>Service Detail</a>
             {/* <a>Detail Reviews</a> */}
-            <Button type="primary"  block>
+            <Button type="primary" onClick={checkDetailReviews.bind(this,text)} block>
                 Detail Reviews
             </Button>
             <Button type="primary" onClick={serviceBan.bind(this,text)} danger>
@@ -140,9 +140,12 @@ const App: React.FC = () => {
     return <Table columns={columns} dataSource={expandedRowRecord} pagination={false} />;
   };
 
-
-
-
+  const checkDetailReviews=(r:any)=>{
+    console.log(r.ID)
+    let url = 'http://localhost:5173/admin/service_reviews/' + r.ID;
+    window.open(url)
+    
+  }
 
   const columns: TableColumnsType<DataType> = [
     { title: 'No', dataIndex: 'key', key: 'key' },
@@ -151,12 +154,20 @@ const App: React.FC = () => {
     { title: 'Phone Number', dataIndex: 'mobile', key: 'mobile' },
     // { title: 'Review Number', dataIndex: 'reviewNum', key: 'reviewNum' },
     // { title: 'Bad Review Number', dataIndex: 'badReviewNum', key: 'badReviewNum' },
-    
     { title: 'Date', dataIndex: 'CreatedAt', key: 'CreatedAt' },
     { title: 'Action', key: 'operation', render: (text: any) => (
       <Space size="middle">
       {/* <a>Invite {record.name}</a> */}
-      <a href='#'>Check detail</a>
+      {/* <a onClick={()=>{window.location.href="https://baidu.com"}} >Check detail</a> */}
+
+      {/* <a onClick={handle} >Check detail</a> */}
+
+      {/* <a onClick={handle.bind(this,text)} >Check detail</a> */}
+      
+
+      {/* <Button type="primary" onClick={()=>{window.location.href="https://baidu.com"}} >
+          Check Detail
+      </Button> */}
       {/* <a>Approve</a> */}
       <Button type="primary" onClick={providerBan.bind(this,text)} danger>
           Ban

@@ -11,52 +11,51 @@ import React, { useState } from 'react';
 import { defaultImg as logo } from '../utils/tools';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Title from 'antd/lib/skeleton/Title';
-import { ItemType } from 'antd/lib/menu/hooks/useItems';
 
 const { Header, Sider, Content } = Layout;
-const sideMenuData = [
-  {
-    key: '/admin/new_service_provider',
-    icon: <DashboardOutlined />,
-    label: 'New Server Provider',
-  },
-  {
-    key: '/admin/service_audit',
-    icon: <UserOutlined />,
-    label: 'Service Audit',
-  },
-  {
-    key: '/admin/verified_service_provider',
-    icon: <UserOutlined />,
-    label: 'service删除不好的评论',
-  },
+// const sideMenuData = [
+//   {
+//     key: '/admin/new_service_provider',
+//     icon: <DashboardOutlined />,
+//     label: 'New Server Provider',
+//   },
+//   {
+//     key: '/admin/service_audit',
+//     icon: <UserOutlined />,
+//     label: 'Service Audit',
+//   },
+//   {
+//     key: '/admin/verified_service_provider',
+//     icon: <UserOutlined />,
+//     label: 'service删除不好的评论',
+//   },
 
-  // {
-  //   key: '/admin/message',
-  //   icon: <UserOutlined />,
-  //   label: 'Message',
-  // },
-  // {
-  //   key: '/logout',
-  //   icon: <UserOutlined />,
-  //   label: 'Log out',
-  // },
-  // {
-  //   key: '3',
-  //   icon: <UploadOutlined />,
-  //   label: 'nav 3',
-  //   children: [
-  //     {
-  //       label: 'sub1',
-  //       key: '/admin/sub1',
-  //     },
-  //     {
-  //       label: 'sub2',
-  //       key: '/admin/sub2',
-  //     },
-  //   ],
-  // },
-]
+//   // {
+//   //   key: '/admin/message',
+//   //   icon: <UserOutlined />,
+//   //   label: 'Message',
+//   // },
+//   // {
+//   //   key: '/logout',
+//   //   icon: <UserOutlined />,
+//   //   label: 'Log out',
+//   // },
+//   // {
+//   //   key: '3',
+//   //   icon: <UploadOutlined />,
+//   //   label: 'nav 3',
+//   //   children: [
+//   //     {
+//   //       label: 'sub1',
+//   //       key: '/admin/sub1',
+//   //     },
+//   //     {
+//   //       label: 'sub2',
+//   //       key: '/admin/sub2',
+//   //     },
+//   //   ],
+//   // },
+// ]
 const findOpenKeys = (key: string) => {
   const result: string[] = [];
   const findInfo = (arr: any) => {
@@ -74,27 +73,15 @@ const findOpenKeys = (key: string) => {
 
 const MyLayout = ({ children }: any) => {
   
-  // console.log('我是children');
-  // console.log(children);
-  
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate()
   const { pathname } = useLocation(); // 获取location中的数据
-
-  // console.log('我是pathname');
-  // console.log(pathname);
-  
   const tmpOpenKeys = findOpenKeys(pathname);
-
-  // 跳转到service_reviews界面的时候不显示siderbar并collapse
-  let menuData: { key: string; icon: JSX.Element; label: string; }[] | ItemType[] | undefined = []
-  let sideCollapsed = true
-  if (!pathname.includes('/admin/service_reviews')) {menuData=sideMenuData, sideCollapsed = false}
 
 
   return (
     <Layout style={{ width: '100vw', height: '100vh' }} id="components-layout-demo-custom-trigger">
-      <Sider width={300} trigger={null} collapsible collapsed={sideCollapsed}>
+      <Sider width={300} trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
           <img src={logo} alt="LocalService" />
         </div>
@@ -107,7 +94,7 @@ const MyLayout = ({ children }: any) => {
             // alert(key);
             navigate(key)
           }}
-          items={menuData}
+          // items={sideMenuData}
         />
       </Sider>
       <Layout className="site-layout">
