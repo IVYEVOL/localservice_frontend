@@ -29,33 +29,6 @@ interface DataType {
 
 type DataIndex = keyof DataType;
 
-// const data: DataType[] = [
-//   {
-//     key: '1',
-//     service_provider: 'service provider 1',
-//     age: 32,
-//     service: 'Laundry',
-//   },
-//   {
-//     key: '2',
-//     service_provider: 'Joe Black',
-//     age: 42,
-//     service: 'Cooking',
-//   },
-//   {
-//     key: '3',
-//     service_provider: 'Jim Green',
-//     age: 32,
-//     service: 'Shopping',
-//   },
-//   {
-//     key: '4',
-//     service_provider: 'Jim Red',
-//     age: 32,
-//     service: 'Baby sitting',
-//   },
-// ];
-
 const App: React.FC = () => {
 
 
@@ -324,9 +297,8 @@ const App: React.FC = () => {
 
       render: (text) => (
         <Space size="middle">
-          {/* <a>Invite {record.name}</a> */}
-          <a href='#'>Check detail</a>
-          {/* <a>Approve</a> */}
+
+          <a onClick={checkServiceDetail.bind(this, text)}>Check detail</a>
 
           <Button type="primary" onClick={serviceApprove.bind(this, text)}>
             approve
@@ -339,6 +311,17 @@ const App: React.FC = () => {
 
     },
   ];
+
+  // const checkServiceDetail=(r:any)=>{
+  //   let url = 'http://localhost:5173/admin/service_detail/' + r.ID;
+  //   window.open(url)
+    
+  // }
+  const checkServiceDetail=(r:any)=>{
+    let url = 'http://localhost:5173/admin/service_detail/' + r.ID;
+    window.location.href=url
+    
+  }
 
   return <Table columns={columns} dataSource={data} bordered />;
 };

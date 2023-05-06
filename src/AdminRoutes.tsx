@@ -5,8 +5,8 @@ import Test from './pages/admin/NewServiceProvider/Table'
 import ServiceAudit from './pages/admin/ServiceAudit/ServiceAudit'
 import VerifiedServiceProvider from './pages/admin/VerifiedServiceProvider/VerifiedServiceProvider'
 import ServiceReviewsByID from './pages/admin/ServiceReviewsByID'
+import ServiceDetailByID from './pages/admin/ServiceDetailByID'
 import React from 'react'
-import ServiceReviewLayout from './components/ServiceReviewLayout'
 
 
 function AdminRoutes() {
@@ -15,12 +15,11 @@ function AdminRoutes() {
     <>
       <MyLayout>
         <Routes>
-          {/* <Route path='new_service_provider' element={<Test />} /> */}
           <Route path='new_service_provider' element={<NewServiceProvider />} />
           <Route path='service_audit' element={<ServiceAudit />} />
           <Route path='verified_service_provider' element={<VerifiedServiceProvider />} />
-          {/* <Link to="/mtr/12345?type=c">Netflix</Link> */}
           <Route path='service_reviews/:id' element={<ServiceReviewsByID />} />
+          <Route path='service_detail/:id' element={<ServiceDetailByID />} />
         </Routes>
       </MyLayout>
 
@@ -34,15 +33,3 @@ function AdminRoutes() {
 }
 
 export default AdminRoutes
-
-// function ServiceReviewRoutes() {
-//   return (
-//     <ServiceReviewLayout>
-//       <Routes>
-//         <Route path='service_reviews/:id' element={<ServiceReviewsByID />} />
-//       </Routes>
-//     </ServiceReviewLayout>
-//   )
-// }
-
-// export default ServiceReviewRoutes
