@@ -37,7 +37,7 @@ const ServiceMap = () => {
     }, [postcode]);
 
     return (
-        <div>
+        <div style={{ position: 'fixed', top: '100px', right: '100x' }}>
             <LoadScript
                 googleMapsApiKey="AIzaSyCkT6rPwlprpK8qnwG4SMnnloCsp7NcJkk"
                 language="en"

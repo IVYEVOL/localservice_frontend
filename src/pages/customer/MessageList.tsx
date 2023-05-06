@@ -24,11 +24,12 @@ const MesssageList = () => {
                     }>
                     There are some details for you to update
                 </Card>
-                <Card
+                <Card 
                     className='messagecard'
                     type="inner"
+                    style={{width:1200}}
                     title={
-                        <span>
+                        <span style={{borderRadius:10}}>
                           <StarOutlined style={{ marginRight: 8 }} />
                           Review the service!
                         </span>

@@ -61,7 +61,7 @@ const RequestUpdatingMessage = () => {
                     title="Update Your Service"
                     extra={<a href="#">More</a>}>
 
-                    <div>Home Cleaning Service</div>
+                    <div style={{fontSize: '24px'}}>Home Cleaning Service</div>
                     <div><img style={{ width: 400 }} alt="Loading" src="https://scrubnbubbles.com/wp-content/uploads/2020/10/cleaning-companies.jpg" /></div>
                     <div>Request: please give more details</div>
                     <RateForm/>
