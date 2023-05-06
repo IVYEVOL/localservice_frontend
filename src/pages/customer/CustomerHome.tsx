@@ -48,7 +48,7 @@ const ProductCard = () => {
                 const services: Service[] = res.data.data.map((service: any, index: number) => ({
                     key: index,
                     ID: service.ID,
-                    title: service.title,
+                    title: service.title, 
                     prices: service.prices,
                     city: service.city,
                     photos: service.photos,
@@ -103,7 +103,7 @@ const ProductCard = () => {
             <Row gutter={[16, 16]} >
                 {services.map((service) => (
                     <Col xs={24} sm={12} md={8} key={service.ID}>
-                        <NavLink to=''>
+                        <NavLink to={`/customer/viewservice/${service.ID}`}>
                             <Card
                                 hoverable
                                 style={{ height: '340px', width: '280px', margin: 'auto' }}
