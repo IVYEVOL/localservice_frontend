@@ -110,8 +110,7 @@ const ProductCard = () => {
 
     const filterServicesCategory = (category: string) => {//headermenu 的回调函数，通过这样使headermenu在点击button时可以传递需要筛选的种类
         if (category == 'All') {
-            setFilteredServices(services);
-            setCategory(category);
+            setServices(services);
             console.log("进入" + category)
         }
         else {
@@ -119,9 +118,9 @@ const ProductCard = () => {
                 service.Status === "Approved" && service.category === category
             );
             setCategory(category);
-            setFilteredServices(filteredServices);
+            setServices(filteredServices);
             console.log(category)
-            console.log(filteredServices)
+            console.log(services)   
             console.log("进入" + category)
         }
         // setCurrentPage(1); // 每次筛选完后，回到第一页

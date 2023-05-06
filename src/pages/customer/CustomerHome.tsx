@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Card, Col, Pagination, Row } from 'antd';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import SearchCity from './SearchCity';
+import HeaderMenu from './HeaderMenu';
 
 interface Service {
     key: number;
@@ -30,6 +32,7 @@ const ProductCard = () => {
     const [services, setServices] = useState<Service[]>([]);//approved的service
     const [total, setTotal] = useState(0);//services的总数量
     const [currentPage, setCurrentPage] = useState(1);//当前所在的页数
+    const [category, setCategory] = useState<string>('none');//获取当前用户选中的category
 
     useEffect(() => {
         fetchServices(currentPage);
@@ -71,9 +74,32 @@ const ProductCard = () => {
             });
     };
 
+    const filterServicesCategory = (category: string) => {//headermenu 的回调函数，通过这样使headermenu在点击button时可以传递需要筛选的种类
+        if (category == 'All') {
+            setServices(services);
+            setCategory(category);
+            console.log("进入" + category)
+        }
+        else {
+            const filteredServices = services.filter((service: Service) =>
+                service.Status === "Approved" && service.category === category
+            );
+            setCategory(category);
+            setServices(filteredServices);
+            console.log(category)
+            console.log(filteredServices)
+            console.log("进入" + category)
+        }
+        // setCurrentPage(1); // 每次筛选完后，回到第一页
+    };
+
 
     return (
+        
         <div style={{ padding: '24px', justifyContent: 'center' }}>
+            
+            <HeaderMenu onFilterCategory={filterServicesCategory} />
+            
             <Row gutter={[16, 16]} >
                 {services.map((service) => (
                     <Col xs={24} sm={12} md={8} key={service.ID}>

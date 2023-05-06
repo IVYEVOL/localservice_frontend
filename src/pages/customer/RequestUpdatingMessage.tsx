@@ -32,39 +32,40 @@ const RequestUpdatingMessage = () => {
         console.log('Received values of form: ', values);
     };
 
-    const RateForm: React.FC = () => (
-        <Form
-            name="time_related_controls"
-            {...formItemLayout}
-            onFinish={onFinish}
-            style={{ marginTop:30, maxWidth: 600 }}
-        >
-            <Form.Item name={['user', 'Description']} label="Description">
-                <Input.TextArea />
-            </Form.Item>
+  const UpdateForm: React.FC = () => (
+  <Form
+    name="time_related_controls"
+    {...formItemLayout}
+    onFinish={onFinish}
+    style={{ marginTop: 30, marginLeft: 35  , width:500}}
+  >
+    <Form.Item name={['user', 'Description']} label="Description">
+      <Input.TextArea style={{width:700, height:200}}/>
+    </Form.Item>
 
-            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
-            </Form.Item>
+    <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+      <Button type="primary" htmlType="submit" style={{ float: 'right' }}>
+        Submit
+      </Button>
+    </Form.Item>
+  </Form>
+);
 
-        </Form>
-    );
 
     return (
         <div>
             <Card>
                 <Card
-                    style={{ marginTop: 16 }}
+                    style={{ marginLeft: 110, width: 1300, margin: '0 auto' }}
                     type="inner"
                     title="Update Your Service"
-                    extra={<a href="#">More</a>}>
-
-                    <div style={{fontSize: '24px'}}>Home Cleaning Service</div>
-                    <div><img style={{ width: 400 }} alt="Loading" src="https://scrubnbubbles.com/wp-content/uploads/2020/10/cleaning-companies.jpg" /></div>
-                    <div>Request: please give more details</div>
-                    <RateForm/>
+                    >
+                    <div style={{ marginLeft: 130}} >
+                        <div style={{ fontSize: '24px' }}>Home Cleaning Service</div>
+                        <div><img style={{ width: 400 }} alt="Loading" src="https://scrubnbubbles.com/wp-content/uploads/2020/10/cleaning-companies.jpg" /></div>
+                        <div>Request: please give more details</div>
+                    </div>
+                    <UpdateForm />
                 </Card>
             </Card>
         </div>

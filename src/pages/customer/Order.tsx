@@ -2,7 +2,7 @@ import React from 'react';
 import { Badge, Descriptions } from 'antd';
 
 const Order: React.FC = () => (
-    <Descriptions title="Order detail" bordered>
+    <Descriptions title="Order detail" bordered style={{ marginLeft: 110, width: 1300, margin: '0 auto' }}>
         <Descriptions.Item label="Product info" span={3}>
             <img style={{width: 200}} alt="Loading" src="https://scrubnbubbles.com/wp-content/uploads/2020/10/cleaning-companies.jpg" />
             <div>

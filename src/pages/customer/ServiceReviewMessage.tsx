@@ -34,17 +34,18 @@ const ServiceReviewMessage = () => {
 
     const RateForm: React.FC = () => (
         <Form
+
             name="time_related_controls"
             {...formItemLayout}
             onFinish={onFinish}
-            style={{ maxWidth: 600 }}
+            style={{ marginTop: 30, marginLeft: 35, width: 500 }}
         >
             <Form.Item name={['user', 'Description']} label="Description">
-                <Input.TextArea />
+                <Input.TextArea style={{ width: 700, height: 200 }} />
             </Form.Item>
 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" style={{ float: 'right' }}>
                     Submit
                 </Button>
             </Form.Item>
@@ -60,7 +61,7 @@ const ServiceReviewMessage = () => {
         const [value, setValue] = useState(3);
 
         return (
-            <span>
+            <span style={{marginLeft:40}}>
                 <Rate tooltips={desc} onChange={setValue} value={value} />
                 {value ? <span className="ant-rate-text">{desc[value - 1]}</span> : ''}
             </span>
@@ -71,14 +72,15 @@ const ServiceReviewMessage = () => {
         <div>
             <Card>
                 <Card
-                    style={{ marginTop: 16 }}
+                    style={{ marginLeft: 110, width: 1300, margin: '0 auto' }}
                     type="inner"
                     title="Review Your Service"
-                    extra={<a href="#">More</a>}
-                >
-                    <div>Home Cleaning Service</div>
-                    <div><img style={{ width: 400 }} alt="Loading" src="https://scrubnbubbles.com/wp-content/uploads/2020/10/cleaning-companies.jpg" /></div>
-                    <RateStar />
+                >   <div style={{ marginLeft: 130 }}>
+                        <div style={{ fontSize: '24px' }}>Home Cleaning Service</div>
+                        <div><img style={{ width: 400 }} alt="Loading" src="https://scrubnbubbles.com/wp-content/uploads/2020/10/cleaning-companies.jpg" /></div>
+                       <div style={{marginTop:20}}>Rate:<RateStar /></div> 
+                    </div>
+
                     <RateForm />
                 </Card>
             </Card>
