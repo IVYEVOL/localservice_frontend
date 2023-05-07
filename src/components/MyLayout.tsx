@@ -89,7 +89,7 @@ const MyLayout = ({ children }: any) => {
   // 跳转到service_reviews界面的时候不显示siderbar并collapse
   let menuData: { key: string; icon: JSX.Element; label: string; }[] | ItemType[] | undefined = []
   let sideCollapsed = true
-  if (!pathname.includes('/admin/service_reviews')) {menuData=sideMenuData, sideCollapsed = false}
+  if (!(pathname.includes('/admin/service_reviews') || pathname.includes('/admin/service_detail'))) {menuData=sideMenuData, sideCollapsed = false}
 
 
   return (
