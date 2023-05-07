@@ -9,7 +9,7 @@ interface SearchCityProps {
 const SearchCity: React.FC<SearchCityProps> = ({ onCityChange }) => {
   const handleCityChange = (city: string) => {
     onCityChange(city);
-    console.log(0)
+    console.log(city)
   };
 
   return (
