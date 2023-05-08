@@ -39,12 +39,12 @@ interface ServiceDescProps {
 const ServiceDesc: React.FC<ServiceDescProps> = ({ serviceData }) => {
     console.log("当前获取到的service")
     console.log(serviceData)
-
+    console.log(serviceData.ID)
     serviceData
 
     const PayButton: React.FC = () => ( 
         <Space wrap>
-            <Button className='paybutton' type="primary">Pay</Button>
+            <Button className='paybutton' type="primary">Book</Button>
         </Space>
     );
 
@@ -56,13 +56,15 @@ const ServiceDesc: React.FC<ServiceDescProps> = ({ serviceData }) => {
             <div className='servicedesc'>Eligible for Shipping To Southampton or somewhere else{serviceData.description}</div>
             {/* <div className='servicerate'>Rate：<Rate disabled defaultValue={3} /></div> */}
 
-            <Link to='/customer/viewservice/payservice'>
+            <Link to={`/customer/viewservice/${serviceData.ID}/payservice`}>
                 <PayButton />
             </Link>
+            
 
-            <Routes>
-                <Route path='/customer/viewservice/payservice' element={<PayService />}></Route>
-            </Routes>
+            {/* <Routes>
+                <Route  path={`/customer/viewservice/${serviceData.ID}/payservice`} element={<PayService />}></Route>
+            </Routes> */}
+            <Outlet/>
         </div>
     );
 

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import SearchCity from './SearchCity';
 import HeaderMenu from './HeaderMenu';
+import { AuthContext, AuthData } from "./AuthContext";
 
 interface Service {
     key: number;
@@ -34,11 +35,12 @@ const ProductCard = () => {
     const [currentPage, setCurrentPage] = useState(1);//当前所在的页数
     const [category, setCategory] = useState<string>('All');//获取当前用户选中的category
     const [city, setCity] = useState<string>('none');//获取当前用户选中的category
+    const [authData, setAuthData] = useState<AuthData | null>(null);
 
     useEffect(() => {
         fetchServices(currentPage);
-        
-    }, [currentPage]);
+
+    }, [currentPage, category, city]);
 
     const fetchServices = (page: number) => {
         let url = 'http://51.104.196.52:8090/api/v1/public/service/list';
@@ -101,47 +103,49 @@ const ProductCard = () => {
     };
 
 
+
     return (
+        <AuthContext.Provider value={{ authData, setAuthData }}>
+            <div style={{ padding: '24px', justifyContent: 'center' }}>
 
-        <div style={{ padding: '24px', justifyContent: 'center' }}>
+                <HeaderMenu onFilterCategory={filterServicesCategory} />
+                <SearchCity onCityChange={filterServicesCity} />
 
-            <HeaderMenu onFilterCategory={filterServicesCategory} />
-            <SearchCity onCityChange={filterServicesCity} />
+                <Row gutter={[16, 16]} style={{ marginTop: 40 }}>
+                    {services.map((service) => (
+                        <Col xs={24} sm={12} md={8} key={service.ID}>
+                            <NavLink to={`/customer/viewservice/${service.ID}`}>
+                                <Card
+                                    hoverable
+                                    style={{ height: '340px', width: '280px', margin: 'auto' }}
+                                    cover={<img alt="example" src={service.photos} style={{ height: '180px', objectFit: 'cover' }} />}
+                                >
+                                    <Meta
+                                        title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
+                                        description={<div style={{ fontSize: '12px' }}>{service.city}</div>}
+                                    />
 
-            <Row gutter={[16, 16]} style={{ marginTop: 40 }}>
-                {services.map((service) => (
-                    <Col xs={24} sm={12} md={8} key={service.ID}>
-                        <NavLink to={`/customer/viewservice/${service.ID}`}>
-                            <Card
-                                hoverable
-                                style={{ height: '340px', width: '280px', margin: 'auto' }}
-                                cover={<img alt="example" src={service.photos} style={{ height: '180px', objectFit: 'cover' }} />}
-                            >
-                                <Meta
-                                    title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
-                                    description={<div style={{ fontSize: '12px' }}>{service.city}</div>}
-                                />
+                                    <div style={{ marginTop: '50px' }}>
+                                        <span style={{ fontSize: '14px' }}>Price: </span>
+                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '20px' }}>￡{service.prices}</div>
+                                    </div>
+                                </Card>
+                            </NavLink>
+                        </Col>
+                    ))}
+                </Row>
 
-                                <div style={{ marginTop: '50px' }}>
-                                    <span style={{ fontSize: '14px' }}>Price: </span>
-                                    <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '20px' }}>￡{service.prices}</div>
-                                </div>
-                            </Card>
-                        </NavLink>
-                    </Col>
-                ))}
-            </Row>
-
-            <div style={{ textAlign: 'center' }}>
-                <Pagination
-                    style={{ margin: 10 }}
-                    current={currentPage}
-                    pageSize={PAGE_SIZE}
-                    total={total}
-                    onChange={(page) => setCurrentPage(page)}
-                />
+                <div style={{ textAlign: 'center' }}>
+                    <Pagination
+                        style={{ margin: 10 }}
+                        current={currentPage}
+                        pageSize={PAGE_SIZE}
+                        total={total}
+                        onChange={(page) => setCurrentPage(page)}
+                    />
+                </div>
             </div>
-        </div>
+        </AuthContext.Provider>
     );
 };
 

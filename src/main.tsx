@@ -28,6 +28,7 @@ import RequestUpdatingMessage from './pages/customer/RequestUpdatingMessage';
 import MapSearching from './pages/customer/MapSearching';
 import Cleaning from './pages/customer/Cleaning';
 import Profile from './pages/customer/profile';
+import PayServiceWrapper from './pages/customer/PayServiceWrapper';
 // >>>>>>> 301687729728d7e8db15e5a700103aee2083e211
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -40,27 +41,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path='/admin/*' element={<AdminRoutes />} />
         <Route path='/provider/*' element={<ProviderRoutes />} />
         <Route path='/customer/*' element={<CustomerRoutes />}>
-          <Route index element={<CustomerHome />}></Route>
-          <Route path='login' element={<Login />}></Route>
-          <Route path='mapsearching' element={<MapSearching />}></Route>
-          <Route path='viewservice/*' element={<ViewService />}>
-            <Route path=':id' element={<ViewService />} />
-            {/* <Route path='payservice/:id' element={<PayService />} /> */}
-          </Route>  
-          <Route path='messagelist/*'>
-            <Route index element={<MesssageList />} ></Route>
-            <Route path='servicereviewmessage' element={<ServiceReviewMessage />} ></Route>
-            <Route path='requestupdatingmessage' element={<RequestUpdatingMessage />} ></Route>
-          </Route>
-
-          {/* <Route path='payservice' element={<PayService />} ></Route> */}
-
-          <Route path='bookinglist/*'>
-            <Route index element={<BookingList />}></Route>
-            <Route path='order' element={<Order />}></Route>
-          </Route>
-          <Route path='profile' element={<Profile />}></Route>
-          <Route path='updateorder' element={<UpdateOrder />}></Route>
         </Route>
       </Routes>
     </ConfigProvider>

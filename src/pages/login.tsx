@@ -1,11 +1,19 @@
 import { Row, Col, Card, Form, Input, Button, message } from 'antd';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAPI } from '../services/auth';
 import { defaultImg, setToken } from '../utils/tools';
+import { AuthContext, AuthData } from './customer/AuthContext';
 
 function Login() {
+  const { setAuthData } = useContext(AuthContext);
+  const { authData } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("authData:", authData);
+  }, [authData]);
+
   return (
     <Row>
       <Col
@@ -28,7 +36,7 @@ function Login() {
           }}
         />
         <Card title='Login'>
-        <Form
+          <Form
             labelCol={{
               md: {
                 span: 4,
@@ -40,16 +48,18 @@ function Login() {
                 const res = await loginAPI(v);
                 console.log(res);
                 console.log(res.data)
+                setAuthData(res.data);
+                console.log("Logged in user data:", res.data); // 打印获取到的数据
+
                 if (res.code == 200) {
-                  
                   message.success('Login Successful');
                   setToken(res.data.token);
                   // return user data
-                  if(res.data.user_role == 'Admin') navigate('/admin/new_service_provider');
+                  if (res.data.user_role == 'Admin') navigate('/admin/new_service_provider');
                   else if (res.data.user_role == 'Provider') navigate('/provider');
                   else navigate('/customer');
-                } 
-              } catch(err:any) {
+                }
+              } catch (err: any) {
                 message.error(err.response.data.msg);
                 // console.log(err);
               }
@@ -93,8 +103,8 @@ function Login() {
               </Button>
               Not a member?&nbsp;<a href="/#/register" >Register now!</a>
               <a className="login-form-forgot" href="" style={{
-                  float: 'right',
-                }}>
+                float: 'right',
+              }}>
                 Forgot password
               </a>
             </Form.Item>
