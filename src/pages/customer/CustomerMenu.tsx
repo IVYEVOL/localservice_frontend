@@ -9,6 +9,8 @@ import "./customerccss.css"
 import { removeToken } from '../../utils/tools';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+const CustomerMenu: React.FC = () => {
+
 const items: MenuProps['items'] = [
   {
     label: (
@@ -58,7 +60,7 @@ const items: MenuProps['items'] = [
                 onClick={() => {
                   removeToken();
                   console.log('Logout');
-                  useNavigate()('/') }}
+                  navigate('/'); }}
               >
                 Logout
               </span>
@@ -67,8 +69,6 @@ const items: MenuProps['items'] = [
             style: { margin: 2},
            
           },
-
-
         ],
       },
 
@@ -83,7 +83,7 @@ const items: MenuProps['items'] = [
   }
 ];
 
-const CustomerMenu: React.FC = () => {
+  const navigate = useNavigate();
   const [current, setCurrent] = useState('Home');
 
   const onClick: MenuProps['onClick'] = (e) => {
