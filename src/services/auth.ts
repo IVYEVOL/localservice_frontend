@@ -23,3 +23,4 @@ export const loginAPI = (data: LoginData) => post('/public/user/login', data);
  * @returns
  */
 export const registerAPI = (data: RegisterData) => post('/public/user/add', data);
+
