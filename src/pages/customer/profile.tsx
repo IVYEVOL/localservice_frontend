@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import './customerccss.css'
 import Dropzone from "react-dropzone";
 import axios from 'axios';
-import { getAuthorization } from '../../utils/tools';
+import { getAuthorization, removeToken } from '../../utils/tools';
+import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 interface UserData {
   ID: number;
@@ -101,11 +103,11 @@ const Profile = () => {
           role: item.role,
         }));
         const targService = user.filter((item: UserData) => item.ID === 29)[0];
-       
+
         console.log(res.data.data)
         console.log(targService)
 
-     
+
       })
       .catch((err) => {
         console.log(err);
@@ -117,6 +119,10 @@ const Profile = () => {
     event.preventDefault();
     // 处理表单提交事件
   }
+  const clickToLogout = () => {
+    removeToken();
+    Navigate({ to: '/' });
+  };
 
   return (
     <div className="profile-card">
@@ -135,6 +141,7 @@ const Profile = () => {
         </Dropzone>
         <button type="submit" className="profile-button">Submit</button>
       </form>
+      <button className="profile-button" onClick={clickToLogout}>Log out</button>
     </div>
   )
 }
