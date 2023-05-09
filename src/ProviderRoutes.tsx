@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
-import { Navbar } from "./components/Navbar"
+import CustomerMenu from './pages/provider/CustomerMenu'
 import AddService from './pages/provider/AddService'
+import UpdateService from './pages/provider/UpdateService'
 import ServiceRequest from './pages/provider/ServiceRequest'
 import ServiceList from './pages/provider/ServiceList'
 import Profile from './pages/provider/Profile'
@@ -12,11 +13,13 @@ function ProviderRoutes() {
 
   return (
     <>
-      <Navbar />
+       <CustomerMenu />
       <Container className = "mb-4"> 
         <Routes>
-          <Route path='ServiceList' element={<ServiceList />} />
+          <Route index element={<ServiceList />}></Route>
+          {/* <Route path='ServiceList' element={<ServiceList />} /> */}
           <Route path='AddService' element={<AddService />} />
+          <Route path='UpdateService' element={<UpdateService />} />
           <Route path='ServiceRequest' element={<ServiceRequest />} />
           <Route path='Profile' element={<Profile />} />
           <Route path='ServiceList/ServiceDetail' element={<ServiceDetail />} />
