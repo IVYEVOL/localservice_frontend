@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import SearchCity from './SearchCity';
 import HeaderMenu from './HeaderMenu';
 import { AuthContext, AuthData } from "./AuthContext";
+import CustomerMenu from './CustomerMenu';
 
 interface Service {
     key: number;
@@ -52,7 +53,6 @@ const ProductCard = () => {
             url = `http://51.104.196.52:8090/api/v1/public/service/city_n_cat?category=${category}&city=${city}`
             console.log(22222222222)
         }
-
 
         axios
             .post(url, {//获取approved的service
@@ -102,15 +102,12 @@ const ProductCard = () => {
         fetchServices(1);
     };
 
-
-
     return (
-        
+        <div>
+           
+            <HeaderMenu onFilterCategory={filterServicesCategory} />
             <div style={{ padding: '24px', justifyContent: 'center' }}>
-
-                <HeaderMenu onFilterCategory={filterServicesCategory} />
                 <SearchCity onCityChange={filterServicesCity} />
-
                 <Row gutter={[16, 16]} style={{ marginTop: 40 }}>
                     {services.map((service) => (
                         <Col xs={24} sm={12} md={8} key={service.ID}>
@@ -118,7 +115,7 @@ const ProductCard = () => {
                                 <Card
                                     hoverable
                                     style={{ height: '340px', width: '280px', margin: 'auto' }}
-                                    cover={<img alt="example" src={`http://51.104.196.52:8090/upload/${service.photos}`} style={{ height: '180px',width:'400px' ,objectFit: 'cover' }} />}
+                                    cover={<img alt="example" src={`http://51.104.196.52:8090/upload/${service.photos}`} style={{ height: '180px', width: '400px', objectFit: 'cover' }} />}
                                 >
                                     <Meta
                                         title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
@@ -145,7 +142,9 @@ const ProductCard = () => {
                     />
                 </div>
             </div>
-        
+        </div>
+
+
     );
 };
 

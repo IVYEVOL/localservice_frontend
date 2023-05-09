@@ -4,7 +4,7 @@ const { Footer } = Layout;
 
 function MyFooter() {
   return (
-    <Footer style={{ textAlign: 'center', background: 'rgb(190 205 219)' }}>Footer</Footer>
+    <Footer style={{ textAlign: 'center', backgroundColor: '#f0f2f5', padding: '24px', bottom: '0', width: '100%' }}>Footer</Footer>
   )
 }
 
