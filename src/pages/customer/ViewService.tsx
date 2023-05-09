@@ -96,16 +96,11 @@ const ViewService = () => {
                 console.log("评论数据为：")
                 console.log(res.data.data)
                 // console.log(review);
-
-
             })
             .catch((err) => {
                 console.log(err);
             });
     };
-
-
-
     return (
         <div>
         {service ? (

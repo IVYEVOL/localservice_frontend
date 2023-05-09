@@ -27,8 +27,8 @@ const ServiceReview: React.FC<ServiceReviewProps> = ({reviewData}) => {
 
     return (
         <div className='ServiceReview' style={{marginTop:40}}>
-            <Avatar size="small" icon={<UserOutlined />} />
-            <div style={{ display: 'inline' }}>Julia</div>
+            <Avatar size="small" icon={<UserOutlined/>}/>
+            <div style={{ display: 'inline' }}>Anonymous</div>
             <span style={{ display: 'inline' }}>
                 <Rate disabled defaultValue={reviewData.rating} />
                 {value ? <span className="ant-rate-text">{desc[reviewData.rating - 1]}</span> : ''}

@@ -1,8 +1,8 @@
 import { Row, Col, Card, Form, Input, Button, message } from 'antd';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAPI } from '../services/auth';
-import { defaultImg, setToken } from '../utils/tools';
+import { defaultImg, setToken, setUser } from '../utils/tools';
 import { AuthContext, AuthData } from './customer/AuthContext';
 
 function Login() {
@@ -48,12 +48,13 @@ function Login() {
                 const res = await loginAPI(v);
                 console.log(res);
                 console.log(res.data)
-                setAuthData(res.data);
+                // setAuthData(res.data);
                 console.log("Logged in user data:", res.data); // 打印获取到的数据
 
                 if (res.code == 200) {
                   message.success('Login Successful');
                   setToken(res.data.token);
+                  setUser(res.data)
                   // return user data
                   if (res.data.user_role == 'Admin') navigate('/admin/new_service_provider');
                   else if (res.data.user_role == 'Provider') navigate('/provider');

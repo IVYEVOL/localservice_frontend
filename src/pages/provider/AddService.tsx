@@ -78,7 +78,6 @@ const PriceInput: React.FC<PriceInputProps> = ({ value = {}, onChange }) => {
   );
 };
 
-
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
@@ -88,9 +87,6 @@ const normFile = (e: any) => {
   }
   return e?.fileList;
 };
-
-
-
 
 const AddService: React.FC = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
@@ -107,7 +103,7 @@ const AddService: React.FC = () => {
   };
 
 
-  const postFormData  = () => {
+  const postFormData  = () => { 
     getAuthorization();
     const title = form.getFieldValue("title");
     if('' == title || title == undefined){
@@ -155,14 +151,8 @@ const AddService: React.FC = () => {
 
       //If the form data has not been changed, the data obtained will be undefined
   }
-
-
-
-    
+ 
   const [form] = Form.useForm();
-
-
-
 
   return (
     <>

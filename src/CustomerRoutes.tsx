@@ -52,7 +52,7 @@ function CustomerRoutes() {
           </Route>
           <Route path='bookinglist/*'>
             <Route index element={<BookingList />}></Route>
-            <Route path='order' element={<Order />}></Route>
+            <Route path='order/:id' element={<Order />}></Route>
           </Route>
           <Route path='profile' element={<Profile />}></Route>
           <Route path='updateorder' element={<UpdateOrder />}></Route>

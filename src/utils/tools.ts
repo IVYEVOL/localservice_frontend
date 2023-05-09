@@ -1,7 +1,13 @@
 import logo from '../assets/logo.png';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export const defaultImg = logo;
+
+
+
+// const userJson = JSON.stringify(user);
+
 
 /**
  * Back-end server address
@@ -16,6 +22,10 @@ export const serverUrl = 'http://51.104.196.52:8090/api/v1';
  */
 export const setToken = (token: string) =>
   sessionStorage.setItem('token', token);
+
+
+export const setUser = (user: any) =>
+  Cookies.set('user', JSON.stringify(user));
 
 /**
  * Get token
