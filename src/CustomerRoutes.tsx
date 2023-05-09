@@ -38,7 +38,7 @@ function CustomerRoutes() {
     
         <CustomerMenu />
 
-        <AuthContext.Provider value={{ authData, setAuthData }}>
+      
         <Routes>
         <Route index element={<CustomerHome />}></Route>
           <Route path='login' element={<Login />}></Route>
@@ -57,7 +57,7 @@ function CustomerRoutes() {
           <Route path='profile' element={<Profile />}></Route>
           <Route path='updateorder' element={<UpdateOrder />}></Route>
         </Routes>
-        </AuthContext.Provider>
+    
     </div>
 
 

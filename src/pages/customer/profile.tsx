@@ -135,6 +135,7 @@ const Profile = () => {
         </Dropzone>
         <button type="submit" className="profile-button">Submit</button>
       </form>
+      {/* <button className="profile-button" onClick={clickToLogout}>Log out</button> */}
     </div>
   )
 }
