@@ -39,3 +39,10 @@ export const getToken = () => "Bearer: " + sessionStorage.getItem('token');
  */
 export const getAuthorization = () => axios.defaults.headers.common['Authorization'] = getToken();
 
+
+/**
+ * Remove token
+ * @returns
+ */
+export const removeToken = () => sessionStorage.removeItem('token');
+

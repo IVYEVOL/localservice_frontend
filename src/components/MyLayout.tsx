@@ -6,9 +6,9 @@ import {
   VideoCameraOutlined,
   DashboardOutlined,
 } from '@ant-design/icons';
-import { Dropdown, Layout, Menu } from 'antd';
+import { Button, Col, Dropdown, Layout, Menu, Row, Space } from 'antd';
 import React, { useState } from 'react';
-import { defaultImg as logo } from '../utils/tools';
+import { defaultImg as logo, removeToken } from '../utils/tools';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Title from 'antd/lib/skeleton/Title';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
@@ -116,7 +116,9 @@ const MyLayout = ({ children }: any) => {
             className: 'trigger',
             onClick: () => setCollapsed(!collapsed),
           })}
+
           <span className='app-title'>Admin</span>
+          
           <Dropdown
             menu={{
               items: [
@@ -128,6 +130,7 @@ const MyLayout = ({ children }: any) => {
                   label: (
                     <span
                       onClick={() => {
+                        removeToken();
                         // console.log('Logout');
                         navigate('/');
                       }}
