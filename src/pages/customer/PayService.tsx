@@ -8,6 +8,8 @@ import { getAuthorization, getToken } from '../../utils/tools';
 import form from 'antd/lib/form';
 import { FormInstance } from 'antd/lib/form';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 interface Service {
     key: number;
@@ -49,17 +51,7 @@ const layout = {
     wrapperCol: { span: 16 },
 };
 
-/* eslint-disable no-template-curly-in-string */
-const validateMessages = {
-    required: '${label} is required!',
-    types: {
-        email: '${label} is not a valid email!',
-        number: '${label} is not a valid number!',
-    },
-    number: {
-        range: '${label} must be between ${min} and ${max}',
-    },
-};
+    
 
 const config = {
     rules: [{ type: 'object' as const, required: true, message: 'Please select time!' }],
@@ -81,6 +73,7 @@ const onFinish = (fieldsValue: any) => {
 
 
 const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
+    const navigate = useNavigate();
     console.log("servicedata")
     console.log(serviceData)
     const userJson = Cookies.get('user');
@@ -110,11 +103,12 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
             alert("Postcode can not be empty");
             return;
         }
-        const datetimepicker = form.getFieldValue("address");
-        if ('' == datetimepicker || datetimepicker == undefined) {
-            alert("address can not be empty");
-            return;
-        }
+        // const datetimepicker = form.getFieldValue("datetimepicker");
+        // if ('' == datetimepicker || datetimepicker == undefined) {
+        //     alert("datetimepicker can not be empty");
+        //     return;
+        // }
+        const datetimepicker = fieldsValue["date-time-picker"];
         const city = form.getFieldValue("city");
         if ('' == city || city == undefined) {
             alert("city can not be empty");
@@ -130,17 +124,16 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
             alert("address can not be empty");
             return;
         }
-        getToken()  
         axios.request({
             method: "POST",
             url: "http://51.104.196.52:8090/api/v1/order/add",
-            params: { name, email, phonenumber, Postcode, address, city, datetimepicker, description, userid: 1 }
+            params: { customer_name:name, customer_email:email, customer_phone:phonenumber, postcode:Postcode,address:address, city:city,date:datetimepicker, description:description, customer_id: user.user_id }
         }).then((res) => {
             alert("success");
+            navigate('/');
         }
         );
     }
-
 
     const [form] = Form.useForm();
 
@@ -154,9 +147,9 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
             <Form
                 name="time_related_controls"
                 {...formItemLayout}
-                onFinish={onFinish}
                 style={{ maxWidth: 600 }}
                 form={form}
+                onFinish={onFinish} 
             >
                 <div className='contactdetails'> Contact Details</div>
                 <Form.Item name="name" label="Name" rules={[{ required: true }]}>

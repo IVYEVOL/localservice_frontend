@@ -2,31 +2,31 @@ import React, { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import { Navigate, Route} from 'react-router';
+import { Route } from 'react-router';
 import MesssageList from './MessageList';
 import { Link, NavLink, Outlet } from 'react-router-dom';
-import "./customerccss.css"
-import { removeToken } from '../../utils/tools';
-import { useNavigate, useLocation } from 'react-router-dom';
+import "./providerCss.css"
 
-const CustomerMenu: React.FC = () => {
 
 const items: MenuProps['items'] = [
   {
     label: (
       <div>
-        <NavLink to="/customer"><img src='src\assets\findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
+        <NavLink to="/provider"><img src='src\assets\findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
+        
       </div>
     ),
     key: 'logo',
     style: { marginLeft:100},
   },
+
   {
-    label: <NavLink to="/customer" style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}>Home</NavLink>,
+    label: <NavLink to="/provider" style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}>Service List</NavLink>,
     key: 'Home',
     style: { margin: 10, marginLeft:700},
     // icon: <MailOutlined />,
   },
+
   {
     label: <div style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}><img className="profile-avatar2" src='src\assets\profile.png' alt="Profile" />IVY</div>,
     key: 'SubMenu',
@@ -37,7 +37,7 @@ const items: MenuProps['items'] = [
         // label: 'Item 1',
         children: [
           {
-            label: <NavLink to="profile">Profile</NavLink>,
+            label: <NavLink to="Profile">Profile</NavLink>,
             key: 'profile',
             style: { margin: 2},
            
@@ -49,26 +49,14 @@ const items: MenuProps['items'] = [
            
           },
           {
-            label: <NavLink to="bookinglist">Booking</NavLink>,
-            key: 'Booking',
+            label: <NavLink to="addservice">Add Service</NavLink>,
+            key: 'Add',
             style: { margin: 2},
         
           },
-          {
-            label: (
-              <span
-                onClick={() => {
-                  removeToken();
-                  console.log('Logout');
-                  navigate('/'); }}
-              >
-                Logout
-              </span>
-            ),
-            key: 'Log out',
-            style: { margin: 2},
-           
-          },
+          
+
+
         ],
       },
 
@@ -76,27 +64,19 @@ const items: MenuProps['items'] = [
     style: { margin: 10},
   },
   {
-    label: <NavLink to="/customer/login" style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}>Log in</NavLink>,
-    key: 'Log in',
+    label: <NavLink to="/login" style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}>Log Out</NavLink>,
+    key: 'Log out',
     // icon: <MailOutlined />,
     style: { margin: 10},
-  }
+  },
+  
 ];
 
-  const navigate = useNavigate();
+const CustomerMenu: React.FC = () => {
   const [current, setCurrent] = useState('Home');
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
-    console.log(e.key);
-
-    // if(e.key == "Log out"){
-    //   console.log('logout在这');
-    //     removeToken()
-    //     useNavigate()('/')
-    // }
-
-
     setCurrent(e.key);
   };
 

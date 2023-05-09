@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './customerccss.css'
 import Dropzone from "react-dropzone";
 import axios from 'axios';
-import { getAuthorization } from '../../utils/tools';
+import { getAuthorization, removeToken } from '../../utils/tools';
+import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 interface UserData {
   ID: number;
@@ -20,6 +23,11 @@ interface UserData {
 const Profile = () => {
   const [avatar, setAvatar] = useState("");
   const [imageUrl, setImageurl] = useState("")
+  const userJson = Cookies.get('user');
+  const user = userJson ? JSON.parse(userJson) : {};
+  console.log(user.user_id)
+
+  const [userdetail,setUserdetail] = useState<UserData>(  )
 
   const handleDrop = (acceptedFiles: any) => {
     const file = acceptedFiles[0];
@@ -74,7 +82,7 @@ const Profile = () => {
 
   useEffect(() => {
     let timer = setTimeout(() => {
-      showTable();
+     getUserInfo()
 
     }, 0);
 
@@ -82,30 +90,16 @@ const Profile = () => {
   }, []);
 
 
-  const showTable = () => {//获取service数据
+  const getUserInfo = () => {//获取usershuju
+    getAuthorization()
     axios
-      .get('http://51.104.196.52:8090/api/v1/user/29', {})//获取所有service
+      .get('http://51.104.196.52:8090/api/v1/user/' + user.user_id, {})//获取所有service
       .then((res) => {
         console.log(res.data.data)
-        const user: UserData[] = res.data.data.map((item: any, index: number) => ({
-          key: index,
-          ID: item.ID,
-          CreatedAt: item.CreatedAt,
-          UpdatedAt: item.UpdatedAt,
-          DeletedAt: item.DeletedAt,
-          email: item.email,
-          password: item.password,
-          nick_name: item.nick_name,
-          avatar: item.avatar,
-          mobile: item.mobile,
-          role: item.role,
-        }));
-        const targService = user.filter((item: UserData) => item.ID === 29)[0];
+        setUserdetail(res.data.data)
+        console.log("userdetail")
        
-        console.log(res.data.data)
-        console.log(targService)
 
-     
       })
       .catch((err) => {
         console.log(err);
@@ -118,12 +112,13 @@ const Profile = () => {
     // 处理表单提交事件
   }
 
+
   return (
     <div className="profile-card">
-      <img className="profile-avatar" src={avatar ? avatar : imageUrl} alt="profile" height={40} style={{ margin: 10 }} />
-      <h2 className="profile-name">John Doe</h2>
-      <p className="profile-info">Age: 30</p>
-      <p className="profile-info">Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quis eros sed lorem dictum aliquam.</p>
+      <img className="profile-avatar" src={`http://51.104.196.52:8090/upload/${userdetail?.avatar}`} alt="profile" height={40} style={{ margin: 10 }} />
+      <h2 className="profile-name">{userdetail?.nick_name}</h2>
+      <p className="profile-info">Email: {userdetail?.email}</p>
+      <p className="profile-info">Mobile: {userdetail?.mobile}</p>
       <form onSubmit={handleSubmit}>
         <Dropzone onDrop={handleDrop}>
           {({ getRootProps, getInputProps }) => (

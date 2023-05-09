@@ -94,7 +94,7 @@ const normFile = (e: any) => {
 
 
 
-const AddService: React.FC = () => {
+const UpdateService: React.FC = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
 
   const onFinish = (values: any) => {
@@ -109,38 +109,30 @@ const AddService: React.FC = () => {
   };
 
 
-  const postFormData  = () => {
+  const updateFormData  = () => {
     getAuthorization();
     const title = form.getFieldValue("title");
-    if('' == title || title == undefined){
-      alert("title can not be empty");
-      return;
-    }
-    const description = form.getFieldValue("description");
-    if('' == description || description == undefined){
-      alert("description can not be empty");
-      return;
-    }
-    const price = form.getFieldValue("price");
-    if('' == price || price == undefined){
-      alert("price can not be empty");
-      return;
-    }
+  
+    const longitude_latitude = form.getFieldValue("longitude") + "," + form.getFieldValue("latitude") ;
+
     const address = form.getFieldValue("address");
-    if('' == address || address == undefined){
-      alert("address can not be empty");
-      return;
-    }
-    const category = form.getFieldValue("category");
-    if('' == category || category == undefined){
-      alert("category can not be empty");
-      return;
-    }
+
+    const city = form.getFieldValue("city");
+
+    const country = form.getFieldValue("country");
+
     const mobile = form.getFieldValue("phoneNumber");
-    if('' == mobile || mobile == undefined){
-      alert("mobile can not be empty");
-      return;
-    }
+
+    const areas_coverd = form.getFieldValue("areas_coverd");
+  
+    const category = form.getFieldValue("category");
+
+    const price = form.getFieldValue("price");
+    
+    const description = form.getFieldValue("description");
+   
+   const availability = form.getFieldValue("availability");
+   
     const photos = form.getFieldValue("images");
     // if('' == photos || photos == undefined){
     //   alert("photos can not be empty");
@@ -148,11 +140,25 @@ const AddService: React.FC = () => {
     // }
     
     //token暂时写死
-    // axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM2NTE3OTUsImlhdCI6MTY4MzY0OTk5NX0.VvujZG0p3I8Z75HK840QF777XLlRB9f0SKbSU5YyKLA";
+    axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM1ODQyMTQsImlhdCI6MTY4MzU4MjQxNH0._LXx-1qcQE2gCgQdeGJUBzM3m3MJMYhyEYRatJ0YHJ4";
     axios.request({
-      method: "POST",
-      url: "http://51.104.196.52:8090/api/v1/service/add",
-      params: {title:title, description:description, prices:price.number, address:address, category:category, userid:1, mobile:mobile, photos: photos}
+      method: "PUT",
+      url: "http://51.104.196.52:8090/api/v1/service/30",
+      params: {
+        title:title, 
+        longitude_latitude:longitude_latitude, 
+        address:address, 
+        city:city, 
+        country:country, 
+        mobile:mobile, 
+        areas_cover:areas_coverd, 
+        category:category, 
+        // prices:price.number, 
+        description:description, 
+        userid:1, 
+        availability:availability, 
+        photos: photos
+      }
     }).then((res) => {
         alert("success");
       }
@@ -165,7 +171,13 @@ const AddService: React.FC = () => {
       //If the form data has not been changed, the data obtained will be undefined
   }
 
+
+
+    
   const [form] = Form.useForm();
+
+
+
 
   return (
     <>
@@ -218,10 +230,13 @@ const AddService: React.FC = () => {
           <Input style={{ width: '100%' }} />
         </Form.Item>
 
-        <Form.Item label="Service area">
+        <Form.Item name="areas_coverd" label="Service area">
           <Input />
         </Form.Item>
-        
+
+
+
+
         <Form.Item name="category" label="Category">
           <Select>
             <Select.Option value="demo">Cleaning</Select.Option>
@@ -250,11 +265,11 @@ const AddService: React.FC = () => {
         </Form.Item>
 
         <Form.Item name="availability" label="Availability" valuePropName="checked">
-          <Switch />
+          <Input />
         </Form.Item>
 
         <Form.Item name="images" label="Upload  images" valuePropName="fileList" getValueFromEvent={normFile}>
-          <Upload action="/upload.do" listType="picture-card">
+          <Upload listType="picture-card">
             <div>
               <PlusOutlined />
               <div style={{ marginTop: 8 }}>Upload</div>
@@ -263,7 +278,7 @@ const AddService: React.FC = () => {
         </Form.Item>
 
         <Form.Item label="Add Service">
-          <Button type="primary" onClick={postFormData}>Submit</Button>
+          <Button type="primary" onClick={updateFormData}>Submit</Button>
         </Form.Item>
         
       </Form>
@@ -271,4 +286,4 @@ const AddService: React.FC = () => {
   );
 };
 
-export default () => <AddService />;
+export default () => <UpdateService />;

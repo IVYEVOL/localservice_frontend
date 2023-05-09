@@ -102,7 +102,7 @@ function Login() {
               >
                 Login
               </Button>
-              Not a member?&nbsp;<a href="/#/register" >Register now!</a>
+              Not a member?&nbsp;<a href="/register" >Register now!</a>
               <a className="login-form-forgot" href="" style={{
                 float: 'right',
               }}>

@@ -102,7 +102,7 @@ const ViewService = () => {
             });
     };
     return (
-        <div>
+        <div >
         {service ? (
             <>
                 <ServiceDesc serviceData={service} />
