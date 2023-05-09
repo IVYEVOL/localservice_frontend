@@ -54,7 +54,6 @@ const ProductCard = () => {
             console.log(22222222222)
         }
 
-
         axios
             .post(url, {//获取approved的service
                 page,
@@ -102,8 +101,6 @@ const ProductCard = () => {
         console.log('choose' + city);
         fetchServices(1);
     };
-
-
 
     return (
         <div>

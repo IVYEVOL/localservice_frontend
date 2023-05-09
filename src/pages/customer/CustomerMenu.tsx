@@ -6,14 +6,14 @@ import { Route } from 'react-router';
 import MesssageList from './MessageList';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import "./customerccss.css"
-
+import { removeToken } from '../../utils/tools';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const items: MenuProps['items'] = [
   {
     label: (
       <div>
         <NavLink to="/customer"><img src='src\assets\findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
-        
       </div>
     ),
     key: 'logo',
@@ -53,9 +53,16 @@ const items: MenuProps['items'] = [
         
           },
           {
-            label: <a href="" target="_blank" rel="noopener noreferrer">
-              Log out
-            </a>,
+            label: (
+              <span
+                onClick={() => {
+                  removeToken();
+                  console.log('Logout');
+                  useNavigate()('/') }}
+              >
+                Logout
+              </span>
+            ),
             key: 'Log out',
             style: { margin: 2},
            
