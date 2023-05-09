@@ -26,7 +26,7 @@ const sideMenuData = [
     label: 'Service Audit',
   },
   {
-    key: '/admin/verified_service_provider',
+    key: '/admin/review_management',
     icon: <UserOutlined />,
     label: 'service删除不好的评论',
   },

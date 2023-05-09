@@ -152,7 +152,12 @@ const App: React.FC = () => {
     const backToServiceAudit = () => {
         getAuthorization();
         window.location.href = "http://localhost:5173/admin/service_audit/"
+    }
 
+    
+    const backToReviewManagement = () => {
+        getAuthorization();
+        window.location.href = "http://localhost:5173/admin/review_management/"
     }
 
 
@@ -172,9 +177,11 @@ const App: React.FC = () => {
                                 Reject
                             </Button>
                             <Button size="large" type="default" onClick={backToServiceAudit} >
-                                Back
+                                Back to Service Audit
                             </Button>
-                        
+                            <Button size="large" type="default" onClick={backToReviewManagement} >
+                                Back to Review Management
+                            </Button>
 
                     </Space>
 

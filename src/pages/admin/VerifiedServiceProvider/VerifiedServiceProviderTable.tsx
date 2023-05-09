@@ -114,8 +114,9 @@ const App: React.FC = () => {
 
         render: (text: any) => (
           <Space size="middle">
-            <a href='#'>Service Detail</a>
+            {/* <a href='#'>Service Detail</a> */}
             {/* <a>Detail Reviews</a> */}
+            <a onClick={checkServiceDetail.bind(this, text)}>Check detail</a>
             <Button type="primary" onClick={checkDetailReviews.bind(this,text)} block>
                 Detail Reviews
             </Button>
@@ -139,6 +140,12 @@ const App: React.FC = () => {
     // }
     return <Table columns={columns} dataSource={expandedRowRecord} pagination={false} />;
   };
+
+  const checkServiceDetail=(r:any)=>{
+    let url = 'http://localhost:5173/admin/service_detail/' + r.ID;
+    window.location.href=url
+    
+  }
 
   const checkDetailReviews=(r:any)=>{
     console.log(r.ID)

@@ -22,23 +22,23 @@ const App: React.FC = () => {
         photos: '',
         description: ''
     }
-    const [serviceData, setServiceData] = useState(defaultData)
+    const [providerData, setProviderData] = useState(defaultData)
 
 
 
     useEffect(() => {
         // console.log(document.getElementsByClassName('ant-table-cell')[0])
         let timer = setTimeout(() => {
-            getServiceDetail();
+            getProviderDetail();
         }, 0)
 
         return () => clearTimeout(timer)
     }, [])
 
-    const getServiceDetail = () => {
+    const getProviderDetail = () => {
 
-        // getAuthorization();
-        axios.get('http://51.104.196.52:8090/api/v1/public/service/' + id, {
+        getAuthorization();
+        axios.get('http://51.104.196.52:8090/api/v1/user/' + id, {
 
         })
             .then(res => {
@@ -47,7 +47,7 @@ const App: React.FC = () => {
                 // const { ID } = res.data.ID
                 console.log('res.data');
                 console.log(data);
-                setServiceData(data)
+                setProviderData(data)
             })
 
     }
@@ -154,21 +154,21 @@ const App: React.FC = () => {
             </Row>
 
             <Descriptions column={4} layout="vertical" bordered>
-                <Descriptions.Item label="Service ID">{serviceData.ID}</Descriptions.Item>
-                <Descriptions.Item label="Service title">{serviceData.title}</Descriptions.Item>
-                <Descriptions.Item label="Service category">{serviceData.category}</Descriptions.Item>
-                <Descriptions.Item label="Provider ID">{serviceData.user_id}</Descriptions.Item>
+                <Descriptions.Item label="Service ID">{providerData.ID}</Descriptions.Item>
+                <Descriptions.Item label="Service title">{providerData.title}</Descriptions.Item>
+                <Descriptions.Item label="Service category">{providerData.category}</Descriptions.Item>
+                <Descriptions.Item label="Provider ID">{providerData.user_id}</Descriptions.Item>
 
-                <Descriptions.Item label="Status">{serviceData.Status}</Descriptions.Item>
-                <Descriptions.Item label="prices">{serviceData.prices}</Descriptions.Item>
-                <Descriptions.Item label="Areas covered">{serviceData.areas_coverd}</Descriptions.Item>
-                <Descriptions.Item label="Phone">{serviceData.mobile}</Descriptions.Item>
+                <Descriptions.Item label="Status">{providerData.Status}</Descriptions.Item>
+                <Descriptions.Item label="prices">{providerData.prices}</Descriptions.Item>
+                <Descriptions.Item label="Areas covered">{providerData.areas_coverd}</Descriptions.Item>
+                <Descriptions.Item label="Phone">{providerData.mobile}</Descriptions.Item>
 
-                <Descriptions.Item label="Created date" span={1}>{serviceData.CreatedAt}</Descriptions.Item>
+                <Descriptions.Item label="Created date" span={1}>{providerData.CreatedAt}</Descriptions.Item>
                 <Descriptions.Item label="Status" span={1}>
-                    <Badge status="processing" text={serviceData.Status} />
+                    <Badge status="processing" text={providerData.Status} />
                 </Descriptions.Item>
-                <Descriptions.Item label="City" span={1}>{serviceData.city}</Descriptions.Item>
+                <Descriptions.Item label="City" span={1}>{providerData.city}</Descriptions.Item>
 
 
                 <Descriptions.Item label="Picture" span={1}>
@@ -176,10 +176,10 @@ const App: React.FC = () => {
                         width={150}
                         height={150}
                         src="error"
-                        fallback={serviceData.photos}
+                        fallback={providerData.photos}
                     />
                 </Descriptions.Item>
-                <Descriptions.Item label="Description" span={4}>{serviceData.description}</Descriptions.Item>
+                <Descriptions.Item label="Description" span={4}>{providerData.description}</Descriptions.Item>
             </Descriptions>
         </>
     )

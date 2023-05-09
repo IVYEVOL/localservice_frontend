@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import { Route } from 'react-router';
+import { Navigate, Route, useNavigate } from 'react-router';
 import MesssageList from './MessageList';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import "./customerccss.css"
+import { removeToken } from '../../utils/tools';
 
-
+// const navigate = useNavigate()
 const items: MenuProps['items'] = [
   {
     label: (
@@ -53,9 +54,14 @@ const items: MenuProps['items'] = [
         
           },
           {
-            label: <a href="" target="_blank" rel="noopener noreferrer">
+            
+          
+            // label: <a >
+            //   Log out
+            // </a>,
+            label: (<a onClick={() => {removeToken();useNavigate()('/');}} rel="noopener noreferrer">
               Log out
-            </a>,
+            </a>),
             key: 'Log out',
             style: { margin: 2},
            
@@ -76,11 +82,26 @@ const items: MenuProps['items'] = [
   }
 ];
 
+// const customerLogout = () => {
+//   removeToken()
+//   useNavigate()('/')
+// };
+
+
 const CustomerMenu: React.FC = () => {
   const [current, setCurrent] = useState('Home');
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
+    console.log(e.key);
+
+    // if(e.key == "Log out"){
+    //   console.log('logout在这');
+    //     removeToken()
+    //     useNavigate()('/')
+    // }
+
+
     setCurrent(e.key);
   };
 
