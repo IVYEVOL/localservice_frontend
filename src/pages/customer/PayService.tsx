@@ -127,7 +127,7 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
         axios.request({
             method: "POST",
             url: "http://51.104.196.52:8090/api/v1/order/add",
-            params: { customer_name:name, customer_email:email, customer_phone:phonenumber, postcode:Postcode,address:address, city:city,date:datetimepicker, description:description, customer_id: user.user_id }
+            params: { customer_name:name, customer_email:email, customer_phone:phonenumber, postcode:Postcode,address:address, city:city,date:datetimepicker, description:description, customer_id: user.user_id ,service_id:serviceData.ID}
         }).then((res) => {
             alert("success");
             navigate('/');
@@ -184,7 +184,6 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
                         Confirm
                     </Button>
                 </Form.Item>
-
             </Form>
         </div>
     )

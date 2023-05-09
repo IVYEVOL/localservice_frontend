@@ -49,7 +49,6 @@ const ViewService = () => {
     const [service, setService] = useState<Service>();
     const [review, setReview] = useState<Review[]>([]);//获取筛选状态后的review
 
-
     useEffect(() => {
         let timer = setTimeout(() => {
             showReview()
