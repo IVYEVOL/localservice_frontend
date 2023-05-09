@@ -233,6 +233,8 @@ const App: React.FC = () => {
       key: 'key',
       sorter: (a, b) => a.key - b.key,
       sortDirections: ['descend', 'ascend'],
+      fixed:'left',
+      width:70
     },
     {
       title: 'Provider ID',
@@ -241,6 +243,7 @@ const App: React.FC = () => {
       ...getColumnSearchProps('user_id'),
       sorter: (a, b) => a.user_id - b.user_id,
       sortDirections: ['descend', 'ascend'],
+      width:120
     },
     {
       title: 'Service ID',
@@ -249,30 +252,35 @@ const App: React.FC = () => {
       ...getColumnSearchProps('ID'),
       sorter: (a, b) => a.ID - b.ID,
       sortDirections: ['descend', 'ascend'],
+      width:120
     },
     {
       title: 'Service Category',
       dataIndex: 'category',
       key: 'category',
       ...getColumnSearchProps('category'),
+      width:180
     },
     {
       title: 'Service Title',
       dataIndex: 'title',
       key: 'title',
       ...getColumnSearchProps('title'),
+      width:180
     },
     {
       title: 'Service City',
       dataIndex: 'city',
       key: 'city',
       ...getColumnSearchProps('city'),
+      width:140
     },
     {
       title: 'Service Mobile',
       dataIndex: 'mobile',
       key: 'mobile',
       ...getColumnSearchProps('mobile'),
+      width:200
     },
     {
       title: 'Status',
@@ -289,6 +297,7 @@ const App: React.FC = () => {
       },
       sorter: (a, b) => a.Status.length - b.Status.length,
       sortDirections: ['descend', 'ascend'],
+      width:120
     },
 
     {
@@ -296,7 +305,7 @@ const App: React.FC = () => {
       key: 'action',
 
       render: (text) => (
-        <Space size="middle">
+        <Space size="small">
 
           <a onClick={checkServiceDetail.bind(this, text)}>Check detail</a>
 
@@ -308,7 +317,8 @@ const App: React.FC = () => {
           </Button>
         </Space>
       ),
-
+      fixed:'right'
+      
     },
   ];
 
@@ -323,7 +333,11 @@ const App: React.FC = () => {
     
   }
 
-  return <Table columns={columns} dataSource={data} bordered />;
+  return <Table columns={columns}
+                dataSource={data} 
+                bordered
+                pagination={{ pageSize: 8 }} 
+                scroll={{ x:1360, y: 400 }} />;
 };
 
 export default App;

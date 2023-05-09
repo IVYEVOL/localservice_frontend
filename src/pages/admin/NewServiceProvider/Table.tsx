@@ -31,16 +31,19 @@ const App: React.FC = () => {
             title: 'No',
             dataIndex: 'key',
             key: 'key',
+            width:70
         },
         {
-            title: 'ID',
+            title: 'Provider ID',
             dataIndex: 'ID',
             key: 'ID',
+            width:90
         },
         {
             title: 'Service Provider Name',
             dataIndex: 'nick_name',
             key: 'nick_name',
+            width:200
         },
         {
             title: 'Phone number',
@@ -145,7 +148,11 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <Table columns={columns} dataSource={data} bordered/>
+            <Table columns={columns} 
+                dataSource={data} 
+                bordered
+                pagination={{ pageSize: 8 }} 
+                scroll={{ x:800, y: 400 }}/>
         </div>
 
 

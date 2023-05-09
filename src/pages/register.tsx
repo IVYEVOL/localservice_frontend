@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerAPI } from '../services/auth';
 import { defaultImg } from '../utils/tools';
+import TextArea from 'antd/lib/input/TextArea';
 
 const tailFormItemLayout = {
   wrapperCol: {
@@ -111,13 +112,13 @@ function Register() {
       name="role"
       label="role">
         <Radio.Group>
-          <Radio value={"Customer"}>Customer</Radio>
-          <Radio value={"Provider"}>Provider</Radio>
+          <Radio onClick={() => document.getElementById('provider_textarea')!.style.display='none'} value={"Customer"}>Customer</Radio>
+          <Radio onClick={() => document.getElementById('provider_textarea')!.style.display=''} value={"Provider"}>Provider</Radio>
         </Radio.Group>
       </Form.Item>
-
+      
       <Form.Item
-        name="nickname"
+        name="nick_name"
         label="Nickname"
         tooltip="What do you want others to call you?"
         rules={[{ required: false, message: 'Please input your nickname!', whitespace: true }]}
@@ -126,12 +127,41 @@ function Register() {
       </Form.Item>
 
       <Form.Item
-        name="phone"
+        name="mobile"
         label="Phone Number"
         rules={[{ required: false, message: 'Please input your phone number!' }]}
       >
         <Input style={{ width: '100%' }} />
       </Form.Item>
+
+      <div id="provider_textarea" style={{display:"none"}}>
+        <Form.Item
+          name="text"
+          label="Provider short description"
+          rules={[{ required: false, message: 'Please input your phone number!' }]}
+        >
+            <TextArea
+              showCount
+              maxLength={80}
+              style={{ height: 50, marginBottom: 24 }}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                console.log('Change:', e.target.value);
+              }}
+              placeholder="Reason for application (less than 80 characters)"
+            />
+        </Form.Item>
+      </div>
+
+      <Form.Item
+        name="status"
+        label="status"
+
+      >
+        <Input style={{ width: '100%' }}/>
+      </Form.Item>
+
+            
+        {/* <Input name="status" type="hidden" style={{ width: '100%' }} value="Pending"  /> */}
 
       <Form.Item
         name="agreement"
@@ -160,7 +190,7 @@ function Register() {
                   margin: '8px auto',
                 }}>
         Already a member?
-        <a className="login-form-forgot" href="">&nbsp;
+        <a className="login-form-forgot" href="/login">&nbsp;
           Login
         </a> 
         &nbsp;using your account.
