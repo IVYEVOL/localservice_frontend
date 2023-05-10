@@ -61,11 +61,17 @@ function Register() {
       <Form.Item
         name="email"
         label="Email"
+        
         rules={[
           {
             required: true,
             message: 'Please input your email',
           },
+          {
+            required: true,
+            pattern: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
+            message: 'Please input right email address!'
+          }
         ]}
       >
         <Input />
@@ -129,7 +135,12 @@ function Register() {
       <Form.Item
         name="mobile"
         label="Phone Number"
-        rules={[{ required: false, message: 'Please input your phone number!' }]}
+        rules={[
+          { 
+            required: false, 
+            message: 'Please input your phone number!' 
+          },
+        ]}
       >
         <Input style={{ width: '100%' }} />
       </Form.Item>
@@ -145,7 +156,13 @@ function Register() {
         <Form.Item
           name="text"
           label="Provider short description"
-          rules={[{ required: false, message: 'Please input your phone number!' }]}
+          rules={[
+            { 
+              required: false, 
+              message: 'Please input your phone number!' 
+            },
+
+          ]}
         >
             <TextArea
               showCount
