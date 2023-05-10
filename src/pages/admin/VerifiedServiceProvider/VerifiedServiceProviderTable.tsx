@@ -88,7 +88,7 @@ const App: React.FC = () => {
   const expandedRowRender = () => {
     const columns: TableColumnsType<ExpandedDataType> = [
       // { title: 'Date', dataIndex: 'date', key: 'date' },
-      { title: 'No', dataIndex: 'key', key: 'key' },
+      { title: 'No', dataIndex: 'key', key: 'key'},
       { title: 'Service ID', dataIndex: 'ID', key: 'ID' },
       { title: 'Service', dataIndex: 'title', key: 'title' },
       {
@@ -155,7 +155,7 @@ const App: React.FC = () => {
   }
 
   const columns: TableColumnsType<DataType> = [
-    { title: 'No', dataIndex: 'key', key: 'key' },
+    { title: 'No', dataIndex: 'key', key: 'key', width: 50 },
     { title: 'Provider', dataIndex: 'nick_name', key: 'nick_name' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
     { title: 'Phone Number', dataIndex: 'mobile', key: 'mobile' },
@@ -295,6 +295,8 @@ const delService = (r: any) =>{
         bordered
         onExpand={handldOnExpand}
         size='large'
+        pagination={{ pageSize: 8 }} 
+                scroll={{ x:950, y: 400 }}
       />
     </>
   );

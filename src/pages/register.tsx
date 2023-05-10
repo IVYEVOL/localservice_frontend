@@ -135,6 +135,13 @@ function Register() {
       </Form.Item>
 
       <div id="provider_textarea" style={{display:"none"}}>
+
+        <Form.Item
+        name="status"
+        initialValue={"Pending"}
+        hidden>
+        </Form.Item>
+
         <Form.Item
           name="text"
           label="Provider short description"
@@ -142,7 +149,7 @@ function Register() {
         >
             <TextArea
               showCount
-              maxLength={80}
+              maxLength={100}
               style={{ height: 50, marginBottom: 24 }}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 console.log('Change:', e.target.value);
@@ -151,17 +158,6 @@ function Register() {
             />
         </Form.Item>
       </div>
-
-      <Form.Item
-        name="status"
-        label="status"
-
-      >
-        <Input style={{ width: '100%' }}/>
-      </Form.Item>
-
-            
-        {/* <Input name="status" type="hidden" style={{ width: '100%' }} value="Pending"  /> */}
 
       <Form.Item
         name="agreement"

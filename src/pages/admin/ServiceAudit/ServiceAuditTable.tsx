@@ -280,7 +280,7 @@ const App: React.FC = () => {
       dataIndex: 'mobile',
       key: 'mobile',
       ...getColumnSearchProps('mobile'),
-      width:200
+      width:210
     },
     {
       title: 'Status',
@@ -297,7 +297,8 @@ const App: React.FC = () => {
       },
       sorter: (a, b) => a.Status.length - b.Status.length,
       sortDirections: ['descend', 'ascend'],
-      width:120
+      width:110,
+      fixed:'right'
     },
 
     {
