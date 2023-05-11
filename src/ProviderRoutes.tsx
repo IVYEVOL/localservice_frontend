@@ -8,6 +8,7 @@ import ServiceList from './pages/provider/ServiceList'
 import Profile from './pages/provider/Profile'
 import ServiceDetail from './pages/provider/ServiceDetail'
 import service from './provider_data/services.json'
+import ViewService from './pages/provider/ViewService'
 
 function ProviderRoutes() {
 
@@ -19,10 +20,11 @@ function ProviderRoutes() {
           <Route index element={<ServiceList />}></Route>
           {/* <Route path='ServiceList' element={<ServiceList />} /> */}
           <Route path='AddService' element={<AddService />} />
-          <Route path='UpdateService' element={<UpdateService />} />
+          <Route path='UpdateService/:id' element={<UpdateService />} />
           <Route path='ServiceRequest' element={<ServiceRequest />} />
           <Route path='Profile' element={<Profile />} />
           <Route path='ServiceList/ServiceDetail' element={<ServiceDetail />} />
+          <Route path='viewservice/:id' element={<ViewService />} />
       </Routes>
       
       </Container>

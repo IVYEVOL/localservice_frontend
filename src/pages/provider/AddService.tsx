@@ -17,6 +17,7 @@ import React, { useState } from 'react';
 import Axios from 'axios'
 import { getAuthorization } from '../../utils/tools';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 const { Option } = Select;
@@ -34,6 +35,8 @@ interface PriceInputProps {
 }
 
 const PriceInput: React.FC<PriceInputProps> = ({ value = {}, onChange }) => {
+
+  
   const [number, setNumber] = useState(0);
   const [currency, setCurrency] = useState<Currency>('gbp');
 
@@ -97,6 +100,12 @@ const normFile = (e: any) => {
 const AddService: React.FC = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
 
+  // get user id
+  const userJson = Cookies.get('user');
+  const user = userJson ? JSON.parse(userJson) : {};
+  console.log(user.user_id)
+
+
   const onFinish = (values: any) => {
     console.log('Received values from form: ', values);
   };
@@ -112,36 +121,60 @@ const AddService: React.FC = () => {
   const postFormData  = () => {
     getAuthorization();
     const title = form.getFieldValue("title");
-    if('' == title || title == undefined){
-      alert("title can not be empty");
-      return;
-    }
-    const description = form.getFieldValue("description");
-    if('' == description || description == undefined){
-      alert("description can not be empty");
-      return;
-    }
-    const price = form.getFieldValue("price");
-    if('' == price || price == undefined){
-      alert("price can not be empty");
-      return;
-    }
+  
+    const longitude_latitude = form.getFieldValue("longitude") + "," + form.getFieldValue("latitude") ;
+
     const address = form.getFieldValue("address");
-    if('' == address || address == undefined){
-      alert("address can not be empty");
-      return;
-    }
-    const category = form.getFieldValue("category");
-    if('' == category || category == undefined){
-      alert("category can not be empty");
-      return;
-    }
+
+    const city = form.getFieldValue("city");
+
+    const country = form.getFieldValue("country");
+
     const mobile = form.getFieldValue("phoneNumber");
-    if('' == mobile || mobile == undefined){
-      alert("mobile can not be empty");
-      return;
-    }
-    const photos = form.getFieldValue("images");
+
+    const areas_coverd = form.getFieldValue("areas_coverd");
+  
+    const category = form.getFieldValue("category");
+
+    const price = form.getFieldValue("price");
+    
+    const description = form.getFieldValue("description");
+   
+   const availability = form.getFieldValue("availability");
+  //   const title = form.getFieldValue("title");
+  //   if('' == title || title == undefined){
+  //     alert("title can not be empty");
+  //     return;
+  //   }
+  //   const description = form.getFieldValue("description");
+  //   if('' == description || description == undefined){
+  //     alert("description can not be empty");
+  //     return;
+  //   }
+  //   const price = form.getFieldValue("price");
+  //   if('' == price || price == undefined){
+  //     alert("price can not be empty");
+  //     return;
+  //   }
+  //   const address = form.getFieldValue("address");
+  //   if('' == address || address == undefined){
+  //     alert("address can not be empty");
+  //     return;
+  //   }
+  //   const category = form.getFieldValue("category");
+  //   if('' == category || category == undefined){
+  //     alert("category can not be empty");
+  //     return;
+  //   }
+  //   const mobile = form.getFieldValue("phoneNumber");
+  //   if('' == mobile || mobile == undefined){
+  //     alert("mobile can not be empty");
+  //     return;
+  //   }
+  //   const areas_coverd = form.getFieldValue("areas_coverd");
+   
+  //  const availability = form.getFieldValue("availability");
+  //   const photos = form.getFieldValue("images");
     // if('' == photos || photos == undefined){
     //   alert("photos can not be empty");
     //   return;
@@ -152,7 +185,7 @@ const AddService: React.FC = () => {
     axios.request({
       method: "POST",
       url: "http://51.104.196.52:8090/api/v1/service/add",
-      params: {title:title, description:description, prices:price.number, address:address, category:category, userid:1, mobile:mobile, photos: photos}
+      params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd:areas_coverd,availability:availability }
     }).then((res) => {
         alert("success");
       }
@@ -259,17 +292,17 @@ const AddService: React.FC = () => {
         </Form.Item>
 
         <Form.Item name="availability" label="Availability" valuePropName="checked">
-          <Switch />
+          <Input />
         </Form.Item>
 
-        <Form.Item name="images" label="Upload  images" valuePropName="fileList" getValueFromEvent={normFile}>
+        {/* <Form.Item name="images" label="Upload  images" valuePropName="fileList" getValueFromEvent={normFile}>
           <Upload action="/upload.do" listType="picture-card">
             <div>
               <PlusOutlined />
               <div style={{ marginTop: 8 }}>Upload</div>
             </div>
           </Upload>
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item label="Add Service">
           <Button type="primary" onClick={postFormData}>Submit</Button>

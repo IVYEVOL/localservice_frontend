@@ -17,6 +17,30 @@ import React, { useState } from 'react';
 import Axios from 'axios'
 import { getAuthorization } from '../../utils/tools';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useParams } from 'react-router-dom';
+import Dropzone from "react-dropzone";
+
+interface Service {
+  key: number;
+  ID: number;
+  title: string;
+  prices: number;
+  city: string;
+  description: string;
+  address: string;
+  category: string;
+  photos: string;
+  Status: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt: string | null;
+  areas_coverd: number;
+  availibility: string;
+  longitude_latitude: string;
+  mobile: string;
+  user_id: number;
+}
 
 
 const { Option } = Select;
@@ -95,6 +119,39 @@ const normFile = (e: any) => {
 
 
 const UpdateService: React.FC = () => {
+  const [imageUrl, setImageUrl] = useState<string>();
+  const handleDrop = (acceptedFiles: any) => {
+    const file = acceptedFiles[0];
+    const formData = new FormData();
+    formData.append("avatar", file);
+    getAuthorization()
+    axios.put("http://51.104.196.52:8090/api/v1/service/"+ id, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => {
+        const avatarUrl = res.data.avatarUrl;
+        setImageUrl(avatarUrl)
+       // setAvatar(avatarUrl);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    // 处理表单提交事件
+  };
+  
+  // get user id
+  const userJson = Cookies.get('user');
+  const user = userJson ? JSON.parse(userJson) : {};
+  console.log(user.user_id)
+  
+  const { id } = useParams<{ id: string }>();
+  
   const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
 
   const onFinish = (values: any) => {
@@ -110,6 +167,7 @@ const UpdateService: React.FC = () => {
 
 
   const updateFormData  = () => {
+    console.log("--------------updateFormData")
     getAuthorization();
     const title = form.getFieldValue("title");
   
@@ -130,20 +188,23 @@ const UpdateService: React.FC = () => {
     const price = form.getFieldValue("price");
     
     const description = form.getFieldValue("description");
+
    
-   const availability = form.getFieldValue("availability");
+    const availability = form.getFieldValue("availability");
    
-    const photos = form.getFieldValue("images");
-    // if('' == photos || photos == undefined){
-    //   alert("photos can not be empty");
-    //   return;
-    // }
+    var Photos = form.getFieldValue("images");
+    if('' == Photos || Photos == undefined){
+      Photos = "http://localhost:5182/src/assets/profile.png" ;
+      //alert("photos can not be empty");
+      //return;
+    }
+    
     
     //token暂时写死
-    axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM1ODQyMTQsImlhdCI6MTY4MzU4MjQxNH0._LXx-1qcQE2gCgQdeGJUBzM3m3MJMYhyEYRatJ0YHJ4";
+   // axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM1ODQyMTQsImlhdCI6MTY4MzU4MjQxNH0._LXx-1qcQE2gCgQdeGJUBzM3m3MJMYhyEYRatJ0YHJ4";
     axios.request({
       method: "PUT",
-      url: "http://51.104.196.52:8090/api/v1/service/30",
+      url: "http://51.104.196.52:8090/api/v1/service/"+ id ,
       params: {
         title:title, 
         longitude_latitude:longitude_latitude, 
@@ -153,11 +214,11 @@ const UpdateService: React.FC = () => {
         mobile:mobile, 
         areas_cover:areas_coverd, 
         category:category, 
-        // prices:price.number, 
+       // prices:price.number, 
         description:description, 
-        userid:1, 
+        userid:user.user_id, 
         availability:availability, 
-        photos: photos
+        Photos: Photos
       }
     }).then((res) => {
         alert("success");
@@ -239,13 +300,13 @@ const UpdateService: React.FC = () => {
 
         <Form.Item name="category" label="Category">
           <Select>
-            <Select.Option value="demo">Cleaning</Select.Option>
-            <Select.Option value="demo">Electrical repairs</Select.Option>
-            <Select.Option value="demo">Babysitting</Select.Option>
-            <Select.Option value="demo">Beauty</Select.Option>
-            <Select.Option value="demo">Pest control</Select.Option>
-            <Select.Option value="demo">Plumbing</Select.Option>
-            <Select.Option value="demo">Other services</Select.Option>
+            <Select.Option value="Cleaning">Cleaning</Select.Option>
+            <Select.Option value="Electrical">Electrical repairs</Select.Option>
+            <Select.Option value="Babysitting">Babysitting</Select.Option>
+            <Select.Option value="Beauty">Beauty</Select.Option>
+            <Select.Option value="Pest control">Pest control</Select.Option>
+            <Select.Option value="Plumbing">Plumbing</Select.Option>
+            <Select.Option value="Other services">Other services</Select.Option>
           </Select>
         </Form.Item>
 
@@ -268,14 +329,25 @@ const UpdateService: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item name="images" label="Upload  images" valuePropName="fileList" getValueFromEvent={normFile}>
+        {/* <Form.Item name="images" label="Upload  images" valuePropName="fileList" getValueFromEvent={normFile}>
           <Upload listType="picture-card">
             <div>
               <PlusOutlined />
               <div style={{ marginTop: 8 }}>Upload</div>
             </div>
           </Upload>
-        </Form.Item>
+        </Form.Item> */}
+         <form onSubmit={handleSubmit}>
+                <Dropzone onDrop={handleDrop}>
+                    {({ getRootProps, getInputProps }) => (
+                        <div {...getRootProps()} className="profile-button">
+                            <input {...getInputProps()} />
+                             Change Photo
+                        </div>
+            )}
+                </Dropzone>
+             <button type="submit" className="profile-button">Submit Photo</button>
+            </form>
 
         <Form.Item label="Add Service">
           <Button type="primary" onClick={updateFormData}>Submit</Button>
