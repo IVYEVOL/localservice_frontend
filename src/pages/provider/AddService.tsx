@@ -216,10 +216,16 @@ const AddService: React.FC = () => {
         <Form.Item
           name="phoneNumber"
           label="Phone number"
-          // rules={[{ required: true, message: 'Please enter the correct mobile phone number', pattern: new RegExp(/^1(3|4|5|6|7|8|9)\d{9}$/, "g") }]}>
-          rules={[{ message: 'Please enter the correct mobile phone number' }]}>
-          <Input style={{ width: '100%' }} />
-        </Form.Item>
+          rules={[
+            { 
+              required: true, 
+              pattern: new RegExp(/^(?:(?:\+44\s*\d{10})|(?:0\d{4}\s*\d{6}))$/), 
+              message: 'Please enter a valid UK mobile phone number' 
+            }
+          ]}
+>
+  <Input style={{ width: '100%' }} />
+</Form.Item>
 
         <Form.Item label="Service area">
           <Input />

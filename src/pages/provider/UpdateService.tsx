@@ -1,9 +1,12 @@
+
+
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   Button,
   Cascader,
   Checkbox,
   DatePicker,
+  Descriptions,
   Form,
   Input,
   InputNumber,
@@ -13,34 +16,19 @@ import {
   TreeSelect,
   Upload,
 } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from 'axios'
 import { getAuthorization } from '../../utils/tools';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useParams } from 'react-router-dom';
-import Dropzone from "react-dropzone";
+import { RcFile } from 'antd/lib/upload';
 
-interface Service {
-  key: number;
-  ID: number;
-  title: string;
-  prices: number;
-  city: string;
-  description: string;
-  address: string;
-  category: string;
-  photos: string;
-  Status: string;
-  CreatedAt: string;
-  UpdatedAt: string;
-  DeletedAt: string | null;
-  areas_coverd: number;
-  availibility: string;
-  longitude_latitude: string;
-  mobile: string;
-  user_id: number;
-}
+const getBase64 = (img: RcFile, callback: (url: string) => void) => {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result as string));
+  reader.readAsDataURL(img);
+};
 
 
 const { Option } = Select;
@@ -58,6 +46,8 @@ interface PriceInputProps {
 }
 
 const PriceInput: React.FC<PriceInputProps> = ({ value = {}, onChange }) => {
+
+  
   const [number, setNumber] = useState(0);
   const [currency, setCurrency] = useState<Currency>('gbp');
 
@@ -116,125 +106,177 @@ const normFile = (e: any) => {
 };
 
 
+ 
+
 
 
 const UpdateService: React.FC = () => {
-  const [imageUrl, setImageUrl] = useState<string>();
-  const [fileList, setFileList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
 
-  const handleDrop = (acceptedFiles: any) => {
-    const file = acceptedFiles[0];
-    const formData = new FormData();
-    formData.append("avatar", file);
-    getAuthorization()
-    axios.put("http://51.104.196.52:8090/api/v1/service/"+ id, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-      .then((res) => {
-        const avatarUrl = res.data.avatarUrl;
-        setImageUrl(avatarUrl)
-       // setAvatar(avatarUrl);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    // 处理表单提交事件
-  };
-  
   // get user id
   const userJson = Cookies.get('user');
   const user = userJson ? JSON.parse(userJson) : {};
   console.log(user.user_id)
+
+  const defaultData = {
+    title: '',
   
-  const { id } = useParams<{ id: string }>();
+    longitude_latitude: '',
+
+    address: '',
+
+    city: '',
+
+    country:'',
+
+    mobile:'',
+
+    areas_coverd:'',
   
-  const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
+    category:'',
 
-  const onFinish = (values: any) => {
-    console.log('Received values from form: ', values);
-  };
-
-  const checkPrice = (_: any, value: { number: number }) => {
-    if (value.number > 0) {
-      return Promise.resolve();
-    }
-    return Promise.reject(new Error('Price must be greater than zero!'));
-  };
-  
-  const handleChange = (info:any) => {
-    setFileList(info.fileList);
-  }
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
-
-
-  const updateFormData  = () => {
-    console.log("--------------updateFormData")
-    getAuthorization();
-    const title = form.getFieldValue("title");
-  
-    const longitude_latitude = form.getFieldValue("longitude") + "," + form.getFieldValue("latitude") ;
-
-    const address = form.getFieldValue("address");
-
-    const city = form.getFieldValue("city");
-
-    const country = form.getFieldValue("country");
-
-    const mobile = form.getFieldValue("phoneNumber");
-
-    const areas_coverd = form.getFieldValue("areas_coverd");
-  
-    const category = form.getFieldValue("category");
-
-    const price = form.getFieldValue("price");
+    price:'',
     
-    const description = form.getFieldValue("description");
+    description:'',
+   
+    availability:'',
+  
+}
 
-   
-    const availability = form.getFieldValue("availability");
-   
-    var Photos = form.getFieldValue("images");
-    if('' == Photos || Photos == undefined){
-      Photos = "http://localhost:5182/src/assets/profile.png" ;
-      //alert("photos can not be empty");
-      //return;
+
+const [serviceData, setServiceData] = useState(defaultData)
+const [editing, setEditing] = useState(false);
+const [loading, setLoading] = useState(false);
+const [imageUrl, setImageUrl] = useState<string>();
+const [title, setTitle] = useState<string>();
+const [areas_coverd, setAreasCoverd] = useState<string>();
+const [description, setDescription] = useState<string>();
+const [availability, setAvailability] = useState<string>();
+const [category, setCategory] = useState<string>();
+const [mobile, setMobile] = useState<string>();
+const [fileList, setFileList] = useState([]);
+
+//get service id
+const { id } = useParams<{ id: string }>();
+const serviceId = Number(id); // 将id转换为number类型
+ console.log('接收的id为' + serviceId)
+
+// const showServiceById = () => {//获取service数据
+//   axios
+//       .get('http://51.104.196.52:8090/api/v1/public/service/' + serviceId, {})//获取该ID的service
+//       .then((res) => {
+//           const service: Service = res.data.data
+//           console.log('服务id')
+//           console.log(service.ID); // 获取服务 ID
+//           setService(service);
+
+//       })
+//       .catch((err) => {
+//           console.log(err);
+//       });
+// };
+
+
+const getServiceDataById = () => {
+  getAuthorization();
+  axios.request({
+    method: "GET",
+    url: 'http://51.104.196.52:8090/api/v1/public/service/' + serviceId,
+  }).then((res) => {
+    //这个就是获取到的数据列表
+      var data  = res.data.data
+      setServiceData(data)
+      var u
+      if('' == data.photos || data.photos == undefined){
+
+          u =  "http://localhost:5182/src/assets/findserviceLogo.png" ;
+      }else{
+          u = 'http://51.104.196.52:8090/' + data.photos
+      }
+      
+      setImageUrl(u);
+      console.log("u:"+u)
+      console.log("data.photos:"+data.photos)
+    }
+  );
+};
+useEffect(() => {
+  //请求列表数据
+  getServiceDataById();
+}, [])
+
+const handleEdit = () => {
+  setEditing(true);
+};
+
+const uploadButton = (
+  <div>
+    {loading ? <LoadingOutlined /> : <PlusOutlined />}
+    <div style={{ marginTop: 8 }}>Upload</div>
+  </div>
+);
+
+  
+
+  
+  const handleSave = () => {
+    const formData = new FormData();
+    fileList.forEach(item => {
+        //将fileList中每个元素的file添加到formdata对象中
+        //formdata对Key值相同的，会自动封装成一个数组
+          formData.append('Photos', item['originFileObj']);
+    });
+    if (typeof title !== 'undefined') {
+      formData.append('title', title);
+    }else{
+      formData.append('title',serviceData.title)
     }
 
+    if (typeof mobile !== 'undefined') {
+      formData.append('mobile', mobile);
+      if (mobile.match(/^(?:(?:\+44\s*\d{10})|(?:0\d{4}\s*\d{6}))$/)) {
+        formData.append('mobile', mobile);
+      }else{
+        alert("Please enter a valid UK mobile phone number");
+        return
+      }
+    }else{
+      formData.append('mobile',serviceData.mobile)
+    }
+
+    if (typeof areas_coverd !== 'undefined') {
+      formData.append('areas_coverd', areas_coverd);
+    }else{
+      formData.append('areas_coverd',serviceData.areas_coverd)
+    }
+
+    if (typeof availability !== 'undefined') {
+      formData.append('availability', availability);
+    }else{
+      formData.append('availability',serviceData.availability)
+    }
+
+    if (typeof description !== 'undefined') {
+      formData.append('title', description);
+    }else{
+      formData.append('title',serviceData.description)
+    }
+    console.log("------------"+title)
+    getAuthorization();
     axios.request({
       method: "PUT",
-      url: "http://51.104.196.52:8090/api/v1/service/"+ id ,
-      params: {
-        title:title, 
-        longitude_latitude:longitude_latitude, 
-        address:address, 
-        city:city, 
-        country:country, 
-        mobile:mobile, 
-        areas_cover:areas_coverd, 
-        category:category, 
-       // prices:price.number, 
-        description:description, 
-        userid:user.user_id, 
-        availability:availability, 
-        Photos: Photos
-      }
+      url: "http://51.104.196.52:8090/api/v1/service/" + id,  //这个put上传接口，你同学弄的有问题，如果我不传递avatar这个参数，他就会把数据库这个值改成空字符串，按理说不可能每次都修改图片，所以应该判断下，如果是空则不修改
+      data: formData
     }).then((res) => {
-        alert("success");
+        alert("Update User Successful");
+        //更新成功，然后切换到本来的页面并且刷新数据
+        // setEditing(false);
+        // getUserData();
+        // setTitle('');
+        // setMobile('');
       }
     );
-  }
+  };
   
   function showFormData() {
     console.log(form.getFieldsValue());//Get all form data
@@ -243,134 +285,73 @@ const UpdateService: React.FC = () => {
   }
 
 
-  
+
     
   const [form] = Form.useForm();
 
+  const handleChange = (info:any) => {
+    setFileList(info.fileList);
+  }
 
 
 
   return (
     <>
-      <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
-        layout="horizontal"
-        style={{ maxWidth: 600 }}
-        form={form}
+      {editing ? (
+        <div>
+        <Input placeholder="Input new name" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <br />
         
-      >
-        <Form.Item name = "title" label="Title">
-          <Input/>
-        </Form.Item>
+        <Input placeholder="Input new mobile" value={mobile} onChange={(e) => setMobile(e.target.value)} />
+        <br />
 
-
-        <Form.Item label="Location" style={{ marginBottom: 0 }}>
-          <Form.Item
-            name="longitude"
-            rules={[{ required: true }]}
-            style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
-          >
-            <Input placeholder="Input Longitude" />
-          </Form.Item>
-          <Form.Item
-            name="latitude"
-            rules={[{ required: true }]}
-            style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
-          >
-            <Input placeholder="Input latitude" />
-          </Form.Item>
-        </Form.Item>
-
-        <Form.Item name="address" label="Address">
-          <Input  type="text"  id="location-input" />
-        </Form.Item>
-        <Form.Item name="city" label="City">
-          <Input  type="text"  id="location-input" />
-        </Form.Item>
-        <Form.Item name="country" label="Country">
-          <Input  type="text"  id="location-input" />
-        </Form.Item>
-        <div className="map" id="gmp-map"></div>
-
-        <Form.Item
-          name="phoneNumber"
-          label="Phone number"
-          // rules={[{ required: true, message: 'Please enter the correct mobile phone number', pattern: new RegExp(/^1(3|4|5|6|7|8|9)\d{9}$/, "g") }]}>
-          rules={[{ message: 'Please enter the correct mobile phone number' }]}>
-          <Input style={{ width: '100%' }} />
-        </Form.Item>
-
-        <Form.Item name="areas_coverd" label="Service area">
-          <Input />
-        </Form.Item>
-
-
-
-
-        <Form.Item name="category" label="Category">
-          <Select>
-            <Select.Option value="Cleaning">Cleaning</Select.Option>
-            <Select.Option value="Electrical">Electrical repairs</Select.Option>
-            <Select.Option value="Babysitting">Babysitting</Select.Option>
-            <Select.Option value="Beauty">Beauty</Select.Option>
-            <Select.Option value="Pest control">Pest control</Select.Option>
-            <Select.Option value="Plumbing">Plumbing</Select.Option>
-            <Select.Option value="Other services">Other services</Select.Option>
-          </Select>
-        </Form.Item>
-
-        {/* <Form.Item label="DatePicker">
-          <DatePicker />
-        </Form.Item>
-        <Form.Item label="RangePicker">
-          <RangePicker />
-        </Form.Item> */}
-
-        <Form.Item name="price" label="Price" rules={[{ validator: checkPrice }]}>
-          <PriceInput />
-        </Form.Item>
-
-        <Form.Item name="description" label="Description" >
-          <TextArea rows={4} />
-        </Form.Item>
-
-        <Form.Item name="availability" label="Availability" valuePropName="checked">
-          <Input />
-        </Form.Item>
-
+        <br />
+        <Input placeholder="Input new areas coverd" value={areas_coverd} onChange={(e) => setAreasCoverd(e.target.value)} />
+        <br />
+        <Input placeholder="Input new availability" value={availability} onChange={(e) => setAvailability(e.target.value)} />
+        <br />
+        <Input placeholder="Input new description" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <br />
+        <br />
+        
         <Upload
-                    multiple={true}
-                    //陈列样式，现在是卡片式
-                    listType="picture-card"
-                    beforeUpload={() => {
-                       //阻止上传
-                        return false;
-                    }}
-                    onChange={(info) => { handleChange(info) }}
-                    action=''
-                >
-                    {fileList.length >= 1 ? null : uploadButton}
-          </Upload>
+                  multiple={true}
+                  //陈列样式，现在是卡片式
+                  listType="picture-card"
+                  beforeUpload={() => {
+                     //阻止上传
+                      return false;
+                  }}
+                  onChange={(info) => { handleChange(info) }}
+                  action=''
+              >
+                  {fileList.length >= 1 ? null : uploadButton}
+        </Upload>
 
-          <br />
-         {/* <form onSubmit={handleSubmit}>
-                <Dropzone onDrop={handleDrop}>
-                    {({ getRootProps, getInputProps }) => (
-                        <div {...getRootProps()} className="profile-button">
-                            <input {...getInputProps()} />
-                             Change Photo
-                        </div>
-            )}
-                </Dropzone>
-             <button type="submit" className="profile-button">Submit Photo</button>
-            </form> */}
-
-        <Form.Item label="Add Service">
-          <Button type="primary" onClick={updateFormData}>Submit</Button>
-        </Form.Item>
-        
-      </Form>
+        <br />
+        <Button type="primary" onClick={handleSave}>
+          Save
+        </Button>
+      </div>
+       
+      ) : (
+        <div>
+          <Descriptions
+            bordered
+            title="Edit Your Service"
+            extra={<Button type="primary" onClick={handleEdit}>Edit</Button>}
+          >
+            <Descriptions.Item label="title">{serviceData.title}</Descriptions.Item>
+            <Descriptions.Item label="Service area">{serviceData.areas_coverd}</Descriptions.Item>
+            <Descriptions.Item label="Availibility">{serviceData.availability}</Descriptions.Item>
+            <Descriptions.Item label="Mobile">{serviceData.mobile}</Descriptions.Item>
+            <Descriptions.Item label="Descriptiont">{serviceData.description}</Descriptions.Item>
+          </Descriptions>
+          <img src={imageUrl} width={200} height={200} style={{ cursor:'pointer' }}/>
+        </div>
+      )
+      }
+      
     </>
   );
 };
