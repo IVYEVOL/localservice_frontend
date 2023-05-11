@@ -26,9 +26,9 @@ const sideMenuData = [
     label: 'Service Audit',
   },
   {
-    key: '/admin/verified_service_provider',
+    key: '/admin/review_management',
     icon: <UserOutlined />,
-    label: 'service删除不好的评论',
+    label: 'Review Management',
   },
 
   // {
@@ -94,7 +94,7 @@ const MyLayout = ({ children }: any) => {
 
   return (
     <Layout style={{ width: '100vw', height: '100vh' }} id="components-layout-demo-custom-trigger">
-      <Sider width={300} trigger={null} collapsible collapsed={sideCollapsed}>
+      <Sider width={200} trigger={null} collapsible collapsed={sideCollapsed}>
         <div className="logo">
           <img src={logo} alt="LocalService" />
         </div>

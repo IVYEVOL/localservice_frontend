@@ -198,13 +198,7 @@ const AddService: React.FC = () => {
       //If the form data has not been changed, the data obtained will be undefined
   }
 
-
-
-    
   const [form] = Form.useForm();
-
-
-
 
   return (
     <>
@@ -260,10 +254,7 @@ const AddService: React.FC = () => {
         <Form.Item label="Service area">
           <Input />
         </Form.Item>
-
-
-
-
+        
         <Form.Item name="category" label="Category">
           <Select>
             <Select.Option value="demo">Cleaning</Select.Option>

@@ -17,7 +17,8 @@ function AdminRoutes() {
         <Routes>
           <Route path='new_service_provider' element={<NewServiceProvider />} />
           <Route path='service_audit' element={<ServiceAudit />} />
-          <Route path='verified_service_provider' element={<VerifiedServiceProvider />} />
+          {/* <Route path='verified_service_provider' element={<VerifiedServiceProvider />} /> */}
+          <Route path='review_management' element={<VerifiedServiceProvider />} />
           <Route path='service_reviews/:id' element={<ServiceReviewsByID />} />
           <Route path='service_detail/:id' element={<ServiceDetailByID />} />
         </Routes>

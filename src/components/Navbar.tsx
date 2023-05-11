@@ -1,7 +1,12 @@
 import { Button, Container, Nav, Navbar as NavbarBs } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
+import { getToken } from "../utils/tools"
 
 export function Navbar() {
+
+
+
+
       return (
           <NavbarBs className="bg-white shadow-sm mb-3">
               <Container>
@@ -20,6 +25,9 @@ export function Navbar() {
                       <Nav.Link to = "Profile" as = {NavLink} >
                           Profile
                       </Nav.Link>
+                      {/* { getToken() && <Nav.Link to = "Profile" as = {NavLink} >
+                          Profile
+                      </Nav.Link>} */}
                       <Nav.Link to = "/login" as = {NavLink} >
                           Log Out
                       </Nav.Link>

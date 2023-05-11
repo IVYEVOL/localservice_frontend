@@ -72,8 +72,14 @@ function Login() {
               rules={[
                 {
                   required: true,
+                  pattern: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
+                  message: 'Please input right email address!'
+                },
+                {
+                  required: true,
                   message: 'Please enter email',
                 },
+                
               ]}
             >
               <Input placeholder='Please enter email' />
@@ -102,7 +108,7 @@ function Login() {
               >
                 Login
               </Button>
-              Not a member?&nbsp;<a href="/#/register" >Register now!</a>
+              Not a member?&nbsp;<a href="/register" >Register now!</a>
               <a className="login-form-forgot" href="" style={{
                 float: 'right',
               }}>
