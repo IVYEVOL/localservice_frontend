@@ -141,44 +141,8 @@ const AddService: React.FC = () => {
     const description = form.getFieldValue("description");
    
    const availability = form.getFieldValue("availability");
-  //   const title = form.getFieldValue("title");
-  //   if('' == title || title == undefined){
-  //     alert("title can not be empty");
-  //     return;
-  //   }
-  //   const description = form.getFieldValue("description");
-  //   if('' == description || description == undefined){
-  //     alert("description can not be empty");
-  //     return;
-  //   }
-  //   const price = form.getFieldValue("price");
-  //   if('' == price || price == undefined){
-  //     alert("price can not be empty");
-  //     return;
-  //   }
-  //   const address = form.getFieldValue("address");
-  //   if('' == address || address == undefined){
-  //     alert("address can not be empty");
-  //     return;
-  //   }
-  //   const category = form.getFieldValue("category");
-  //   if('' == category || category == undefined){
-  //     alert("category can not be empty");
-  //     return;
-  //   }
-  //   const mobile = form.getFieldValue("phoneNumber");
-  //   if('' == mobile || mobile == undefined){
-  //     alert("mobile can not be empty");
-  //     return;
-  //   }
-  //   const areas_coverd = form.getFieldValue("areas_coverd");
-   
-  //  const availability = form.getFieldValue("availability");
-  //   const photos = form.getFieldValue("images");
-    // if('' == photos || photos == undefined){
-    //   alert("photos can not be empty");
-    //   return;
-    // }
+  
+ 
     
     //token暂时写死
     // axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM2NTE3OTUsImlhdCI6MTY4MzY0OTk5NX0.VvujZG0p3I8Z75HK840QF777XLlRB9f0SKbSU5YyKLA";
@@ -198,7 +162,13 @@ const AddService: React.FC = () => {
       //If the form data has not been changed, the data obtained will be undefined
   }
 
+
+
+    
   const [form] = Form.useForm();
+
+
+
 
   return (
     <>
@@ -254,16 +224,19 @@ const AddService: React.FC = () => {
         <Form.Item label="Service area">
           <Input />
         </Form.Item>
-        
+
+
+
+
         <Form.Item name="category" label="Category">
           <Select>
-            <Select.Option value="demo">Cleaning</Select.Option>
-            <Select.Option value="demo">Electrical repairs</Select.Option>
-            <Select.Option value="demo">Babysitting</Select.Option>
-            <Select.Option value="demo">Beauty</Select.Option>
-            <Select.Option value="demo">Pest control</Select.Option>
-            <Select.Option value="demo">Plumbing</Select.Option>
-            <Select.Option value="demo">Other services</Select.Option>
+            <Select.Option value="Cleaning">Cleaning</Select.Option>
+            <Select.Option value="Electrical repairs">Electrical repairs</Select.Option>
+            <Select.Option value="Babysitting">Babysitting</Select.Option>
+            <Select.Option value="Beauty">Beauty</Select.Option>
+            <Select.Option value="Pest control">Pest control</Select.Option>
+            <Select.Option value="Plumbing">Plumbing</Select.Option>
+            <Select.Option value="Other services">Other services</Select.Option>
           </Select>
         </Form.Item>
 

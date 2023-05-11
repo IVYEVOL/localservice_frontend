@@ -1,4 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   Button,
   Cascader,
@@ -120,6 +120,9 @@ const normFile = (e: any) => {
 
 const UpdateService: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string>();
+  const [fileList, setFileList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const handleDrop = (acceptedFiles: any) => {
     const file = acceptedFiles[0];
     const formData = new FormData();
@@ -164,6 +167,16 @@ const UpdateService: React.FC = () => {
     }
     return Promise.reject(new Error('Price must be greater than zero!'));
   };
+  
+  const handleChange = (info:any) => {
+    setFileList(info.fileList);
+  }
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
 
 
   const updateFormData  = () => {
@@ -198,10 +211,7 @@ const UpdateService: React.FC = () => {
       //alert("photos can not be empty");
       //return;
     }
-    
-    
-    //token暂时写死
-   // axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM1ODQyMTQsImlhdCI6MTY4MzU4MjQxNH0._LXx-1qcQE2gCgQdeGJUBzM3m3MJMYhyEYRatJ0YHJ4";
+
     axios.request({
       method: "PUT",
       url: "http://51.104.196.52:8090/api/v1/service/"+ id ,
@@ -233,7 +243,7 @@ const UpdateService: React.FC = () => {
   }
 
 
-
+  
     
   const [form] = Form.useForm();
 
@@ -329,15 +339,22 @@ const UpdateService: React.FC = () => {
           <Input />
         </Form.Item>
 
-        {/* <Form.Item name="images" label="Upload  images" valuePropName="fileList" getValueFromEvent={normFile}>
-          <Upload listType="picture-card">
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
-            </div>
+        <Upload
+                    multiple={true}
+                    //陈列样式，现在是卡片式
+                    listType="picture-card"
+                    beforeUpload={() => {
+                       //阻止上传
+                        return false;
+                    }}
+                    onChange={(info) => { handleChange(info) }}
+                    action=''
+                >
+                    {fileList.length >= 1 ? null : uploadButton}
           </Upload>
-        </Form.Item> */}
-         <form onSubmit={handleSubmit}>
+
+          <br />
+         {/* <form onSubmit={handleSubmit}>
                 <Dropzone onDrop={handleDrop}>
                     {({ getRootProps, getInputProps }) => (
                         <div {...getRootProps()} className="profile-button">
@@ -347,7 +364,7 @@ const UpdateService: React.FC = () => {
             )}
                 </Dropzone>
              <button type="submit" className="profile-button">Submit Photo</button>
-            </form>
+            </form> */}
 
         <Form.Item label="Add Service">
           <Button type="primary" onClick={updateFormData}>Submit</Button>
