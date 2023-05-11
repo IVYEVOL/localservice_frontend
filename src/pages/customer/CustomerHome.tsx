@@ -87,6 +87,8 @@ const ProductCard = () => {
                 setServices(services);
                 // setServices(res.data.services);
                 setTotal(res.data.total);
+                console.log("total")
+                console.log(total)
                 console.log(services);
                 setLoading(false);
             })
@@ -117,11 +119,11 @@ const ProductCard = () => {
                 <SearchCity onCityChange={filterServicesCity} />
                 {loading ? (
                     <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                        <h3>加载中...</h3>
+                        <h3>Loading...</h3>
                     </div>
                 ) : total === 0 ? (
-                    <div style={{ textAlign: 'center', marginTop: '40px' }}>
-                        <h3>没有这类数据</h3>
+                    <div style={{ textAlign: 'center', marginTop: '200px' }}>
+                        <h3>No Such Service...</h3>
                     </div>
                 ) : (
                     <Row gutter={[16, 16]} style={{ marginTop: 40 }}>
@@ -131,7 +133,7 @@ const ProductCard = () => {
                                     <Card
                                         hoverable
                                         style={{ height: '340px', width: '280px', margin: 'auto' }}
-                                        cover={<img alt="example" src={`http://51.104.196.52:8090/upload/${service.photos}`} style={{ height: '180px', width: '400px', objectFit: 'cover' }} />}
+                                        cover={<img alt="example" src={`http://51.104.196.52:8090/${service.photos}`} style={{ height: '180px', width: '400px', objectFit: 'cover' }} />}
                                     >
                                         <Meta
                                             title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
