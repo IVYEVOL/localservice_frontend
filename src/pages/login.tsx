@@ -49,13 +49,13 @@ function Login() {
                 console.log(res);
                 console.log(res.data)
                 // setAuthData(res.data);
-                console.log("Logged in user data:", res.data); // 打印获取到的数据
+                console.log("Logged in user data:", res.data);
 
                 if (res.code == 200) {
                   message.success('Login Successful');
                   setToken(res.data.token);
                   setUser(res.data)
-                  // return user data
+                  // return user data 
                   if (res.data.user_role == 'Admin') navigate('/admin/new_service_provider');
                   else if (res.data.user_role == 'Provider') navigate('/provider');
                   else navigate('/customer');
@@ -102,7 +102,7 @@ function Login() {
               >
                 Login
               </Button>
-              Not a member?&nbsp;<a href="/#/register" >Register now!</a>
+              Not a member?&nbsp;<a href="/register" >Register now!</a>
               <a className="login-form-forgot" href="" style={{
                 float: 'right',
               }}>
