@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Router>
     <ConfigProvider locale={en_GB}>
       <Routes>
-        <Route path="/" element={<Navigate to="/customer/" />} />
+        <Route path="/" element={<Navigate to="/customer" />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/admin/*' element={<AdminRoutes />} />

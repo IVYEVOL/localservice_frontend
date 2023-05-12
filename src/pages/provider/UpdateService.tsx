@@ -235,7 +235,7 @@ const uploadButton = (
       url: "http://51.104.196.52:8090/api/v1/service/" + id,
       data: formData
     }).then((res) => {
-        alert("Update User Successful");
+        alert("Update Service Successful");
         //更新成功，然后切换到本来的页面并且刷新数据
         // setEditing(false);
         // getUserData();
