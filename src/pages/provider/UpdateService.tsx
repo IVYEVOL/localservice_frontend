@@ -268,7 +268,7 @@ const uploadButton = (
       url: "http://51.104.196.52:8090/api/v1/service/" + id,  //这个put上传接口，你同学弄的有问题，如果我不传递avatar这个参数，他就会把数据库这个值改成空字符串，按理说不可能每次都修改图片，所以应该判断下，如果是空则不修改
       data: formData
     }).then((res) => {
-        alert("Update User Successful");
+        alert("Update Service Successful");
         //更新成功，然后切换到本来的页面并且刷新数据
         // setEditing(false);
         // getUserData();
