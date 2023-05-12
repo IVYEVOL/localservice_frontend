@@ -2,74 +2,103 @@ import React, { useState } from 'react';
 import { Rate } from 'antd';
 import { Button, Form, Input, InputNumber } from 'antd';
 import { Card, Space } from 'antd';
+import { useParams } from 'react-router-dom';
+import { getAuthorization } from '../../utils/tools';
+import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 const RequestUpdatingMessage = () => {
-    // //提交表单
-    const formItemLayout = {
-        labelCol: {
-            xs: { span: 24 },
-            sm: { span: 8 },
-        },
-        wrapperCol: {
-            xs: { span: 24 },
-            sm: { span: 16 },
-        },
-    };
-
-    const layout = {
-        labelCol: { span: 8 },
-        wrapperCol: { span: 16 },
-    };
-
-    const onFinish = (fieldsValue: any) => {
-        // Should format date value before submit.
-        const values = {
-            ...fieldsValue,
-
-            'date-time-picker': fieldsValue['date-time-picker'].format('YYYY-MM-DD HH:mm:ss'),
-        };
-        console.log('Received values of form: ', values);
-    };
-
-  const UpdateForm: React.FC = () => (
-  <Form
-    name="time_related_controls"
-    {...formItemLayout}
-    onFinish={onFinish}
-    style={{ marginTop: 30, marginLeft: 35  , width:500}}
-  >
-    <Form.Item name={['user', 'Description']} label="Description">
-      <Input.TextArea style={{width:700, height:200}}/>
-    </Form.Item>
-
-    <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-      <Button type="primary" htmlType="submit" style={{ float: 'right' }}>
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
-);
+  const { id, id2 } = useParams<{ id: string; id2: string }>();
+  const orderID = Number(id); // 将id转换为number类型
+  console.log('接收的id为' + orderID)
+  const addinfoID = Number(id2); // 将id转换为number类型
 
 
-    return (
-        <div>
-            <Card>
-                <Card
-                    style={{ marginLeft: 110, width: 1300, margin: '0 auto' }}
-                    type="inner"
-                    title="Update Your Service"
-                    >
-                    <div style={{ marginLeft: 130}} >
+  const [description, setDescription] = useState('');
+  const navigate = useNavigate()
+
+
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  };
+
+  const onFinish = (values: any) => {
+    const description = values.description;
+    if (!description) {
+      alert("Description cannot be empty.");
+      return;
+    }
+    getAuthorization();
+    axios.request({
+      method: "PUT",
+      url: "http://51.104.196.52:8090/api/v1/order/update_status/" + orderID,
+      data: {
+        description: description,
+      },
+    }).then((res) => {
+      alert("Submit Successful");
+      changeAddinfoStatus()
+      navigate('/');
+    }
+    );
+    console.log('Received values of form:', values);
+    console.log('Received values of form:', values);
+  };
+
+  const changeAddinfoStatus = () => {
+    getAuthorization();
+    axios.request({
+      method: "PATCH",
+      url: `http://51.104.196.52:8090/api/v1/update/info/update_info_status/${addinfoID}?status=Completed`,
+    }).then((res) => {
+      console.log("changeAddinfoStatus success")
+    }).catch((error) => {
+      console.error("Error in changeAddinfoStatus:", error);
+    });
+  }
+
+
+
+
+  return (
+    <div>
+      <Card>
+        <Card
+          style={{ marginLeft: 110, width: 1300, margin: '0 auto' }}
+          type="inner"
+          title="Update Your Service"
+        >
+          {/* <div style={{ marginLeft: 130}} >
                         <div style={{ fontSize: '24px' }}>Home Cleaning Service</div>
                         <div><img style={{ width: 400 }} alt="Loading" src="https://scrubnbubbles.com/wp-content/uploads/2020/10/cleaning-companies.jpg" /></div>
                         <div>Request: please give more details</div>
-                    </div>
-                    <UpdateForm />
-                </Card>
-            </Card>
-        </div>
-    )
+                    </div> */}
+
+          <Form
+            name="simple_form"
+            onFinish={onFinish}
+            style={{ marginTop: 30, marginLeft: 35, width: 500 }}
+          >
+            <Form.Item name="description" label="Description">
+              <Input.TextArea
+                style={{ width: '100%', minHeight: 200 }}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </Form.Item>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Update
+              </Button>
+            </Form.Item>
+          </Form>
+        </Card>
+      </Card>
+    </div>
+  )
 
 }
 export default RequestUpdatingMessage;
