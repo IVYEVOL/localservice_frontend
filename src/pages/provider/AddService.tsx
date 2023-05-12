@@ -140,7 +140,7 @@ const AddService: React.FC = () => {
     
     const description = form.getFieldValue("description");
    
-   const availability = form.getFieldValue("availability");
+   const availibility = form.getFieldValue("availibility");
   
  
     
@@ -149,7 +149,7 @@ const AddService: React.FC = () => {
     axios.request({
       method: "POST",
       url: "http://51.104.196.52:8090/api/v1/service/add",
-      params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd:areas_coverd,availability:availability }
+      params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd:areas_coverd,availibility:availibility }
     }).then((res) => {
         alert("success");
       }
@@ -254,7 +254,7 @@ const AddService: React.FC = () => {
           <TextArea rows={4} />
         </Form.Item>
 
-        <Form.Item name="availability" label="Availability" valuePropName="checked">
+        <Form.Item name="availibility" label="Availability" >
           <Input />
         </Form.Item>
 

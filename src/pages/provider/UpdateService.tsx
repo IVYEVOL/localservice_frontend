@@ -237,8 +237,8 @@ const uploadButton = (
     }).then((res) => {
         alert("Update Service Successful");
         //更新成功，然后切换到本来的页面并且刷新数据
-        // setEditing(false);
-        // getUserData();
+        setEditing(false);
+        getServiceDataById();
         // setTitle('');
         // setMobile('');
       }

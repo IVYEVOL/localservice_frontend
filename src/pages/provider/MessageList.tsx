@@ -124,16 +124,18 @@ const MessageList = () => {
                                 <Card
                                     hoverable
                                     style={{ height: '340px', width: '280px', margin: 'auto' }}
-                                    cover={<img alt="example" src={`http://51.104.196.52:8090/upload/${service.photos}`} style={{ height: '180px',width:'400px' ,objectFit: 'cover' }} />}
+                                    cover={<img alt="example" src={`http://51.104.196.52:8090/${service.photos}`} style={{ height: '180px',width:'400px' ,objectFit: 'cover' }} />}
                                 >
                                     <Meta
                                         title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
-                                        description={<div style={{ fontSize: '12px' }}>{service.city}</div>}
+                                        description={<div style={{ fontSize: '12px' }}>{service.description}</div>}
                                     />
 
                                     <div style={{ marginTop: '50px' }}>
+                                       {/* <span style={{ fontSize: '14px' }}>Description: </span>
+                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '10px' }}>{service.description}</div> */}
                                         <span style={{ fontSize: '14px' }}>Status: </span>
-                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '20px' }}>{service.status}</div>
+                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '14px' }}>{service.status}</div>
                                     </div>
                                 </Card>
                             </NavLink>
