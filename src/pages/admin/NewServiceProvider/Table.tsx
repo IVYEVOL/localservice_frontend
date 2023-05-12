@@ -18,7 +18,6 @@ const App: React.FC = () => {
         onOk() {
           console.log(r)
             del(r)
-
         },
         onCancel() {
           console.log('Cancel');
@@ -26,26 +25,96 @@ const App: React.FC = () => {
       });
     };
 
+
+    const providerApr = (r: any) => {
+        confirm({
+          title: 'Do you want to approve this provider?',
+          icon: <ExclamationCircleFilled />,
+          content: 'Are you sure?',
+          onOk() {
+            console.log(r)
+              apr(r)
+          },
+          onCancel() {
+            console.log('Cancel');
+          },
+        });
+      };
+
+          // 删除的逻辑
+    const del = (r: any) =>{
+        // console.log(r)
+        getAuthorization();
+        axios.delete('http://51.104.196.52:8090/api/v1/user/'+r.ID, {
+
+        })
+            .then(res => {
+                // console.log(res);
+                // console.log(res.data.code)
+                // 删除成功后提示
+                // let { meta } = res.data;
+                if (res.data.code == 200) {
+                  message.success(res.data.msg);
+                } else {
+                  message.error(res.data.msg);
+                }
+                // 删除后延迟两秒重新加载table
+                setTimeout(() => {
+                    showTable();
+                }, 200)
+
+            })
+    }
+
+      // 更改service status的逻辑
+  const apr = (r: any) => {
+    getAuthorization();
+    axios.patch('http://51.104.196.52:8090/api/v1/user/approve/' + r.ID, {
+    })
+      .then(res => {
+        if (res.data.code == 200) {
+          message.success(res.data.msg);
+        } else {
+          message.error(res.data.msg);
+        }
+        setTimeout(() => {
+          showTable();
+        }, 200)
+
+      })
+  }
+  
+
     const columns = [
         {
             title: 'No',
             dataIndex: 'key',
             key: 'key',
+            width:70
         },
         {
-            title: 'ID',
+            title: 'Provider ID',
             dataIndex: 'ID',
             key: 'ID',
+            width:90
         },
         {
             title: 'Service Provider Name',
             dataIndex: 'nick_name',
             key: 'nick_name',
+            width:200
         },
         {
             title: 'Phone number',
             dataIndex: 'mobile',
             key: 'mobile',
+            width:110
+        },
+        {
+            title: 'Description',
+            dataIndex: 'text',
+            key: 'text',
+            width: 280
         },
     
         {
@@ -54,12 +123,17 @@ const App: React.FC = () => {
             render: (text: any) => (
                 <Space size="middle">
                     <a>check Detail</a>
+                    <Button type="primary" onClick={providerBan.bind(this,text)} >
+                        Approve
+                    </Button>
                     <Button type="primary" onClick={providerBan.bind(this,text)} danger>
                         Ban
                     </Button>
+                    
                     {/* <a onClick={del.bind(this,text)}>Reject</a> */}
                 </Space>
             ),
+            
         },
     ];
 
@@ -88,33 +162,7 @@ const App: React.FC = () => {
     }, [])
 
     
-    // 删除的逻辑
-    const del = (r: any) =>{
-        // console.log(r)
-        getAuthorization();
-        axios.delete('http://51.104.196.52:8090/api/v1/user/'+r.ID, {
 
-            // params: {
-            //     id: r.ID
-            // },
-        })
-            .then(res => {
-                // console.log(res);
-                // console.log(res.data.code)
-                // 删除成功后提示
-                // let { meta } = res.data;
-                if (res.data.code == 200) {
-                  message.success(res.data.msg);
-                } else {
-                  message.error(res.data.msg);
-                }
-                // 删除后延迟两秒重新加载table
-                setTimeout(() => {
-                    showTable();
-                }, 200)
-
-            })
-    }
 
 
     //后端请求
@@ -145,7 +193,11 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <Table columns={columns} dataSource={data} bordered/>
+            <Table columns={columns} 
+                dataSource={data} 
+                bordered
+                pagination={{ pageSize: 8 }} 
+                scroll={{ x:950, y: 400 }}/>
         </div>
 
 

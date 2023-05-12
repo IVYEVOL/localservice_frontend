@@ -37,6 +37,7 @@ const ProductCard = () => {
     const [category, setCategory] = useState<string>('All');//获取当前用户选中的category
     const [city, setCity] = useState<string>('none');//获取当前用户选中的category
     const [authData, setAuthData] = useState<AuthData | null>(null);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         fetchServices(currentPage);
@@ -44,6 +45,7 @@ const ProductCard = () => {
     }, [currentPage, category, city]);
 
     const fetchServices = (page: number) => {
+        setLoading(true);
         let url = 'http://51.104.196.52:8090/api/v1/public/service/list';
         if (category !== 'All' && city == 'none') {//点击除了all之外的按钮时
             url = `http://51.104.196.52:8090/api/v1/public/service/category?category=${category}`;
@@ -53,7 +55,10 @@ const ProductCard = () => {
             url = `http://51.104.196.52:8090/api/v1/public/service/city_n_cat?category=${category}&city=${city}`
             console.log(22222222222)
         }
-
+        if (category == 'All' && city !== 'none') {
+            url = `http://51.104.196.52:8090/api/v1/public/service/city?city=${city}`
+            console.log(3333333333)
+        }
         axios
             .post(url, {//获取approved的service
                 page,
@@ -82,10 +87,14 @@ const ProductCard = () => {
                 setServices(services);
                 // setServices(res.data.services);
                 setTotal(res.data.total);
+                console.log("total")
+                console.log(total)
                 console.log(services);
+                setLoading(false);
             })
             .catch((err) => {
                 console.error(err);
+                setLoading(false);
             });
     };
 
@@ -104,34 +113,43 @@ const ProductCard = () => {
 
     return (
         <div>
-           
+
             <HeaderMenu onFilterCategory={filterServicesCategory} />
             <div style={{ padding: '24px', justifyContent: 'center' }}>
                 <SearchCity onCityChange={filterServicesCity} />
-                <Row gutter={[16, 16]} style={{ marginTop: 40 }}>
-                    {services.map((service) => (
-                        <Col xs={24} sm={12} md={8} key={service.ID}>
-                            <NavLink to={`/customer/viewservice/${service.ID}`}>
-                                <Card
-                                    hoverable
-                                    style={{ height: '340px', width: '280px', margin: 'auto' }}
-                                    cover={<img alt="example" src={`http://51.104.196.52:8090/upload/${service.photos}`} style={{ height: '180px', width: '400px', objectFit: 'cover' }} />}
-                                >
-                                    <Meta
-                                        title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
-                                        description={<div style={{ fontSize: '12px' }}>{service.city}</div>}
-                                    />
+                {loading ? (
+                    <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                        <h3>Loading...</h3>
+                    </div>
+                ) : total === 0 ? (
+                    <div style={{ textAlign: 'center', marginTop: '200px' }}>
+                        <h3>No Such Service...</h3>
+                    </div>
+                ) : (
+                    <Row gutter={[16, 16]} style={{ marginTop: 40 }}>
+                        {services.map((service) => (
+                            <Col xs={24} sm={12} md={8} key={service.ID}>
+                                <NavLink to={`/customer/viewservice/${service.ID}`}>
+                                    <Card
+                                        hoverable
+                                        style={{ height: '340px', width: '280px', margin: 'auto' }}
+                                        cover={<img alt="example" src={`http://51.104.196.52:8090/${service.photos}`} style={{ height: '180px', width: '400px', objectFit: 'cover' }} />}
+                                    >
+                                        <Meta
+                                            title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
+                                            description={<div style={{ fontSize: '12px' }}>{service.city}</div>}
+                                        />
 
-                                    <div style={{ marginTop: '50px' }}>
-                                        <span style={{ fontSize: '14px' }}>Price: </span>
-                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '20px' }}>￡{service.prices}</div>
-                                    </div>
-                                </Card>
-                            </NavLink>
-                        </Col>
-                    ))}
-                </Row>
-
+                                        <div style={{ marginTop: '50px' }}>
+                                            <span style={{ fontSize: '14px' }}>Price: </span>
+                                            <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '20px' }}>￡{service.prices}</div>
+                                        </div>
+                                    </Card>
+                                </NavLink>
+                            </Col>
+                        ))}
+                    </Row>
+                )}
                 <div style={{ textAlign: 'center' }}>
                     <Pagination
                         style={{ margin: 10 }}

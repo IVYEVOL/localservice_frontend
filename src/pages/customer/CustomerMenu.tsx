@@ -1,93 +1,149 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import { Route } from 'react-router';
+import { Navigate, Route } from 'react-router';
 import MesssageList from './MessageList';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import "./customerccss.css"
-import { removeToken } from '../../utils/tools';
+import { getAuthorization, removeToken } from '../../utils/tools';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
-const items: MenuProps['items'] = [
-  {
-    label: (
-      <div>
-        <NavLink to="/customer"><img src='src\assets\findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
-      </div>
-    ),
-    key: 'logo',
-    style: { marginLeft:100},
-  },
-  {
-    label: <NavLink to="/customer" style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}>Home</NavLink>,
-    key: 'Home',
-    style: { margin: 10, marginLeft:700},
-    // icon: <MailOutlined />,
-  },
-  {
-    label: <div style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}><img className="profile-avatar2" src='src\assets\profile.png' alt="Profile" />IVY</div>,
-    key: 'SubMenu',
-    // icon: <SettingOutlined />,
-    children: [
-      {
-        type: 'group',
-        // label: 'Item 1',
-        children: [
-          {
-            label: <NavLink to="profile">Profile</NavLink>,
-            key: 'profile',
-            style: { margin: 2},
-           
-          },
-          {
-            label: <NavLink to="messagelist">Message</NavLink>,
-            key: 'Message',
-            style: { margin: 2},
-           
-          },
-          {
-            label: <NavLink to="bookinglist">Booking</NavLink>,
-            key: 'Booking',
-            style: { margin: 2},
-        
-          },
-          {
-            label: (
-              <span
-                onClick={() => {
-                  removeToken();
-                  console.log('Logout');
-                  useNavigate()('/') }}
-              >
-                Logout
-              </span>
-            ),
-            key: 'Log out',
-            style: { margin: 2},
-           
-          },
-
-
-        ],
-      },
-
-    ],
-    style: { margin: 10},
-  },
-  {
-    label: <NavLink to="/customer/login" style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}>Log in</NavLink>,
-    key: 'Log in',
-    // icon: <MailOutlined />,
-    style: { margin: 10},
-  }
-];
+interface UserData {
+  ID: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt: null | string;
+  email: string;
+  password: string;
+  nick_name: string;
+  avatar: string;
+  mobile: string;
+  role: string;
+}
 
 const CustomerMenu: React.FC = () => {
+  const [userdetail, setUserdetail] = useState<UserData>()
+  const userJson = Cookies.get('user');
+  const user = userJson ? JSON.parse(userJson) : {};
+  // console.log(user.user_id)
+
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      getUserData()
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const getUserData = () => {
+    getAuthorization();
+    axios.request({
+      method: "GET",
+      url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id,  //这里不能写死28
+    }).then((ret) => {
+      console.log(ret.data.data)
+      setUserdetail(ret.data.data)
+      console.log("userdetail")
+      // console.log(userdetail)
+    }
+    );
+  };
+
+  const items: MenuProps['items'] = [
+    {
+      label: (
+        <div>
+          <NavLink to="/customer"><img src='src\assets\findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
+        </div>
+      ),
+      key: 'logo',
+      style: { marginLeft: 100 },
+    },
+    {
+      label: <NavLink to="/customer" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Home</NavLink>,
+      key: 'Home',
+      style: { margin: 10, marginLeft: 700 },
+      // icon: <MailOutlined />,
+    },
+    {
+      label: <div style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}><img className="profile-avatar2" 
+      src={`http://51.104.196.52:8090/${userdetail?.avatar}`} 
+      alt="Profile" />
+      {userdetail?.nick_name}
+      </div>,
+      key: 'SubMenu',
+      // icon: <SettingOutlined />,
+      children: [
+        {
+          type: 'group',
+          // label: 'Item 1',
+          children: [
+            {
+              label: <NavLink to="profile">Profile</NavLink>,
+              key: 'profile',
+              style: { margin: 2 },
+
+            },
+            {
+              label: <NavLink to="messagelist">Message</NavLink>,
+              key: 'Message',
+              style: { margin: 2 },
+
+            },
+            {
+              label: <NavLink to="bookinglist">Booking</NavLink>,
+              key: 'Booking',
+              style: { margin: 2 },
+
+            },
+            {
+              label: (
+                <span
+                  onClick={() => {
+                    removeToken();
+                    console.log('Logout');
+                    navigate('/');
+                  }}
+                >
+                  Logout
+                </span>
+              ),
+              key: 'Log out',
+              style: { margin: 2 },
+
+            },
+          ],
+        },
+
+      ],
+      style: { margin: 10 },
+    },
+    {
+      label: <NavLink to="/customer/login" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Log in</NavLink>,
+      key: 'Log in',
+      // icon: <MailOutlined />,
+      style: { margin: 10 },
+    },
+  ];
+
+  const navigate = useNavigate();
   const [current, setCurrent] = useState('Home');
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
+    console.log(e.key);
+
+    // if(e.key == "Log out"){
+    //   console.log('logout在这');
+    //     removeToken()
+    //     useNavigate()('/')
+    // }
+
+
     setCurrent(e.key);
   };
 

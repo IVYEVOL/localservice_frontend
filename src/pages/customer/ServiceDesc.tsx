@@ -53,7 +53,11 @@ const ServiceDesc: React.FC<ServiceDescProps> = ({ serviceData }) => {
             <div className='servicename'>{serviceData.title}</div>
             <div><img className='serviceimage' alt="Loading" src={`http://51.104.196.52:8090/upload/${serviceData.photos}`} /></div>
             <div className='serviceprice'>￡{serviceData.prices}</div>
-            <div className='servicedesc'>Eligible for Shipping To Southampton or somewhere else{serviceData.description}</div>
+            <div className='servicedesc'>Description: {serviceData.description}</div>
+            <div className='servicedesc'>Availability: {serviceData.city} {serviceData.availibility}</div>
+            <div className='servicedesc'>Service Address: {serviceData.address}</div>
+            <div className='servicedesc'>Phone: {serviceData.mobile}</div>
+
             {/* <div className='servicerate'>Rate：<Rate disabled defaultValue={3} /></div> */}
 
             <Link to={`/customer/viewservice/${serviceData.ID}/payservice`}>

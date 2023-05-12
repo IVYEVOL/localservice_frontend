@@ -17,6 +17,9 @@ import React, { useState } from 'react';
 import Axios from 'axios'
 import { getAuthorization } from '../../utils/tools';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
+
 const { Option } = Select;
 
 type Currency = 'gbp' | 'dollar';
@@ -32,6 +35,8 @@ interface PriceInputProps {
 }
 
 const PriceInput: React.FC<PriceInputProps> = ({ value = {}, onChange }) => {
+
+  
   const [number, setNumber] = useState(0);
   const [currency, setCurrency] = useState<Currency>('gbp');
 
@@ -78,6 +83,7 @@ const PriceInput: React.FC<PriceInputProps> = ({ value = {}, onChange }) => {
   );
 };
 
+
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
@@ -88,8 +94,17 @@ const normFile = (e: any) => {
   return e?.fileList;
 };
 
+
+
+
 const AddService: React.FC = () => {
   const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
+
+  // get user id
+  const userJson = Cookies.get('user');
+  const user = userJson ? JSON.parse(userJson) : {};
+  console.log(user.user_id)
+
 
   const onFinish = (values: any) => {
     console.log('Received values from form: ', values);
@@ -103,43 +118,38 @@ const AddService: React.FC = () => {
   };
 
 
-  const postFormData  = () => { 
+  const postFormData  = () => {
     getAuthorization();
     const title = form.getFieldValue("title");
-    if('' == title || title == undefined){
-      alert("title can not be empty");
-      return;
-    }
-    const description = form.getFieldValue("description");
-    if('' == description || description == undefined){
-      alert("description can not be empty");
-      return;
-    }
-    const price = form.getFieldValue("price");
-    if('' == price || price == undefined){
-      alert("price can not be empty");
-      return;
-    }
+  
+    const longitude_latitude = form.getFieldValue("longitude") + "," + form.getFieldValue("latitude") ;
+
     const address = form.getFieldValue("address");
-    if('' == address || address == undefined){
-      alert("address can not be empty");
-      return;
-    }
-    const category = form.getFieldValue("category");
-    if('' == category || category == undefined){
-      alert("category can not be empty");
-      return;
-    }
+
+    const city = form.getFieldValue("city");
+
+    const country = form.getFieldValue("country");
+
     const mobile = form.getFieldValue("phoneNumber");
-    if('' == mobile || mobile == undefined){
-      alert("mobile can not be empty");
-      return;
-    }
-    axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIxIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODMyNTg4ODgsImlhdCI6MTY4MzI1NzA4OH0.Yutn2vWOfl3uVrn-iTvy_bweDu4xBJ2Z1bgpVoLKcg8";
+
+    const areas_coverd = form.getFieldValue("areas_coverd");
+  
+    const category = form.getFieldValue("category");
+
+    const price = form.getFieldValue("price");
+    
+    const description = form.getFieldValue("description");
+   
+   const availability = form.getFieldValue("availability");
+  
+ 
+    
+    //token暂时写死
+    // axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM2NTE3OTUsImlhdCI6MTY4MzY0OTk5NX0.VvujZG0p3I8Z75HK840QF777XLlRB9f0SKbSU5YyKLA";
     axios.request({
       method: "POST",
       url: "http://51.104.196.52:8090/api/v1/service/add",
-      params: {title:title, description:description, prices:price.number, address:address, category:category, userid:2, mobile:mobile}
+      params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd:areas_coverd,availability:availability }
     }).then((res) => {
         alert("success");
       }
@@ -151,8 +161,14 @@ const AddService: React.FC = () => {
 
       //If the form data has not been changed, the data obtained will be undefined
   }
- 
+
+
+
+    
   const [form] = Form.useForm();
+
+
+
 
   return (
     <>
@@ -200,10 +216,16 @@ const AddService: React.FC = () => {
         <Form.Item
           name="phoneNumber"
           label="Phone number"
-          // rules={[{ required: true, message: 'Please enter the correct mobile phone number', pattern: new RegExp(/^1(3|4|5|6|7|8|9)\d{9}$/, "g") }]}>
-          rules={[{ message: 'Please enter the correct mobile phone number' }]}>
-          <Input style={{ width: '100%' }} />
-        </Form.Item>
+          rules={[
+            { 
+              required: true, 
+              pattern: new RegExp(/^(?:(?:\+44\s*\d{10})|(?:0\d{4}\s*\d{6}))$/), 
+              message: 'Please enter a valid UK mobile phone number' 
+            }
+          ]}
+>
+  <Input style={{ width: '100%' }} />
+</Form.Item>
 
         <Form.Item label="Service area">
           <Input />
@@ -214,13 +236,13 @@ const AddService: React.FC = () => {
 
         <Form.Item name="category" label="Category">
           <Select>
-            <Select.Option value="demo">Cleaning</Select.Option>
-            <Select.Option value="demo">Electrical repairs</Select.Option>
-            <Select.Option value="demo">Babysitting</Select.Option>
-            <Select.Option value="demo">Beauty</Select.Option>
-            <Select.Option value="demo">Pest control</Select.Option>
-            <Select.Option value="demo">Plumbing</Select.Option>
-            <Select.Option value="demo">Other services</Select.Option>
+            <Select.Option value="Cleaning">Cleaning</Select.Option>
+            <Select.Option value="Electrical repairs">Electrical repairs</Select.Option>
+            <Select.Option value="Babysitting">Babysitting</Select.Option>
+            <Select.Option value="Beauty">Beauty</Select.Option>
+            <Select.Option value="Pest control">Pest control</Select.Option>
+            <Select.Option value="Plumbing">Plumbing</Select.Option>
+            <Select.Option value="Other services">Other services</Select.Option>
           </Select>
         </Form.Item>
 
@@ -240,17 +262,17 @@ const AddService: React.FC = () => {
         </Form.Item>
 
         <Form.Item name="availability" label="Availability" valuePropName="checked">
-          <Switch />
+          <Input />
         </Form.Item>
 
-        <Form.Item name="images" label="Upload  images" valuePropName="fileList" getValueFromEvent={normFile}>
+        {/* <Form.Item name="images" label="Upload  images" valuePropName="fileList" getValueFromEvent={normFile}>
           <Upload action="/upload.do" listType="picture-card">
             <div>
               <PlusOutlined />
               <div style={{ marginTop: 8 }}>Upload</div>
             </div>
           </Upload>
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item label="Add Service">
           <Button type="primary" onClick={postFormData}>Submit</Button>

@@ -208,7 +208,7 @@ const ServiceReviews = () => {
             ...getColumnSearchProps('ID'),
             sorter: (a, b) => a.ID - b.ID,
             sortDirections: ['descend', 'ascend'],
-            width: 100
+            width: 120
         },
         {
             title: 'Rating',
@@ -269,6 +269,8 @@ const ServiceReviews = () => {
 
         },
     ];
+
+    
 
     return (
         <>

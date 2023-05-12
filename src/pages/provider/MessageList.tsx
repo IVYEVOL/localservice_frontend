@@ -1,28 +1,3 @@
-// import React from 'react'
-
-// import serviceList from '../../provider_data/services.json'
-// // import "bootstrap/dist/css/bootstrap.min.css"
-// import { Col, Row } from "react-bootstrap"
-// import {ServiceLayout}  from '../../components/ServiceLayout'
-
-
-// function ServiceList() {
-//   return (
-//     <>
-//       <h1> Service List</h1>
-//       <Row md={2} xs={1} lg={3} className="g-3">
-//         {serviceList.map(item => (
-//           <Col key={item.id}>
-//             <ServiceLayout {...item} />
-//           </Col>
-//         ))}
-//       </Row>
-//     </>
-
-//   )
-// }
-
-// export default ServiceList
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Pagination, Row } from 'antd';
 import axios from 'axios';
@@ -43,7 +18,7 @@ interface Service {
     address: string;
     category: string;
     photos: string;
-    Status: string;
+    status: string;
     CreatedAt: string;
     UpdatedAt: string;
     DeletedAt: string | null;
@@ -56,7 +31,7 @@ interface Service {
 
 const PAGE_SIZE = 6;
 const { Meta } = Card;
-const ServiceList = () => {
+const MessageList = () => {
     // get user id
     const userJson = Cookies.get('user');
     const user = userJson ? JSON.parse(userJson) : {};
@@ -83,16 +58,7 @@ const ServiceList = () => {
 
     const fetchServices = (page: number) => {
         getAuthorization();
-        let url = 'http://51.104.196.52:8090/api/v1/service/provider_service/'+ user.user_id ;//'http://51.104.196.52:8090/api/v1/service/provider_service/'+ user.user_id
-        // if (category !== 'All' && city == 'none') {//点击除了all之外的按钮时
-        //     url = `http://51.104.196.52:8090/api/v1/public/service/category?category=${category}`;
-        //     console.log(11111111111111)
-        // }
-        // if (category !== 'All' && city !== 'none') {
-        //     url = `http://51.104.196.52:8090/api/v1/public/service/city_n_cat?category=${category}&city=${city}`
-        //     console.log(22222222222)
-        // }
-        //axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MjgsIkVtYWlsIjoicHJvdmlkZXIxIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM2NzU3OTUsImlhdCI6MTY4MzY3Mzk5NX0.2KOGRbqd9GhhsEORED6ZZJU1izo56TMHZjOksa0IGzM";
+        let url = 'http://51.104.196.52:8090/api/v1/order/find_by_provider/'+ user.user_id ;//'http://51.104.196.52:8090/api/v1/service/provider_service/'+ user.user_id
         axios
             .get(url, {//获取approved的service
                 // page,
@@ -106,7 +72,7 @@ const ServiceList = () => {
                     prices: service.prices,
                     city: service.city,
                     photos: service.photos,
-                    Status: service.Status,
+                    status: service.status,
                     category: service.category,
                     DeletedAt: service.DeletedAt,
                     CreatedAt: service.DeletedAt,
@@ -116,6 +82,7 @@ const ServiceList = () => {
                     longitude_latitude: service.longitude_latitude,
                     mobile: service.mobile,
                     user_id: service.user_id,
+                    description: service.description
                 }));
 
                 setServices(services);
@@ -165,8 +132,8 @@ const ServiceList = () => {
                                     />
 
                                     <div style={{ marginTop: '50px' }}>
-                                        <span style={{ fontSize: '14px' }}>Price: </span>
-                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '20px' }}>￡{service.prices}</div>
+                                        <span style={{ fontSize: '14px' }}>Status: </span>
+                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '20px' }}>{service.status}</div>
                                     </div>
                                 </Card>
                             </NavLink>
@@ -188,4 +155,4 @@ const ServiceList = () => {
     );
 };
 
-export default ServiceList;
+export default MessageList;

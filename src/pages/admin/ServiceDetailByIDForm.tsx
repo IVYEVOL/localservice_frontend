@@ -152,17 +152,38 @@ const App: React.FC = () => {
     const backToServiceAudit = () => {
         getAuthorization();
         window.location.href = "http://localhost:5173/admin/service_audit/"
+    }
 
+    
+    const backToReviewManagement = () => {
+        getAuthorization();
+        window.location.href = "http://localhost:5173/admin/review_management/"
     }
 
 
     return (
         <>
             <Row>
-                <Col offset={9}>
-                    <Title>The details of service {id}</Title>
+                <Col>
+                    
+                    <Space>
+                        <h1>The details of service {id}</h1>
+                        <Button size="small" type="primary" onClick={serviceApprove.bind(this, id)}>
+                            Approve
+                        </Button>
+                        <Button size="small" type="primary" onClick={serviceReject.bind(this, id)} danger>
+                            Reject
+                        </Button>
+                        <Button size="small" type="default" onClick={backToServiceAudit} >
+                            Back to Service Audit
+                        </Button>
+                        <Button size="small" type="default" onClick={backToReviewManagement} >
+                            Back to Review Management
+                        </Button>
+
+                </Space>
                 </Col>
-                <Col offset={4}>
+                {/* <Col offset={4}>
                     <Space>
                         
                             <Button size="large" type="primary" onClick={serviceApprove.bind(this, id)}>
@@ -172,13 +193,15 @@ const App: React.FC = () => {
                                 Reject
                             </Button>
                             <Button size="large" type="default" onClick={backToServiceAudit} >
-                                Back
+                                Back to Service Audit
                             </Button>
-                        
+                            <Button size="large" type="default" onClick={backToReviewManagement} >
+                                Back to Review Management
+                            </Button>
 
                     </Space>
 
-                </Col>
+                </Col> */}
 
             </Row>
 
@@ -203,7 +226,7 @@ const App: React.FC = () => {
                 <Descriptions.Item label="Picture" span={1}>
                     <Image
                         width={150}
-                        height={150}
+                        height={60}
                         src="error"
                         fallback={serviceData.photos}
                     />
