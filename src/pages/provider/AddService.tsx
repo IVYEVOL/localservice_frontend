@@ -122,7 +122,7 @@ const AddService: React.FC = () => {
     getAuthorization();
     const title = form.getFieldValue("title");
   
-    const longitude_latitude = form.getFieldValue("longitude") + "," + form.getFieldValue("latitude") ;
+    const longitude_latitude = form.getFieldValue("longitude_latitude");
 
     const address = form.getFieldValue("address");
 
@@ -187,18 +187,11 @@ const AddService: React.FC = () => {
 
         <Form.Item label="Location" style={{ marginBottom: 0 }}>
           <Form.Item
-            name="longitude"
+            name="longitude_latitude"
             rules={[{ required: true }]}
             style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
           >
-            <Input placeholder="Input Longitude" />
-          </Form.Item>
-          <Form.Item
-            name="latitude"
-            rules={[{ required: true }]}
-            style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
-          >
-            <Input placeholder="Input latitude" />
+            <Input placeholder="Input Longitude and Latitude" />
           </Form.Item>
         </Form.Item>
 
@@ -224,7 +217,7 @@ const AddService: React.FC = () => {
             }
           ]}
 >
-  <Input style={{ width: '100%' }} />
+          <Input style={{ width: '100%' }} />
 </Form.Item>
 
         <Form.Item label="Service area">

@@ -10,6 +10,7 @@ import ServiceDetail from './pages/provider/ServiceDetail'
 import service from './provider_data/services.json'
 import ViewService from './pages/provider/ViewService'
 import MessageList from './pages/provider/MessageList'
+import ViewOrder from './pages/provider/ViewOrder'
 
 function ProviderRoutes() {
 
@@ -27,6 +28,7 @@ function ProviderRoutes() {
           <Route path='Profile' element={<Profile />} />
           <Route path='ServiceList/ServiceDetail' element={<ServiceDetail />} />
           <Route path='viewservice/:id' element={<ViewService />} />
+          <Route path='vieworder/:id' element={<ViewOrder />} />
       </Routes>
       
       </Container>

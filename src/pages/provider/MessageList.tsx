@@ -120,7 +120,7 @@ const MessageList = () => {
                 <Row gutter={[16, 16]} style={{ marginTop: 40 }}>
                     {services.map((service) => (
                         <Col xs={24} sm={12} md={8} key={service.ID}>
-                            <NavLink to={`/provider/viewservice/${service.ID}`}>
+                            <NavLink to={`/provider/vieworder/${service.ID}`}>
                                 <Card
                                     hoverable
                                     style={{ height: '340px', width: '280px', margin: 'auto' }}
