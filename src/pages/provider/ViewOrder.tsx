@@ -107,21 +107,21 @@ const ViewOrder = () => {
     //         });
     // };
     return (
-        <>
-        </>
-    //     <div >
-    //     {service ? (
-    //         <>
-    //             <ServiceDesc serviceData={service} />
-    //             {review.map((item) => (
-    //                 <ServiceReview reviewData={item} />
-    //             ))}
-    //             <ServiceMap serviceMap={service} />
-    //         </>
-    //     ) : (
-    //         <p>Loading...</p>
-    //     )}
-    // </div>
+       
+        
+        <div >
+        {service ? (
+            <>
+                <ServiceDesc serviceData={service} />
+                {review.map((item) => (
+                    <ServiceReview reviewData={item} />
+                ))}
+                <ServiceMap serviceMap={service} />
+            </>
+        ) : (
+            <p>Loading...</p>
+        )}
+    </div>
     )
 }
 
