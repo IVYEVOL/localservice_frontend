@@ -11,8 +11,10 @@ function sendEmail(e: any) {
 
   emailjs.sendForm('service_wyvmosv', 'template_rh00lsq', e.target, '1MjITxyW_M-5uEiTK')
     .then((result: any) => {
+      alert("Sending Email successful");
       console.log(result);
     }, (error: any) => {
+      alert("Invalid Email");
       console.log(error.text);
     });
 }
