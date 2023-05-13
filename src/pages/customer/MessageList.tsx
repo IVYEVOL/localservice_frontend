@@ -44,7 +44,8 @@ const MesssageList = () => {
       .then((res) => {
         console.log("res.data.data")
         console.log(res.data.data)
-        setMessages(res.data.data);
+        setAddinfos(res.data.data);
+   
         // 在这里调用 showServiceById 函数
       })
       .catch((err) => {
@@ -55,11 +56,11 @@ const MesssageList = () => {
   const showMessageById = () => {//获取message
     getAuthorization()
     axios
-      .get('http://51.104.196.52:8090/api/v1/update/info/find_message?user_id=' + user.user_id, {})//获取该ID的order
+      .get('http://51.104.196.52:8090/api/v1/update/info/find_msg_pending?user_id=' + user.user_id, {})//获取该ID的order
       .then((res) => {
         console.log("message")
         console.log(res.data.data)
-        setAddinfos(res.data.data);
+        setMessages(res.data.data);
         // 在这里调用 showServiceById 函数
       })
       .catch((err) => {

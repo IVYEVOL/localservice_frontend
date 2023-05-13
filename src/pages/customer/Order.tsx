@@ -74,16 +74,18 @@ const Order: React.FC = () => {
     return (
         <Descriptions title="Order detail" bordered style={{ marginLeft: 110, width: 1300, margin: '0 auto' }}>
             <Descriptions.Item label="Product info" span={3}>
-                <img style={{ width: 200 }} alt="Loading" src={`http://51.104.196.52:8090/upload/${service?.photos}`} />
+                <img style={{ width: 200 }} alt="Loading" src={`http://51.104.196.52:8090/${service?.photos}`} />
                 <div>
                     {service?.title}
                 </div>
             </Descriptions.Item>
+            <Descriptions.Item label="Order ID">{order.ID}</Descriptions.Item>
             <Descriptions.Item label="Name">{order.customer_name}</Descriptions.Item>
             <Descriptions.Item label="Email">{order.customer_email}</Descriptions.Item>
             <Descriptions.Item label="Phone Number">{order.customer_phone}</Descriptions.Item>
             <Descriptions.Item label="Postcode">{order.postcode}</Descriptions.Item>
-            <Descriptions.Item label="City" span={2}>{service?.city}</Descriptions.Item>
+            <Descriptions.Item label="City">{service?.city}</Descriptions.Item>
+            
             <Descriptions.Item label="Address" span={3}>{order.address}</Descriptions.Item>
             <Descriptions.Item label="Status" span={3}>
                 <Badge status="processing" text={order.status} />

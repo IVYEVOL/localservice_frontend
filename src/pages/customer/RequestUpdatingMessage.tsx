@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Rate } from 'antd';
 import { Button, Form, Input, InputNumber } from 'antd';
 import { Card, Space } from 'antd';
@@ -14,10 +14,39 @@ const RequestUpdatingMessage = () => {
   console.log('接收的id为' + orderID)
   const addinfoID = Number(id2); // 将id转换为number类型
 
+  const [servicetitle, setServicetitle] = useState("Loadig...")
+
 
   const [description, setDescription] = useState('');
   const navigate = useNavigate()
 
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      getServiceTitleByOrderId()
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // 当 servicetitle 发生变化时重新渲染组件
+    // 此时 servicetitle 的值已经是最新的
+  }, [servicetitle]);
+
+
+  const getServiceTitleByOrderId = () => {
+    getAuthorization();
+    axios
+      .get('http://51.104.196.52:8090/api/v1/order/find_by_order?order_id=' + orderID, {})
+      .then(async (res) => {
+        console.log("res.data.data.service_title");
+        console.log(res.data.data);
+        setServicetitle(res.data.data[0].service_title)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   const layout = {
     labelCol: { span: 8 },
@@ -70,18 +99,19 @@ const RequestUpdatingMessage = () => {
           type="inner"
           title="Update Your Service"
         >
-          {/* <div style={{ marginLeft: 130}} >
-                        <div style={{ fontSize: '24px' }}>Home Cleaning Service</div>
-                        <div><img style={{ width: 400 }} alt="Loading" src="https://scrubnbubbles.com/wp-content/uploads/2020/10/cleaning-companies.jpg" /></div>
-                        <div>Request: please give more details</div>
-                    </div> */}
+         
+         {servicetitle && ( <div style={{ marginLeft: 130 }}>
+              <div style={{ fontSize: '24px' }}>{servicetitle}</div>
+              {/* ... */}
+            </div>
+         )}
 
           <Form
             name="simple_form"
             onFinish={onFinish}
             style={{ marginTop: 30, marginLeft: 35, width: 500 }}
           >
-            <Form.Item name="description" label="Description">
+            <Form.Item name="description" label="Addtional Info">
               <Input.TextArea
                 style={{ width: '100%', minHeight: 200 }}
                 value={description}
