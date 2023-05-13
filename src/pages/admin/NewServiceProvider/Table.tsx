@@ -114,7 +114,7 @@ const App: React.FC = () => {
             title: 'Description',
             dataIndex: 'text',
             key: 'text',
-            width: 280
+            width: 600
         },
     
         {
@@ -122,7 +122,7 @@ const App: React.FC = () => {
             key: 'action',
             render: (text: any) => (
                 <Space size="middle">
-                    <a>check Detail</a>
+                    {/* <a>check Detail</a> */}
                     <Button type="primary" onClick={providerBan.bind(this,text)} >
                         Approve
                     </Button>
