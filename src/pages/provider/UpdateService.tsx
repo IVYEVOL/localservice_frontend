@@ -119,28 +119,16 @@ const UpdateService: React.FC = () => {
   console.log(user.user_id)
 
   const defaultData = {
-    title: '',
-  
-    longitude_latitude: '',
-
-    address: '',
-
     city: '',
-
-    country:'',
-
-    mobile:'',
-
-    areas_coverd:'',
-  
+    prices: '',
+    address:'',
     category:'',
-
-    price:'',
-    
     description:'',
-   
-    availability:'',
-  
+    mobile:'',
+    title:'',
+    areas_coverd:'',
+    availibility:'',
+    longitude_latitude: ''
 }
 
 
@@ -150,10 +138,13 @@ const [loading, setLoading] = useState(false);
 const [imageUrl, setImageUrl] = useState<string>();
 const [title, setTitle] = useState<string>();
 const [areas_coverd, setAreasCoverd] = useState<string>();
+const [longitude_latitude,setLongitudeLatitude] = useState<string>();
 const [description, setDescription] = useState<string>();
-const [availability, setAvailability] = useState<string>();
+const [availibility, setAvailibility] = useState<string>();
 const [category, setCategory] = useState<string>();
+const [address, setAddress] = useState<string>();
 const [mobile, setMobile] = useState<string>();
+const [prices, setPrices] = useState<string>();
 const [fileList, setFileList] = useState([]);
 
 //get service id
@@ -196,7 +187,7 @@ const getServiceDataById = () => {
       
       setImageUrl(u);
       console.log("u:"+u)
-      console.log("data.photos:"+data.photos)
+      console.log("data.photos:"+data)
     }
   );
 };
@@ -206,6 +197,15 @@ useEffect(() => {
 }, [])
 
 const handleEdit = () => {
+  setTitle(serviceData.title);
+  setAreasCoverd(serviceData.areas_coverd);
+  setPrices(serviceData.prices);
+  setAddress(serviceData.address);
+  setCategory(serviceData.category);
+  setMobile(serviceData.mobile);
+  setDescription(serviceData.description);
+  setAvailibility(serviceData.availibility);
+  setLongitudeLatitude(serviceData.longitude_latitude);
   setEditing(true);
 };
 
@@ -218,60 +218,35 @@ const uploadButton = (
 
   
 
-  
+  //mobile.match(/^(?:(?:\+44\s*\d{10})|(?:0\d{4}\s*\d{6}))$/)
   const handleSave = () => {
     const formData = new FormData();
     fileList.forEach(item => {
         //将fileList中每个元素的file添加到formdata对象中
         //formdata对Key值相同的，会自动封装成一个数组
-          formData.append('Photos', item['originFileObj']);
+          formData.append('photo', item['originFileObj']);
     });
-    if (typeof title !== 'undefined') {
-      formData.append('title', title);
-    }else{
-      formData.append('title',serviceData.title)
-    }
+    
+    formData.append('title',('' == title || title == undefined) ? defaultData.title : title);
+    formData.append('category',('' == category || category == undefined) ? defaultData.category : category);
+    formData.append('areas_coverd',('' == areas_coverd || areas_coverd == undefined) ? defaultData.areas_coverd : areas_coverd);
+    formData.append('prices',('' == prices || prices == undefined) ? defaultData.prices : prices);
+    formData.append('address',('' == address || address == undefined) ? defaultData.address : address);
+    formData.append('availibility',('' == availibility || availibility == undefined) ? defaultData.availibility : availibility);
+    formData.append('mobile',('' == mobile || mobile == undefined) ? defaultData.mobile : mobile);
+    formData.append('description',('' == description || description == undefined) ? defaultData.description : description);
+    formData.append('longitude_latitude',('' == longitude_latitude || longitude_latitude == undefined) ? defaultData.longitude_latitude : longitude_latitude);
 
-    if (typeof mobile !== 'undefined') {
-      formData.append('mobile', mobile);
-      if (mobile.match(/^(?:(?:\+44\s*\d{10})|(?:0\d{4}\s*\d{6}))$/)) {
-        formData.append('mobile', mobile);
-      }else{
-        alert("Please enter a valid UK mobile phone number");
-        return
-      }
-    }else{
-      formData.append('mobile',serviceData.mobile)
-    }
-
-    if (typeof areas_coverd !== 'undefined') {
-      formData.append('areas_coverd', areas_coverd);
-    }else{
-      formData.append('areas_coverd',serviceData.areas_coverd)
-    }
-
-    if (typeof availability !== 'undefined') {
-      formData.append('availability', availability);
-    }else{
-      formData.append('availability',serviceData.availability)
-    }
-
-    if (typeof description !== 'undefined') {
-      formData.append('title', description);
-    }else{
-      formData.append('title',serviceData.description)
-    }
-    console.log("------------"+title)
     getAuthorization();
     axios.request({
       method: "PUT",
-      url: "http://51.104.196.52:8090/api/v1/service/" + id,  //这个put上传接口，你同学弄的有问题，如果我不传递avatar这个参数，他就会把数据库这个值改成空字符串，按理说不可能每次都修改图片，所以应该判断下，如果是空则不修改
+      url: "http://51.104.196.52:8090/api/v1/service/" + id,
       data: formData
     }).then((res) => {
-        alert("Update User Successful");
+        alert("Update Service Successful");
         //更新成功，然后切换到本来的页面并且刷新数据
         // setEditing(false);
-        // getUserData();
+        // getServiceDataById();
         // setTitle('');
         // setMobile('');
       }
@@ -299,16 +274,11 @@ const uploadButton = (
     <>
       {editing ? (
         <div>
-        <Input placeholder="Input new name" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <br />
-        
-        <Input placeholder="Input new mobile" value={mobile} onChange={(e) => setMobile(e.target.value)} />
-        <br />
 
         <br />
-        <Input placeholder="Input new areas coverd" value={areas_coverd} onChange={(e) => setAreasCoverd(e.target.value)} />
+        <Input id='titleInput' placeholder="Input new title" value={title} onChange={(e) => setTitle(e.target.value)} />
         <br />
-        <Input placeholder="Input new availability" value={availability} onChange={(e) => setAvailability(e.target.value)} />
+        <Input placeholder="Input new availibility" value={availibility} onChange={(e) => setAvailibility(e.target.value)} />
         <br />
         <Input placeholder="Input new description" value={description} onChange={(e) => setDescription(e.target.value)} />
         <br />
@@ -343,9 +313,9 @@ const uploadButton = (
           >
             <Descriptions.Item label="title">{serviceData.title}</Descriptions.Item>
             <Descriptions.Item label="Service area">{serviceData.areas_coverd}</Descriptions.Item>
-            <Descriptions.Item label="Availibility">{serviceData.availability}</Descriptions.Item>
+            <Descriptions.Item label="Availibility">{serviceData.availibility}</Descriptions.Item>
             <Descriptions.Item label="Mobile">{serviceData.mobile}</Descriptions.Item>
-            <Descriptions.Item label="Descriptiont">{serviceData.description}</Descriptions.Item>
+            <Descriptions.Item label="Description">{serviceData.description}</Descriptions.Item>
           </Descriptions>
           <img src={imageUrl} width={200} height={200} style={{ cursor:'pointer' }}/>
         </div>

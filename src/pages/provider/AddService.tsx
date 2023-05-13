@@ -122,7 +122,7 @@ const AddService: React.FC = () => {
     getAuthorization();
     const title = form.getFieldValue("title");
   
-    const longitude_latitude = form.getFieldValue("longitude") + "," + form.getFieldValue("latitude") ;
+    const longitude_latitude = form.getFieldValue("longitude_latitude");
 
     const address = form.getFieldValue("address");
 
@@ -132,7 +132,7 @@ const AddService: React.FC = () => {
 
     const mobile = form.getFieldValue("phoneNumber");
 
-    const areas_coverd = form.getFieldValue("areas_coverd");
+    const areas_coverd1 = form.getFieldValue("areas_coverd");
   
     const category = form.getFieldValue("category");
 
@@ -140,7 +140,7 @@ const AddService: React.FC = () => {
     
     const description = form.getFieldValue("description");
    
-   const availability = form.getFieldValue("availability");
+   const availibility = form.getFieldValue("availibility");
   
  
     
@@ -149,7 +149,7 @@ const AddService: React.FC = () => {
     axios.request({
       method: "POST",
       url: "http://51.104.196.52:8090/api/v1/service/add",
-      params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd:areas_coverd,availability:availability }
+      params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
     }).then((res) => {
         alert("success");
       }
@@ -187,18 +187,11 @@ const AddService: React.FC = () => {
 
         <Form.Item label="Location" style={{ marginBottom: 0 }}>
           <Form.Item
-            name="longitude"
+            name="longitude_latitude"
             rules={[{ required: true }]}
             style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
           >
-            <Input placeholder="Input Longitude" />
-          </Form.Item>
-          <Form.Item
-            name="latitude"
-            rules={[{ required: true }]}
-            style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
-          >
-            <Input placeholder="Input latitude" />
+            <Input placeholder="Input Longitude and Latitude" />
           </Form.Item>
         </Form.Item>
 
@@ -224,12 +217,8 @@ const AddService: React.FC = () => {
             }
           ]}
 >
-  <Input style={{ width: '100%' }} />
+          <Input style={{ width: '100%' }} />
 </Form.Item>
-
-        <Form.Item label="Service area">
-          <Input />
-        </Form.Item>
 
 
 
@@ -261,7 +250,7 @@ const AddService: React.FC = () => {
           <TextArea rows={4} />
         </Form.Item>
 
-        <Form.Item name="availability" label="Availability" valuePropName="checked">
+        <Form.Item name="availibility" label="Availability" >
           <Input />
         </Form.Item>
 

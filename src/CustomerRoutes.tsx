@@ -41,15 +41,10 @@ function CustomerRoutes() {
           </Route>
           <Route path='profile' element={<Profile />}></Route>
           <Route path='updateorder' element={<UpdateOrder />}></Route>
-        </Routes>
-
-    
+        </Routes>    
         
     </div>
     
-
- 
-  
   )
 
 }

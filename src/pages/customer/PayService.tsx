@@ -149,7 +149,6 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
     }
 
     const [form] = Form.useForm();
-
     return (
         <div>
             <div>
