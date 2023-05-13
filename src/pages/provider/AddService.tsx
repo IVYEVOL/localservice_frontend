@@ -132,7 +132,7 @@ const AddService: React.FC = () => {
 
     const mobile = form.getFieldValue("phoneNumber");
 
-    const areas_coverd = form.getFieldValue("areas_coverd");
+    const areas_coverd1 = form.getFieldValue("areas_coverd");
   
     const category = form.getFieldValue("category");
 
@@ -149,7 +149,7 @@ const AddService: React.FC = () => {
     axios.request({
       method: "POST",
       url: "http://51.104.196.52:8090/api/v1/service/add",
-      params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd:areas_coverd,availibility:availibility }
+      params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
     }).then((res) => {
         alert("success");
       }
@@ -219,10 +219,6 @@ const AddService: React.FC = () => {
 >
           <Input style={{ width: '100%' }} />
 </Form.Item>
-
-        <Form.Item label="Service area">
-          <Input />
-        </Form.Item>
 
 
 
