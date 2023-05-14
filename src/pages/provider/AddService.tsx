@@ -116,19 +116,43 @@ const AddService: React.FC = () => {
     }
     return Promise.reject(new Error('Price must be greater than zero!'));
   };
-  var user_status: string
+
+  const [status, setStatus] = useState<string>();
+  const [message, setMessage] = useState<string>();
+
   const getUserData = () => {
     getAuthorization();
     axios.request({
       method: "GET",
-      url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id,  //这里不能写死28
+      url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id, 
     }).then((ret) => {
       //这个就是获取到的数据列表
-        user_status  = ret.data.data
+        setStatus(ret.data.data.status)
+        console.log("++++getUserData user_status:"+ret.data.data.status)
        
       }
     );
   };
+
+  
+
+  const getAdminMessage = () => {
+    getAuthorization();
+    axios.request({
+      method: "GET",
+      url: "http://51.104.196.52:8090/api/v1/update/info/find_provider_message?user_id=" + user.user_id,  
+    }).then((ret) => {
+      
+    const admin_messages = ret.data.data;
+    if (admin_messages.length > 0) {
+      setMessage(admin_messages[admin_messages.length-1].message) 
+      console.log("First admin message:", message);
+      // Do something with the first admin message
+    } else {
+      console.log(admin_messages);
+    }
+  });
+  }
 
   const postFormData  = () => {
     getAuthorization();
@@ -154,11 +178,12 @@ const AddService: React.FC = () => {
    
    const availibility = form.getFieldValue("availibility");
   
-   getUserData()
+   getUserData();
     
     //token暂时写死
     // axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM2NTE3OTUsImlhdCI6MTY4MzY0OTk5NX0.VvujZG0p3I8Z75HK840QF777XLlRB9f0SKbSU5YyKLA";
-    if(user_status === "Approved"){
+    if(status === "Approved"){
+      console.log("status ==="+status)
       axios.request({
         method: "POST",
         url: "http://51.104.196.52:8090/api/v1/service/add",
@@ -168,7 +193,8 @@ const AddService: React.FC = () => {
         }
       );
     }else{
-          alert("No permission to add services");
+          getAdminMessage();
+          alert("No permission to add services"+"Please:"+ message);
     }
   }
     
