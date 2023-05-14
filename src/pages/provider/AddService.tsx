@@ -171,6 +171,7 @@ const AddService: React.FC = () => {
       alert("No permission to add services"+"\n\n\n"+"Admin request to description: "+ admin_messages[admin_messages.length-1].message);
     } else {
       console.log(admin_messages);
+      alert("No permission to add services." + "\n\n" + "Please wait for the administrator to review.")
     }
   });
   }
