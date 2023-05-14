@@ -122,10 +122,10 @@ const MyLayout = ({ children }: any) => {
           <Dropdown
             menu={{
               items: [
-                {
-                  label: 'Dashboard',
-                  key: 'dashboard',
-                },
+                // {
+                //   label: 'Dashboard',
+                //   key: 'dashboard',
+                // },
                 {
                   label: (
                     <span

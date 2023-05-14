@@ -37,7 +37,8 @@ const App: React.FC = () => {
     const getAllProvider = () =>{
         getAuthorization();
         axios.post('http://51.104.196.52:8090/api/v1/user/provider_list', {
-
+          page: 1,
+          limit: 500,
         })
             .then(res => {
                 let { data } = res.data;
@@ -156,6 +157,7 @@ const App: React.FC = () => {
 
   const columns: TableColumnsType<DataType> = [
     { title: 'No', dataIndex: 'key', key: 'key', width: 50 },
+    { title: 'Provider ID', dataIndex: 'ID', key: 'ID', width:100 },
     { title: 'Provider', dataIndex: 'nick_name', key: 'nick_name' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
     { title: 'Phone Number', dataIndex: 'mobile', key: 'mobile' },

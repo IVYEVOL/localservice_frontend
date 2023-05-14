@@ -228,7 +228,7 @@ function Register() {
                 >
                   <TextArea
                     showCount
-                    maxLength={100}
+                    maxLength={80}
                     style={{ height: 50, marginBottom: 24 }}
                     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                       console.log('Change:', e.target.value);
