@@ -244,9 +244,9 @@ const uploadButton = (
       data: formData
     }).then((res) => {
         alert("Update Service Successful");
-        //更新成功，然后切换到本来的页面并且刷新数据
-        // setEditing(false);
-        // getServiceDataById();
+       // 更新成功，然后切换到本来的页面并且刷新数据
+        setEditing(false);
+        getServiceDataById();
         // setTitle('');
         // setMobile('');
       }
@@ -312,7 +312,6 @@ const uploadButton = (
             extra={<Button type="primary" onClick={handleEdit}>Edit</Button>}
           >
             <Descriptions.Item label="title">{serviceData.title}</Descriptions.Item>
-            <Descriptions.Item label="Service area">{serviceData.areas_coverd}</Descriptions.Item>
             <Descriptions.Item label="Availibility">{serviceData.availibility}</Descriptions.Item>
             <Descriptions.Item label="Mobile">{serviceData.mobile}</Descriptions.Item>
             <Descriptions.Item label="Description">{serviceData.description}</Descriptions.Item>

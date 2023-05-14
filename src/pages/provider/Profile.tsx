@@ -29,6 +29,7 @@ const Profile: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string>();
   const [nick_name, setName] = useState<string>();
   const [mobile, setMobile] = useState<string>();
+  const [text, setText] = useState<string>();
   const [fileList, setFileList] = useState([]);
 
   const uploadButton = (
@@ -39,6 +40,9 @@ const Profile: React.FC = () => {
   );
 
   const handleEdit = () => {
+    setName(serviceData.nick_name);
+    setMobile(serviceData.mobile);
+    setText(serviceData.text)
     setEditing(true);
   };
 
@@ -49,16 +53,11 @@ const Profile: React.FC = () => {
         //formdata对Key值相同的，会自动封装成一个数组
           formData.append('avatar', item['originFileObj']);
     });
-    if('' == nick_name || nick_name == undefined){
-      alert("nick_name can not be empty");
-      return;
-    }
-    if('' == mobile || mobile == undefined){
-      alert("mobile can not be empty");
-      return;
-    }
-    formData.append('nick_name',nick_name);
-    formData.append('mobile', mobile);
+    formData.append('nick_name',('' == nick_name || nick_name == undefined) ? defaultData.nick_name : nick_name);
+    formData.append('mobile',('' == mobile || mobile == undefined) ? defaultData.mobile : mobile);
+    formData.append('text',('' == text || text == undefined) ? defaultData.text : text);
+   
+   
     console.log("------------"+nick_name)
     getAuthorization();
     axios.request({
@@ -72,6 +71,7 @@ const Profile: React.FC = () => {
         getUserData();
         setName('');
         setMobile('');
+        setText('');
       }
     );
   };
@@ -106,7 +106,8 @@ const Profile: React.FC = () => {
     nick_name: '',
     role: '',
     CreatedAt: '',
-    mobile: ''
+    mobile: '',
+    text:'',
   }
 
 
@@ -128,10 +129,11 @@ const Profile: React.FC = () => {
       {/* 只能修改邮箱 姓名 手机号码 */}
       {editing ? (
         <div>
-          <Input placeholder="Input new name" value={nick_name} onChange={(e) => setName(e.target.value)} />
+          <Input id='titleInput'  placeholder="Input new name" value={nick_name} onChange={(e) => setName(e.target.value)} />
           <br />
           <Input placeholder="Input new mobile" value={mobile} onChange={(e) => setMobile(e.target.value)} />
           <br />
+          <Input placeholder="Input new description" value={text} onChange={(e) => setText(e.target.value)} />
           <br />
           
           <Upload
@@ -164,6 +166,7 @@ const Profile: React.FC = () => {
             <Descriptions.Item label="Nick Name">{serviceData.nick_name}</Descriptions.Item>
             <Descriptions.Item label="Role">{serviceData.role}</Descriptions.Item>
             <Descriptions.Item label="Mobile">{serviceData.mobile}</Descriptions.Item>
+            <Descriptions.Item label="Description">{serviceData.text}</Descriptions.Item>
             <Descriptions.Item label="Created At">{serviceData.CreatedAt}</Descriptions.Item>
           </Descriptions>
           <img src={imageUrl} width={200} height={200} style={{ cursor:'pointer' }}/>
