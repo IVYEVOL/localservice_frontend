@@ -14,7 +14,7 @@ import {
   Upload,
 } from 'antd';
 import React, { useState } from 'react';
-import Axios from 'axios'
+import Axios, { AxiosResponse } from 'axios'
 import { getAuthorization } from '../../utils/tools';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -117,21 +117,36 @@ const AddService: React.FC = () => {
     return Promise.reject(new Error('Price must be greater than zero!'));
   };
 
-  const [status, setStatus] = useState<string>();
-  const [message, setMessage] = useState<string>();
-
-  const getUserData = () => {
-    getAuthorization();
-    axios.request({
-      method: "GET",
-      url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id, 
-    }).then((ret) => {
-      //这个就是获取到的数据列表
-        setStatus(ret.data.data.status)
-        console.log("++++getUserData user_status:"+ret.data.data.status)
+  
+   const [message, setMessage] = useState<string>();
+  // const [status, setStatus] = useState<string>();
+  
+  // const getUserData = () => {
+    
+  //   getAuthorization();
+  //   axios.request({
+  //     method: "GET",
+  //     url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id, 
+  //   }).then((ret) => {
+  //     //这个就是获取到的数据列表
+  //       // setStatus(ret.data.data.status)
+  //       const  status = ret.data.data.status
+  //       console.log("++++getUserData user_status:"+status)
+  //       return status
        
-      }
-    );
+  //     }
+  //   );
+  // };
+  const getUserData = (): Promise<string> => {
+    getAuthorization();
+    return axios
+      .request({
+        method: "GET",
+        url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id, 
+      })
+      .then((ret: AxiosResponse) => {
+        return ret.data.data.status;
+      });
   };
 
   
@@ -154,7 +169,7 @@ const AddService: React.FC = () => {
   });
   }
 
-  const postFormData  = () => {
+  const postFormData  = async () => {
     getAuthorization();
     const title = form.getFieldValue("title");
   
@@ -177,22 +192,24 @@ const AddService: React.FC = () => {
     const description = form.getFieldValue("description");
    
    const availibility = form.getFieldValue("availibility");
-  
-   getUserData();
+   
+   const status = await getUserData() ;
+   
     
     //token暂时写死
     // axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM2NTE3OTUsImlhdCI6MTY4MzY0OTk5NX0.VvujZG0p3I8Z75HK840QF777XLlRB9f0SKbSU5YyKLA";
     if(status === "Approved"){
-      console.log("status ==="+status)
+      console.log("status ==="+status )
       axios.request({
         method: "POST",
         url: "http://51.104.196.52:8090/api/v1/service/add",
-        params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
+        params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
       }).then((res) => {
           alert("success");
         }
       );
     }else{
+         console.log("status ==="+status)
           getAdminMessage();
           alert("No permission to add services"+"Please:"+ message);
     }

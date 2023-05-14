@@ -101,11 +101,19 @@ const ServiceReview: React.FC<ServiceReviewProps> = ({reviewData}) => {
         axios.request({
           method: "POST",
           url: "http://51.104.196.52:8090/api/v1/update/info/add",
-          params: {user_id: reviewData.customer_id,order_id:reviewData.ID, status: "Update", message:message }
+          params: {user_id: reviewData.customer_id,order_id:reviewData.ID, status: "Pending", message:message }
         }).then((res) => {
             
           }
         );
+        axios.request({
+            method: "POST",
+            url: "http://51.104.196.52:8090/api/v1/update/info/message/add",
+            params: {user_id: reviewData.customer_id,order_id:reviewData.ID, status: "Update", message: "Please update descrition"}
+          }).then((res) => {
+              alert("success");
+            }
+          );
       }
       
      
