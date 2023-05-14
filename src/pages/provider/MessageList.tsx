@@ -27,6 +27,7 @@ interface Service {
     longitude_latitude: string;
     mobile: string;
     user_id: number;
+    date: string
 }
 
 const PAGE_SIZE = 6;
@@ -68,7 +69,7 @@ const MessageList = () => {
                 const services: Service[] = res.data.data.map((service: any, index: number) => ({
                     key: index,
                     ID: service.ID,
-                    title: service.title,
+                    title: service.service_title,
                     prices: service.prices,
                     city: service.city,
                     photos: service.photos,
@@ -82,7 +83,8 @@ const MessageList = () => {
                     longitude_latitude: service.longitude_latitude,
                     mobile: service.mobile,
                     user_id: service.user_id,
-                    description: service.description
+                    description: service.description,
+                    date: service.date
                 }));
 
                 setServices(services);
@@ -119,21 +121,28 @@ const MessageList = () => {
 
                 <Row gutter={[16, 16]} style={{ marginTop: 40 }}>
                     {services.map((service) => (
-                        <Col xs={24} sm={12} md={8} key={service.ID}>
+                        <Col xs={24} sm={24} md={24} key={service.ID}>
                             <NavLink to={`/provider/vieworder/${service.ID}`}>
                                 <Card
                                     hoverable
-                                    style={{ height: '340px', width: '280px', margin: 'auto' }}
-                                    cover={<img alt="example" src={`http://51.104.196.52:8090/${service.photos}`} style={{ height: '180px',width:'400px' ,objectFit: 'cover' }} />}
+                                    style={{ height: '20vh', maxWidth: '80%', margin: 'auto' }}
+                                    // cover={<img alt="example" src={`http://51.104.196.52:8090/${service.photos}`} style={{ height: '180px',width:'400px' ,objectFit: 'cover' }} />}
                                 >
                                     <Meta
                                         title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
-                                        description={<div style={{ fontSize: '12px' }}>{service.description}</div>}
+                                      
                                     />
 
-                                    <div style={{ marginTop: '50px' }}>
+                                    <div style={{ marginTop: '30px' }}>
                                        {/* <span style={{ fontSize: '14px' }}>Description: </span>
                                         <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '10px' }}>{service.description}</div> */}
+                                       
+                                        <span style={{ fontSize: '14px' }}>Description: </span>
+                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '14px' }}>{service.description}</div>
+                                        <br />
+                                        <span style={{ fontSize: '14px' }}>Date: </span>
+                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '14px' }}>{service.date}</div>
+                                        <br />
                                         <span style={{ fontSize: '14px' }}>Status: </span>
                                         <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '14px' }}>{service.status}</div>
                                     </div>
