@@ -1,7 +1,7 @@
 import 'react'
 import MessageCard from './MessageCard'
 import { Card } from 'antd';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { EditOutlined, NotificationOutlined, StarOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { getAuthorization } from '../../utils/tools';
@@ -26,15 +26,21 @@ const MesssageList = () => {
   console.log(user.user_id)
   const [addinfos, setAddinfos] = useState<addInfo[]>([]);
   const [messages, setMessages] = useState<addInfo[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    let timer = setTimeout(() => {
-      showAddinfoById();
-      showMessageById()
+    if (!userJson) {
+      navigate('/customer/login');
+      console.log(222222222222222222222222222222);
+    } else {
+      let timer = setTimeout(() => {
+        showAddinfoById();
+        showMessageById()
 
-    }, 0);
+      }, 0);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const showAddinfoById = () => {//获取order
@@ -45,7 +51,7 @@ const MesssageList = () => {
         console.log("res.data.data")
         console.log(res.data.data)
         setAddinfos(res.data.data);
-   
+
         // 在这里调用 showServiceById 函数
       })
       .catch((err) => {
@@ -94,20 +100,20 @@ const MesssageList = () => {
       <Card title="let's review services" style={{ marginLeft: 110, width: 1300, margin: '0 auto' }}>
         {messages.map((message, index) => (
           <Card
-          className='messagecard'
-          type="inner"
-          style={{ width: 1200 }}
-          title={
-            <span style={{ borderRadius: 10 }}>
-              <StarOutlined style={{ marginRight: 8 }} />
-              Review the service! 
-            </span>
-          }
-          extra={
+            className='messagecard'
+            type="inner"
+            style={{ width: 1200 }}
+            title={
+              <span style={{ borderRadius: 10 }}>
+                <StarOutlined style={{ marginRight: 8 }} />
+                Review the service!
+              </span>
+            }
+            extra={
               <NavLink to={`servicereviewmessage/${message.order_id}/${message.ID}`}>Review</NavLink>
             }>
-          There are service for you to review
-        </Card>
+            There are service for you to review
+          </Card>
         ))}
         <Outlet />
       </Card>

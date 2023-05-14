@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getAuthorization } from '../../utils/tools';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 interface Order {
     ID: number;
@@ -36,15 +37,22 @@ const BookingList = () => {
     const user = userJson ? JSON.parse(userJson) : {};
     console.log(user.user_id)
     const [services, setServices] = useState<any[]>([]);
+    const navigate = useNavigate();
 
-
-    useEffect(() => {
-        let timer = setTimeout(() => {
-            showOrderById()
-        }, 0);
-
-        return () => clearTimeout(timer);
-    }, []);
+  
+      useEffect(() => {
+        if (!userJson) {
+          navigate('/customer/login');
+          console.log(222222222222222222222222222222);
+        } else {
+          let timer = setTimeout(() => {
+            showOrderById();
+          }, 0);
+    
+          return () => clearTimeout(timer);
+        }
+      }, []);
+    
 
     const showOrderById = () => {
         getAuthorization();
@@ -79,6 +87,8 @@ const BookingList = () => {
                 console.log(err);
             });
     };
+
+  
 
     return (
         <div>
