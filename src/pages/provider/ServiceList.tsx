@@ -172,6 +172,10 @@ const ServiceList = () => {
                                     <div style={{ marginTop: '50px' }}>
                                         <span style={{ fontSize: '14px' }}>Price: </span>
                                         <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '20px' }}>￡{service.prices}</div>
+                                        <br />
+                                        <span style={{ fontSize: '14px' }}>Service status: </span>
+                                        <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '14px' }}>{service.Status}</div>
+                                        
                                     </div>
                                 </Card>
                             </NavLink>
