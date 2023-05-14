@@ -27,6 +27,11 @@ export const setToken = (token: string) =>
 export const setUser = (user: any) =>
   Cookies.set('user', JSON.stringify(user));
 
+
+export const getUser = () => !!Cookies.get('user');
+
+export const removeUser = () => Cookies.remove('user');
+
 /**
  * Get token
  * @returns

@@ -6,9 +6,6 @@ import { defaultImg, setToken, setUser } from '../utils/tools';
 import { AuthContext, AuthData } from './customer/AuthContext';
 
 
-
-
-
 function Login() {
   const { setAuthData } = useContext(AuthContext);
   const { authData } = useContext(AuthContext);

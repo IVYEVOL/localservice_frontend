@@ -13,9 +13,8 @@ import BookingList from './pages/customer/BookingList'
 import Order from './pages/customer/Order'
 import Profile from './pages/customer/profile'
 import UpdateOrder from './pages/customer/UpdateOrder'
-import { AuthContext,AuthData } from './pages/customer/AuthContext'
+import { AuthData } from './pages/customer/AuthContext'
 import { useState } from 'react'
-import MyFooter from './components/MyFooter'
 
 
 function CustomerRoutes() {

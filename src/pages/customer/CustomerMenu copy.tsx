@@ -3,13 +3,16 @@ import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import "./customerccss.css"
-import { getAuthorization, removeToken, removeUser } from '../../utils/tools';
+import { getAuthorization, removeToken, getUser } from '../../utils/tools';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 interface UserData {
   ID: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt: null | string;
   email: string;
   password: string;
   nick_name: string;
@@ -29,7 +32,6 @@ const CustomerMenu: React.FC = () => {
     if (user) {
       setIsLoggedIn(true);
     }
-    console.log(user)
   }, []);
 
   const handleLogout = () => {
@@ -60,7 +62,7 @@ const CustomerMenu: React.FC = () => {
     );
   };
 
-  const items1: MenuProps['items'] = [
+  const items: MenuProps['items'] = [
     {
       label: (
         <div>
@@ -77,12 +79,12 @@ const CustomerMenu: React.FC = () => {
       // icon: <MailOutlined />,
     },
     {
-      label:
-        <div style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}><img className="profile-avatar2"
-          src={`http://51.104.196.52:8090/${userdetail?.avatar}`}
-          alt="Profile" />
-          {userdetail?.nick_name}
-        </div>,
+      label: 
+       <div style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}><img className="profile-avatar2"
+        src={`http://51.104.196.52:8090/${userdetail?.avatar}`}
+        alt="Profile" />
+        {userdetail?.nick_name}
+      </div>,
       key: 'SubMenu',
       // icon: <SettingOutlined />,
       children: [
@@ -112,7 +114,7 @@ const CustomerMenu: React.FC = () => {
               label: (
                 <span
                   onClick={() => {
-                    removeUser();
+                    removeToken();
                     console.log('Logout');
                     navigate('/');
                   }}
@@ -130,25 +132,6 @@ const CustomerMenu: React.FC = () => {
       ],
       style: { margin: 10 },
     },
-  ];
-
-
-  const items2: MenuProps['items'] = [
-    {
-      label: (
-        <div>
-          <NavLink to="/customer"><img src='http://127.0.0.1:5173/src/assets/findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
-        </div>
-      ),
-      key: 'logo',
-      style: { marginLeft: 100 },
-    },
-    {
-      label: <NavLink to="/customer" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Home</NavLink>,
-      key: 'Home',
-      style: { margin: 10, marginLeft: 700 },
-      // icon: <MailOutlined />,
-    },
     {
       label: <NavLink to="/customer/login" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Log in</NavLink>,
       key: 'Log in',
@@ -165,35 +148,17 @@ const CustomerMenu: React.FC = () => {
   };
 
   return (
-
-
-
-<div>
-  {isLoggedIn ? (
-    <div>
+    
+    <div  >
       <Menu
-        theme="light"
+        theme='light'
         onClick={onClick}
         selectedKeys={[current]}
         mode="horizontal"
-        items={items1}
-      />
+        items={items} />
       <Outlet />
-    </div>
-  ) : (
-    <div>
-      <Menu
-        theme="light"
-        onClick={onClick}
-        selectedKeys={[current]}
-        mode="horizontal"
-        items={items2}
-      />
-      <Outlet />
-    </div>
-  )}
-</div>
 
+    </div>
   );
 };
 
