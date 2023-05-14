@@ -332,7 +332,6 @@ const App: React.FC = () => {
   const checkServiceDetail=(r:any)=>{
     let url = 'http://51.104.196.52:9000/admin/service_detail/' + r.ID;
     window.location.href=url
-    
   }
 
   return <Table columns={columns}
