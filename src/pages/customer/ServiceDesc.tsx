@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Rate, Avatar, Space, Button } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Space, Button } from 'antd';
 import './customerccss.css';
 import { Link, NavLink, Route, Routes } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-// import PayService from './PayService';
-import { useContext } from 'react';
-import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 
@@ -36,13 +33,28 @@ interface ServiceDescProps {
 }
 
 
+
+
 const ServiceDesc: React.FC<ServiceDescProps> = ({ serviceData }) => {
+
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const user = Cookies.get('user');
+        if (user) {
+            setIsLoggedIn(true);
+        }
+        console.log(user)
+    }, []);
+
+
     console.log("当前获取到的service")
     console.log(serviceData)
     console.log(serviceData.ID)
     serviceData
 
-    const PayButton: React.FC = () => ( 
+    const PayButton: React.FC = () => (
         <Space wrap>
             <Button className='paybutton' type="primary">Book</Button>
         </Space>
@@ -60,15 +72,28 @@ const ServiceDesc: React.FC<ServiceDescProps> = ({ serviceData }) => {
 
             {/* <div className='servicerate'>Rate：<Rate disabled defaultValue={3} /></div> */}
 
-            <Link to={`/customer/viewservice/${serviceData.ID}/payservice`}>
-                <PayButton />
-            </Link>
-            
+
+            <div>
+                {isLoggedIn ? (
+                    <div>
+                        <Link to={`/customer/viewservice/${serviceData.ID}/payservice`}>
+                            <PayButton />
+                        </Link>
+                    </div>
+                ) : (
+                    <div>
+
+                    </div>
+                )}
+            </div>
+
+
+
 
             {/* <Routes>
                 <Route  path={`/customer/viewservice/${serviceData.ID}/payservice`} element={<PayService />}></Route>
             </Routes> */}
-            <Outlet/>
+            <Outlet />
         </div>
     );
 
