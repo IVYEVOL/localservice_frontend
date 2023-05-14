@@ -116,7 +116,19 @@ const AddService: React.FC = () => {
     }
     return Promise.reject(new Error('Price must be greater than zero!'));
   };
-
+  var user_status: string
+  const getUserData = () => {
+    getAuthorization();
+    axios.request({
+      method: "GET",
+      url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id,  //这里不能写死28
+    }).then((ret) => {
+      //这个就是获取到的数据列表
+        user_status  = ret.data.data
+       
+      }
+    );
+  };
 
   const postFormData  = () => {
     getAuthorization();
@@ -142,19 +154,24 @@ const AddService: React.FC = () => {
    
    const availibility = form.getFieldValue("availibility");
   
- 
+   getUserData()
     
     //token暂时写死
     // axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM2NTE3OTUsImlhdCI6MTY4MzY0OTk5NX0.VvujZG0p3I8Z75HK840QF777XLlRB9f0SKbSU5YyKLA";
-    axios.request({
-      method: "POST",
-      url: "http://51.104.196.52:8090/api/v1/service/add",
-      params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
-    }).then((res) => {
-        alert("success");
-      }
-    );
+    if(user_status === "Approved"){
+      axios.request({
+        method: "POST",
+        url: "http://51.104.196.52:8090/api/v1/service/add",
+        params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
+      }).then((res) => {
+          alert("success");
+        }
+      );
+    }else{
+          alert("No permission to add services");
+    }
   }
+    
   
   function showFormData() {
     console.log(form.getFieldsValue());//Get all form data

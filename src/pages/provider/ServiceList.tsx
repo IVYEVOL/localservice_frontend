@@ -157,8 +157,13 @@ const ServiceList = () => {
                                 <Card
                                     hoverable
                                     style={{ height: '340px', width: '280px', margin: 'auto' }}
-                                    cover={<img alt="example" src={`http://51.104.196.52:8090/${service.photos}`} style={{ height: '180px',width:'400px' ,objectFit: 'cover' }} />}
+                                    // cover={<img alt="example" src={`http://51.104.196.52:8090/${service.photos}`} style={{ height: '180px',width:'400px' ,objectFit: 'cover' }} />}
+                                    cover={<img
+                                      alt="example"
+                                      src={`http://51.104.196.52:8090/${service.photos}`}
+                                      style={{ height: '180px', width: '280px', objectFit: 'cover' }} />}
                                 >
+                          
                                     <Meta
                                         title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
                                         description={<div style={{ fontSize: '12px' }}>{service.city}</div>}
