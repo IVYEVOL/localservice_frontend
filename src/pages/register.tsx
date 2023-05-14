@@ -84,7 +84,7 @@ function Register() {
           />
 
 
-          <div>
+          <div style={{ border: '1px solid gray', padding: '10px' }}>
             <form onSubmit={sendEmail} >
               <input style={{ display: 'none' }} type="email" name="user_email" value={inputValue2} />
               <textarea style={{ display: 'none' }} name="message" defaultValue={defaultMessage}></textarea>
@@ -107,7 +107,7 @@ function Register() {
               onFinish={async (v) => {
                 try {
                   const res = await registerAPI(v);
-                  console.log(res);
+                  // console.log(res);
                   if (res.code == 200) {
                     message.success('Register Successful');
                     navigate('/login');
