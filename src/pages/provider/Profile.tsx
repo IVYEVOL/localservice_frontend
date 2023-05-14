@@ -88,7 +88,7 @@ const Profile: React.FC = () => {
         var u
         if('' == data.avatar || data.avatar == undefined){
 
-            u =  "http://localhost:5182/src/assets/profile.png" ;
+            u =  "http://51.104.196.52:9000/src/assets/profile.png" ;
         }else{
             u = 'http://51.104.196.52:8090/' + data.avatar
         }

@@ -18,7 +18,7 @@ const sideMenuData = [
   {
     key: '/admin/new_service_provider',
     icon: <DashboardOutlined />,
-    label: 'New Server Provider',
+    label: 'New Service Provider',
   },
   {
     key: '/admin/service_audit',

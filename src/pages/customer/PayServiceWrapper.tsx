@@ -22,6 +22,7 @@ interface Service {
     longitude_latitude: string;
     mobile: string;
     user_id: number;
+    service_title: string;
 }
 
 
@@ -56,7 +57,6 @@ const PayServiceWrapper: React.FC = () => {
                 console.log(err);
             });
     };
-
     
     return service ? <PayService serviceData={service} /> : null;
     

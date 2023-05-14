@@ -11,7 +11,7 @@ function NotFound() {
         			</div>
         			<h2>Oops! This Page Could Not Be Found</h2>
         			<p>Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable</p>
-        			<a href="http://127.0.0.1:5173/">Go To Homepage</a>
+        			<a href="http://51.104.196.52:9000/">Go To Homepage</a>
         			</div>
         		</div>
     </div>
