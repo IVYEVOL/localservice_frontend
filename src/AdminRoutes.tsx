@@ -14,7 +14,7 @@ function AdminRoutes() {
   console.log(loggedIn)
 
   if (!loggedIn) {
-    return <Navigate to="/" />;
+    return <Navigate to="/customer/login" />;
   }
   
 
