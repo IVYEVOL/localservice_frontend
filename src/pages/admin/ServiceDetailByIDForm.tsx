@@ -227,7 +227,8 @@ const App: React.FC = () => {
                     <Image
                         width={150}
                         height={60}
-                        src="error"
+                        src={serviceData.photos}
+                        // src="error"
                         fallback={serviceData.photos}
                     />
                 </Descriptions.Item>
