@@ -140,13 +140,19 @@ const App: React.FC = () => {
       title: 'No',
       dataIndex: 'key',
       key: 'key',
-      width: 70
+      width: 50
     },
     {
       title: 'Provider ID',
       dataIndex: 'ID',
       key: 'ID',
       width: 90
+    },
+    {
+      title: 'Provider Email',
+      dataIndex: 'email',
+      key: 'email',
+      width: 170
     },
     {
       title: 'Service Provider Name',
@@ -201,7 +207,7 @@ const App: React.FC = () => {
           {/* <a onClick={del.bind(this,text)}>Reject</a> */}
         </Space>
       ),
-
+        
     },
   ];
 
