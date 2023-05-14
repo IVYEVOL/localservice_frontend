@@ -12,7 +12,7 @@ const items: MenuProps['items'] = [
   {
     label: (
       <div>
-        <NavLink to="/provider"><img src='src\assets\findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
+        <NavLink to="/provider"><img src='http://51.104.196.52:8090/upload/findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
         
       </div>
     ),
