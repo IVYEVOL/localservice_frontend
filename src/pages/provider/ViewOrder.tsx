@@ -10,22 +10,24 @@ import axios from 'axios'
 
 interface Review {
     ID: number ,
-    // CreatedAt: "2023-05-12T23:17:50.559Z",
-    // "UpdatedAt": "2023-05-12T23:17:50.559Z",
+    CreatedAt: string,
+    UpdatedAt: string,
     // "DeletedAt": null,
-    // "customer_id": 29,
+    //customer_id: string,
     // "service_id": 84,
     // "provider_id": 57,
-    // "description": "2222222222222222222222222222222222222",
-    status: String,
-    // "service_title": "Cleaning3",
-    // "customer_name": "Shuaiyue Xie",
-    // "customer_email": "xieshuaiyue@gmail.com",
-    // "customer_phone": "07536919973",
-    // "postcode": "SO14 0GE",
-    // "address": "Flat 604, Orions Point",
-    // "city": "Southampton",
-    // "date": "Mon May 22 2023 00:17:43 GMT+0100"
+    description: string,
+    status: string,
+    service_title: string,
+    customer_name: string,
+    customer_email: string,
+    customer_phone: string,
+    postcode: string,
+    address: string,
+    city: string,
+    date: string,
+    customer_id: number,
+
 }
 
 
@@ -77,10 +79,18 @@ const ViewService = () => {
                     DeletedAt: review.DeletedAt,
                     user_id: review.user_id,
                     service_id: review.service_id,
-                    content: review.content,
-                    rating: review.rating,
                     city: review.city,
-                    status: review.status
+                    status: review.status,
+                    service_title: review.service_title,
+                    date: review.date,
+                    description: review.description,
+                    customer_name: review.customer_name,
+                    customer_email: review.customer_email,
+                    customer_phone: review.customer_phone,
+                    postcode: review.postcode,
+                    address: review.address,
+                    customer_id: review.customer_id
+
                 }));
                 setReview(reviews);//获取所有数据
                 console.log("评论数据为：")

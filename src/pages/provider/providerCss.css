@@ -70,7 +70,6 @@
     /* left: 150px;
     right: 600px;
     top: 100px; */
-    left:50%;
 
     background: url(06.jpg);
     filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.25));
@@ -176,7 +175,7 @@
     padding: 0px;
     gap: 9px;
     margin: 15px 140px 0px;
-    width: 676px;
+    max-width: 80%;
     height: 62px;
 }
 
@@ -201,14 +200,139 @@
 
     color: #585858;
 }
-/* provider */
-.providerText{
-    
-    width: 3980px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 143%;
-    color: #787885;
+
+/* mapsearching */
+
+body {
+    margin: 0;
 }
+
+.sb-title {
+    position: relative;
+    top: -12px;
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+}
+
+.sb-title-icon {
+    position: relative;
+    top: -5px;
+}
+
+.card-container {
+    display: flex;
+    height: 500px;
+    width: 600px;
+}
+
+.panel {
+    background: white;
+    width: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.half-input-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.half-input {
+    max-width: 120px;
+}
+
+.map {
+    width: 300px;
+}
+
+h2 {
+    margin: 0;
+    font-family: Roboto, sans-serif;
+}
+
+input {
+    height: 30px;
+}
+
+input {
+    border: 0;
+    border-bottom: 1px solid black;
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
+
+input:focus::placeholder {
+    color: white;
+}
+
+.button-cta {
+    height: 40px;
+    width: 40%;
+    background: #3367d6;
+    color: white;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-family: Roboto, sans-serif;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
+    cursor: pointer;
+}
+
+/* profile页面样式 */
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+  }
+  
+  .profile-avatar {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    margin-bottom: 24px;
+  }
+  
+  .profile-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  
+  .profile-info {
+    font-size: 18px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .profile-button {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 4px;
+    margin-right: 16px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  /* customerMenu */
+  .right-aligned-menu .ant-menu-item {
+    float: right;
+  }
+
+  .profile-avatar2{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
