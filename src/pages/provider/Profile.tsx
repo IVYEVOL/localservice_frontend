@@ -40,6 +40,9 @@ const Profile: React.FC = () => {
   );
 
   const handleEdit = () => {
+    setName(serviceData.nick_name);
+    setMobile(serviceData.mobile);
+    setText(serviceData.text)
     setEditing(true);
   };
 
@@ -66,9 +69,9 @@ const Profile: React.FC = () => {
         //更新成功，然后切换到本来的页面并且刷新数据
         setEditing(false);
         getUserData();
-        // setName('');
-        // setMobile('');
-        // setText('');
+        setName('');
+        setMobile('');
+        setText('');
       }
     );
   };
@@ -126,7 +129,7 @@ const Profile: React.FC = () => {
       {/* 只能修改邮箱 姓名 手机号码 */}
       {editing ? (
         <div>
-          <Input placeholder="Input new name" value={nick_name} onChange={(e) => setName(e.target.value)} />
+          <Input id='titleInput'  placeholder="Input new name" value={nick_name} onChange={(e) => setName(e.target.value)} />
           <br />
           <Input placeholder="Input new mobile" value={mobile} onChange={(e) => setMobile(e.target.value)} />
           <br />
