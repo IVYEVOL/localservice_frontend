@@ -30,6 +30,7 @@ export const setUser = (user: any) =>
 
 export const getUser = () => !!Cookies.get('user');
 
+
 export const removeUser = () => Cookies.remove('user');
 
 /**

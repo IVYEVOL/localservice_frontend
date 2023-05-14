@@ -9,6 +9,7 @@ import form from 'antd/lib/form';
 import { FormInstance } from 'antd/lib/form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 interface Service {
@@ -73,14 +74,27 @@ const onFinish = (fieldsValue: any) => {
 };
 
 
+
 const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
-    const navigate = useNavigate();
     console.log("servicedata")
     console.log(serviceData)
     const userJson = Cookies.get('user');
     const user = userJson ? JSON.parse(userJson) : {};
     console.log("user.user_id")
     console.log(user.user_id)
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!userJson) {
+            navigate('/customer/login');
+            console.log(222222222222222222222222222222);
+        } else {
+            let timer = setTimeout(() => {
+            }, 0);
+
+            return () => clearTimeout(timer);
+        }
+    }, []);
 
     const onFinish = (fieldsValue: any) => {//获取表单中各个字段的值，判断它们是否为空，然后使用axios库向API接口发送POST请求
         getAuthorization();
@@ -104,11 +118,6 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
             alert("Postcode can not be empty");
             return;
         }
-        // const datetimepicker = form.getFieldValue("datetimepicker");
-        // if ('' == datetimepicker || datetimepicker == undefined) {
-        //     alert("datetimepicker can not be empty");
-        //     return;
-        // }
         const datetimepicker = fieldsValue["date-time-picker"];
         const city = form.getFieldValue("city");
         if ('' == city || city == undefined) {
