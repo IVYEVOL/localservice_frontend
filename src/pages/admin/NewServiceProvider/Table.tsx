@@ -169,7 +169,8 @@ const App: React.FC = () => {
     const showTable = () => {
         getAuthorization();
         axios.post('http://51.104.196.52:8090/api/v1/user/provider_list', {
-            
+            page: 1,
+            limit: 100
         })
             .then(res => {
 

@@ -41,11 +41,16 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!userJson) {
+      navigate('/customer/login');
+      console.log(222222222222222222222222222222);
+    } else {
     let timer = setTimeout(() => {
       getUserData()
     }, 0);
 
     return () => clearTimeout(timer);
+    }
   }, []);
 
 

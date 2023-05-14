@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import CustomerMenu from './pages/provider/CustomerMenu'
 import AddService from './pages/provider/AddService'
@@ -11,8 +11,15 @@ import service from './provider_data/services.json'
 import ViewService from './pages/provider/ViewService'
 import MessageList from './pages/provider/MessageList'
 import ViewOrder from './pages/provider/ViewOrder'
+import { getUser } from './utils/tools'
 
 function ProviderRoutes() {
+  const loggedIn = getUser();
+  console.log(loggedIn)
+
+  if (!loggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <>
