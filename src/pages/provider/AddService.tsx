@@ -171,9 +171,21 @@ const AddService: React.FC = () => {
       alert("No permission to add services"+"\n\n\n"+"Admin request to description: "+ admin_messages[admin_messages.length-1].message);
     } else {
       console.log(admin_messages);
+      alert("No permission to add services." + "\n\n" + "Please wait for the administrator to review.")
     }
   });
   }
+
+  const navigateToProviderHome=()=>{
+    let url = 'http://51.104.196.52:9000/provider';
+    window.location.href=url
+  }
+
+  const navigateToProviderAddService=()=>{
+    let url = 'http://51.104.196.52:9000/provider/addservice';
+    window.location.href=url
+  }
+
 
   const postFormData  = async () => {
     getAuthorization();
@@ -217,10 +229,11 @@ const AddService: React.FC = () => {
           alert("success");
         }
       );
+      navigateToProviderHome();
     }else{
       console.log("status ==="+status)
           getAdminMessage();
-          
+          navigateToProviderAddService();
     }
   }
     

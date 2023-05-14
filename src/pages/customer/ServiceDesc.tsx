@@ -32,9 +32,6 @@ interface ServiceDescProps {
     serviceData: Service;
 }
 
-
-
-
 const ServiceDesc: React.FC<ServiceDescProps> = ({ serviceData }) => {
 
 

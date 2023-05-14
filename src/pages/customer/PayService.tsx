@@ -159,7 +159,7 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
     return (
         <div>
             <div>
-                <div ><img className='serviceimage' alt="Loading" src={`http://51.104.196.52:8090/upload/${serviceData.photos}`} /></div>
+                <div ><img className='serviceimage' alt="Loading" src={`http://51.104.196.52:8090/${serviceData.photos}`} /></div>
                 <div className='servicename'>{serviceData?.title}</div>
                 <div className='serviceprice'>￡{serviceData?.prices}</div>
             </div>

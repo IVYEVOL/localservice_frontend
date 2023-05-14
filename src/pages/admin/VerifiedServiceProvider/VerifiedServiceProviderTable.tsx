@@ -143,14 +143,14 @@ const App: React.FC = () => {
   };
 
   const checkServiceDetail=(r:any)=>{
-    let url = 'http://localhost:5173/admin/service_detail/' + r.ID;
+    let url = 'http://51.104.196.52:9000/admin/service_detail/' + r.ID;
     window.location.href=url
     
   }
 
   const checkDetailReviews=(r:any)=>{
     console.log(r.ID)
-    let url = 'http://localhost:5173/admin/service_reviews/' + r.ID;
+    let url = 'http://51.104.196.52:9000/admin/service_reviews/' + r.ID;
     window.open(url)
     
   }
