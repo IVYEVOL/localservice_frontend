@@ -109,7 +109,7 @@ const App: React.FC = () => {
                     message.error(res.data.msg);
                 }
                 setTimeout(() => {
-                    window.location.href = "http://localhost:5173/admin/service_audit/"
+                    window.location.href = "http://51.104.196.52:9000/admin/service_audit/"
                 }, 200)
 
             })
@@ -143,7 +143,7 @@ const App: React.FC = () => {
                     message.error(res.data.msg);
                 }
                 setTimeout(() => {
-                    window.location.href = "http://localhost:5173/admin/service_audit/"
+                    window.location.href = "http://51.104.196.52:9000/admin/service_audit/"
                 }, 200)
 
             })
@@ -151,13 +151,13 @@ const App: React.FC = () => {
 
     const backToServiceAudit = () => {
         getAuthorization();
-        window.location.href = "http://localhost:5173/admin/service_audit/"
+        window.location.href = "http://51.104.196.52:9000/admin/service_audit/"
     }
 
     
     const backToReviewManagement = () => {
         getAuthorization();
-        window.location.href = "http://localhost:5173/admin/review_management/"
+        window.location.href = "http://51.104.196.52:9000/admin/review_management/"
     }
 
 

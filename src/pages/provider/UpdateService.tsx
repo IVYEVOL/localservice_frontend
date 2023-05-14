@@ -180,7 +180,7 @@ const getServiceDataById = () => {
       var u
       if('' == data.photos || data.photos == undefined){
 
-          u =  "http://localhost:5182/src/assets/findserviceLogo.png" ;
+          u =  "http://51.104.196.52:9000/src/assets/findserviceLogo.png" ;
       }else{
           u = 'http://51.104.196.52:8090/' + data.photos
       }

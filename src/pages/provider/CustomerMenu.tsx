@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import { Route } from 'react-router';
-import MesssageList from './MessageList';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import "./providerCss.css"
 
@@ -28,7 +26,7 @@ const items: MenuProps['items'] = [
   },
 
   {
-    label: <div style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}><img className="profile-avatar2" src='src\assets\profile.png' alt="Profile" />IVY</div>,
+    label: <div style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}><img className="profile-avatar2" src='http://51.104.196.52:8090/upload/profile.jpg' alt="Profile" />IVY</div>,
     key: 'SubMenu',
     // icon: <SettingOutlined />,
     children: [
