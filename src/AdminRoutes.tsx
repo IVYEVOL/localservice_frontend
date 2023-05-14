@@ -1,15 +1,22 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import MyLayout from "./components/MyLayout"
 import NewServiceProvider from './pages/admin/NewServiceProvider/NewServiceProvider'
-import Test from './pages/admin/NewServiceProvider/Table'
 import ServiceAudit from './pages/admin/ServiceAudit/ServiceAudit'
 import VerifiedServiceProvider from './pages/admin/VerifiedServiceProvider/VerifiedServiceProvider'
 import ServiceReviewsByID from './pages/admin/ServiceReviewsByID'
-import ServiceDetailByID from './pages/admin/ServiceDetailByID'
-import React from 'react'
-
+import ServiceDetailByID from './pages/admin/ServiceDetailByID' 
+import { Navigate } from 'react-router-dom'
+import { getUser } from './utils/tools'
 
 function AdminRoutes() {
+
+  const loggedIn = getUser();
+  console.log(loggedIn)
+
+  if (!loggedIn) {
+    return <Navigate to="/" />;
+  }
+  
 
   return (
     <>
@@ -23,11 +30,6 @@ function AdminRoutes() {
           <Route path='service_detail/:id' element={<ServiceDetailByID />} />
         </Routes>
       </MyLayout>
-
-
-
-
-
     </>
 
   )
