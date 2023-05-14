@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import { Navigate, Route } from 'react-router';
+import MesssageList from './MessageList';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import "./customerccss.css"
-import { getAuthorization, removeToken, removeUser } from '../../utils/tools';
+import { getAuthorization, removeToken } from '../../utils/tools';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 interface UserData {
   ID: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt: null | string;
   email: string;
   password: string;
   nick_name: string;
@@ -22,20 +28,7 @@ const CustomerMenu: React.FC = () => {
   const [userdetail, setUserdetail] = useState<UserData>()
   const userJson = Cookies.get('user');
   const user = userJson ? JSON.parse(userJson) : {};
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const user = Cookies.get('user');
-    if (user) {
-      setIsLoggedIn(true);
-    }
-    console.log(user)
-  }, []);
-
-  const handleLogout = () => {
-    Cookies.remove('user');
-    setIsLoggedIn(false);
-  };
+  // console.log(user.user_id)
 
 
   useEffect(() => {
@@ -50,7 +43,7 @@ const CustomerMenu: React.FC = () => {
     getAuthorization();
     axios.request({
       method: "GET",
-      url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id,
+      url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id,  //这里不能写死28
     }).then((ret) => {
       console.log(ret.data.data)
       setUserdetail(ret.data.data)
@@ -60,59 +53,61 @@ const CustomerMenu: React.FC = () => {
     );
   };
 
-  const items1: MenuProps['items'] = [
+ 
+
+const navigate = useNavigate();const items: MenuProps['items'] = [
+  {
+    label: (
+      <div>
+        <NavLink to="/customer"><img src='http://51.104.196.52:8090/upload/findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
+      </div>
+    ),
+    key: 'logo',
+    style: { marginLeft: 100 },
+  },
+  {
+    label: <NavLink to="/customer" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Home</NavLink>,
+    key: 'Home',
+    style: { margin: 10, marginLeft: 700 },
+  },
+  userJson ? (
     {
       label: (
-        <div>
-          <NavLink to="/customer"><img src='http://127.0.0.1:5173/src/assets/findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
+        <div style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>
+          <img
+            className="profile-avatar2"
+            src={`http://51.104.196.52:8090/${userdetail?.avatar}`}
+            alt="Profile"
+          />
+          {userdetail?.nick_name}
         </div>
       ),
-      key: 'logo',
-      style: { marginLeft: 100 },
-    },
-    {
-      label: <NavLink to="/customer" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Home</NavLink>,
-      key: 'Home',
-      style: { margin: 10, marginLeft: 700 },
-      // icon: <MailOutlined />,
-    },
-    {
-      label:
-        <div style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}><img className="profile-avatar2"
-          src={`http://51.104.196.52:8090/${userdetail?.avatar}`}
-          alt="Profile" />
-          {userdetail?.nick_name}
-        </div>,
       key: 'SubMenu',
-      // icon: <SettingOutlined />,
       children: [
         {
           type: 'group',
-          // label: 'Item 1',
           children: [
             {
               label: <NavLink to="profile">Profile</NavLink>,
               key: 'profile',
               style: { margin: 2 },
-
             },
             {
               label: <NavLink to="messagelist">Message</NavLink>,
               key: 'Message',
               style: { margin: 2 },
-
             },
             {
               label: <NavLink to="bookinglist">Booking</NavLink>,
               key: 'Booking',
               style: { margin: 2 },
-
             },
             {
               label: (
                 <span
                   onClick={() => {
-                    removeUser();
+                    removeToken();
+                    Cookies.remove('user'); // 这将删除名为'user'的Cookie项
                     console.log('Logout');
                     navigate('/');
                   }}
@@ -122,82 +117,56 @@ const CustomerMenu: React.FC = () => {
               ),
               key: 'Log out',
               style: { margin: 2 },
-
             },
           ],
         },
-
       ],
       style: { margin: 10 },
-    },
-  ];
-
-
-  const items2: MenuProps['items'] = [
+    }
+  ) : null,
+  !userJson ? (
     {
       label: (
-        <div>
-          <NavLink to="/customer"><img src='http://127.0.0.1:5173/src/assets/findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
-        </div>
+        <NavLink to="/customer/login" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>
+          Log in
+        </NavLink>
       ),
-      key: 'logo',
-      style: { marginLeft: 100 },
-    },
-    {
-      label: <NavLink to="/customer" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Home</NavLink>,
-      key: 'Home',
-      style: { margin: 10, marginLeft: 700 },
-      // icon: <MailOutlined />,
-    },
-    {
-      label: <NavLink to="/customer/login" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Log in</NavLink>,
       key: 'Log in',
-      // icon: <MailOutlined />,
       style: { margin: 10 },
-    },
-  ];
+    }
+  ) : null,
+].filter((item) => item !== null);
 
-  const navigate = useNavigate();
-  const [current, setCurrent] = useState('Home');
+const [current, setCurrent] = useState('Home');
 
-  const onClick: MenuProps['onClick'] = (e) => {
-    setCurrent(e.key);
-  };
+const onClick: MenuProps['onClick'] = (e) => {
+  console.log('click ', e);
+  console.log(e.key);
 
-  return (
+  // if(e.key == "Log out"){
+  //   console.log('logout在这');
+  //     removeToken()
+  //     useNavigate()('/')
+  // }
 
 
+  setCurrent(e.key);
+};
 
-<div>
-  {isLoggedIn ? (
-    <div>
-      <Menu
-        theme="light"
-        onClick={onClick}
-        selectedKeys={[current]}
-        mode="horizontal"
-        items={items1}
-      />
-      <Outlet />
-    </div>
-  ) : (
-    <div>
-      <Menu
-        theme="light"
-        onClick={onClick}
-        selectedKeys={[current]}
-        mode="horizontal"
-        items={items2}
-      />
-      <Outlet />
-    </div>
-  )}
-</div>
-
-  );
+return (
+  <div  >
+    <Menu
+      theme='light'
+      onClick={onClick}
+      selectedKeys={[current]}
+      mode="horizontal"
+      // style={{ float:'right' }}
+      items={items} />
+    <Outlet />
+  </div>
+);
 };
 
 export default CustomerMenu;
-
 
 
