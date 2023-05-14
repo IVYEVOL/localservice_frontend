@@ -28,7 +28,7 @@ function ProviderRoutes() {
           <Route path='Profile' element={<Profile />} />
           <Route path='ServiceList/ServiceDetail' element={<ServiceDetail />} />
           <Route path='viewservice/:id' element={<ViewService />} />
-          {/* <Route path='vieworder/:id' element={<ViewOrder />} /> */}
+          <Route path='vieworder/:id' element={<ViewOrder />} />
       </Routes>
       
       </Container>

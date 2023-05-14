@@ -5,6 +5,7 @@ import './providerCss.css'
 import { getAuthorization } from '../../utils/tools';
 import axios from 'axios';
 import Meta from 'antd/lib/card/Meta';
+import TextArea from 'antd/lib/input/TextArea';
 
 interface Review {
     ID: number;
@@ -54,6 +55,10 @@ const ServiceReview: React.FC<ServiceReviewProps> = ({reviewData}) => {
             addReview();
             console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
           }
+        if(status == "Update"){
+            updateDescription();
+            console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        }
         
         
         //console.log("--------------status:"+status)
@@ -84,6 +89,21 @@ const ServiceReview: React.FC<ServiceReviewProps> = ({reviewData}) => {
           params: {user_id: reviewData.customer_id,order_id:reviewData.ID, status: "Completed", message: "Please add review"}
         }).then((res) => {
             alert("success");
+          }
+        );
+      }
+
+      const updateDescription  = () => {
+        const message = form.getFieldValue("message");
+        console.log(message)
+
+        getAuthorization();
+        axios.request({
+          method: "POST",
+          url: "http://51.104.196.52:8090/api/v1/update/info/add",
+          params: {user_id: reviewData.customer_id,order_id:reviewData.ID, status: "Update", message:message }
+        }).then((res) => {
+            
           }
         );
       }
@@ -154,6 +174,7 @@ const ServiceReview: React.FC<ServiceReviewProps> = ({reviewData}) => {
                         <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '14px' }}>{reviewData.status}</div>
                         </div>
                         <br />
+                        
                         <Form
                             labelCol={{ span: 14 }}
                             wrapperCol={{ span: 34 }}
@@ -163,20 +184,51 @@ const ServiceReview: React.FC<ServiceReviewProps> = ({reviewData}) => {
                         >
                         <Form.Item name="status" >
                             <Radio.Group  >
-                            <Radio style={{ display: 'inline-block', fontSize: '14px' }} value="Accepted">
+                            <Radio onClick={() => document.getElementById('provider_textarea')!.style.display = 'none'} style={{ display: 'inline-block', fontSize: '14px' }} value="Accepted">
                                 Accepted
                             </Radio>
-                            <Radio style={{ display: 'inline-block', fontSize: '14px' }} value="Rejected">
+                            <Radio onClick={() => document.getElementById('provider_textarea')!.style.display = 'none'}  style={{ display: 'inline-block', fontSize: '14px' }} value="Rejected">
                                 Rejected
                             </Radio>
-                            <Radio style={{ display: 'inline-block', fontSize: '14px' }} value="Update description">
+                            <Radio onClick={() => document.getElementById('provider_textarea')!.style.display = ''} style={{ display: 'inline-block', fontSize: '14px' }} value="Update">
                                 Update description
                             </Radio>
-                            <Radio style={{ display: 'inline-block', fontSize: '14px' }} value="Completed">
+                            <Radio onClick={() => document.getElementById('provider_textarea')!.style.display = 'none'} style={{ display: 'inline-block', fontSize: '14px' }} value="Completed">
                                 Completed
                             </Radio>
                             </Radio.Group>
                         </Form.Item>
+                        <div id="provider_textarea" style={{ display: "none" }}>
+
+                            <Form.Item
+                            name="status"
+                            initialValue={"Pending"}
+                            hidden>
+                            </Form.Item>
+
+                        <Form.Item
+                            name="message"
+                            label="Brief description of update requirements"
+                            rules={[
+                            {
+                                required: false,
+                                message: 'Please input your phone number!'
+                            },
+
+                            ]}
+                        >
+                        <TextArea
+                            showCount
+                            maxLength={100}
+                            style={{ height: 50, marginBottom: 24 }}
+                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                                console.log('Change:', e.target.value);
+                            }}
+                        placeholder="less than 100 characters"
+                        />
+                        </Form.Item>
+                    </div>
+                         
                         <Form.Item label="">
                             <Button type="primary" style={{ display: 'inline-block', fontSize: '14px' }} onClick={postFormData}>
                             Change status
