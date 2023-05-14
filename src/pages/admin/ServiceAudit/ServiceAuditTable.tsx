@@ -116,7 +116,8 @@ const App: React.FC = () => {
 
     getAuthorization();
     axios.post('http://51.104.196.52:8090/api/v1/public/service/all_service', {
-
+      page: 1,
+      limit: 500
     })
       .then(res => {
 
