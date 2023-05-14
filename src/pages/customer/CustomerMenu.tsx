@@ -53,58 +53,61 @@ const CustomerMenu: React.FC = () => {
     );
   };
 
-  const items: MenuProps['items'] = [
+ 
+
+const navigate = useNavigate();const items: MenuProps['items'] = [
+  {
+    label: (
+      <div>
+        <NavLink to="/customer"><img src='src\assets\findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
+      </div>
+    ),
+    key: 'logo',
+    style: { marginLeft: 100 },
+  },
+  {
+    label: <NavLink to="/customer" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Home</NavLink>,
+    key: 'Home',
+    style: { margin: 10, marginLeft: 700 },
+  },
+  userJson ? (
     {
       label: (
-        <div>
-          <NavLink to="/customer"><img src='src\assets\findserviceLogo.png' alt="Logo" height={40} style={{ margin: 10 }} /></NavLink>
+        <div style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>
+          <img
+            className="profile-avatar2"
+            src={`http://51.104.196.52:8090/${userdetail?.avatar}`}
+            alt="Profile"
+          />
+          {userdetail?.nick_name}
         </div>
       ),
-      key: 'logo',
-      style: { marginLeft: 100 },
-    },
-    {
-      label: <NavLink to="/customer" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Home</NavLink>,
-      key: 'Home',
-      style: { margin: 10, marginLeft: 700 },
-      // icon: <MailOutlined />,
-    },
-    {
-      label: <div style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}><img className="profile-avatar2" 
-      src={`http://51.104.196.52:8090/${userdetail?.avatar}`} 
-      alt="Profile" />
-      {userdetail?.nick_name}
-      </div>,
       key: 'SubMenu',
-      // icon: <SettingOutlined />,
       children: [
         {
           type: 'group',
-          // label: 'Item 1',
           children: [
             {
               label: <NavLink to="profile">Profile</NavLink>,
               key: 'profile',
               style: { margin: 2 },
-
             },
             {
               label: <NavLink to="messagelist">Message</NavLink>,
               key: 'Message',
               style: { margin: 2 },
-
             },
             {
               label: <NavLink to="bookinglist">Booking</NavLink>,
               key: 'Booking',
               style: { margin: 2 },
-
             },
             {
               label: (
                 <span
                   onClick={() => {
                     removeToken();
+                    Cookies.remove('user'); // 这将删除名为'user'的Cookie项
                     console.log('Logout');
                     navigate('/');
                   }}
@@ -114,51 +117,54 @@ const CustomerMenu: React.FC = () => {
               ),
               key: 'Log out',
               style: { margin: 2 },
-
             },
           ],
         },
-
       ],
       style: { margin: 10 },
-    },
+    }
+  ) : null,
+  !userJson ? (
     {
-      label: <NavLink to="/customer/login" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>Log in</NavLink>,
+      label: (
+        <NavLink to="/customer/login" style={{ border: 'none', fontWeight: 'bold', fontSize: 16 }}>
+          Log in
+        </NavLink>
+      ),
       key: 'Log in',
-      // icon: <MailOutlined />,
       style: { margin: 10 },
-    },
-  ];
+    }
+  ) : null,
+].filter((item) => item !== null);
 
-  const navigate = useNavigate();
-  const [current, setCurrent] = useState('Home');
+const [current, setCurrent] = useState('Home');
 
-  const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
-    console.log(e.key);
+const onClick: MenuProps['onClick'] = (e) => {
+  console.log('click ', e);
+  console.log(e.key);
 
-    // if(e.key == "Log out"){
-    //   console.log('logout在这');
-    //     removeToken()
-    //     useNavigate()('/')
-    // }
+  // if(e.key == "Log out"){
+  //   console.log('logout在这');
+  //     removeToken()
+  //     useNavigate()('/')
+  // }
 
 
-    setCurrent(e.key);
-  };
+  setCurrent(e.key);
+};
 
-  return (
-    <div  >
-      <Menu
-        theme='light'
-        onClick={onClick}
-        selectedKeys={[current]}
-        mode="horizontal"
-        // style={{ float:'right' }}
-        items={items} />
-      <Outlet />
-    </div>
-  );
+return (
+  <div  >
+    <Menu
+      theme='light'
+      onClick={onClick}
+      selectedKeys={[current]}
+      mode="horizontal"
+      // style={{ float:'right' }}
+      items={items} />
+    <Outlet />
+  </div>
+);
 };
 
 export default CustomerMenu;

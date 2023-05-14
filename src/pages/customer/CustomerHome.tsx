@@ -113,10 +113,9 @@ const ProductCard = () => {
 
     return (
         <div>
-
             <HeaderMenu onFilterCategory={filterServicesCategory} />
             <div style={{ padding: '24px', justifyContent: 'center' }}>
-                <SearchCity onCityChange={filterServicesCity} />
+                <div style={{ display: 'flex', justifyContent: 'center', margin: '20px auto' }}><SearchCity onCityChange={filterServicesCity} /></div>
                 {loading ? (
                     <div style={{ textAlign: 'center', marginTop: '40px' }}>
                         <h3>Loading...</h3>
@@ -133,7 +132,10 @@ const ProductCard = () => {
                                     <Card
                                         hoverable
                                         style={{ height: '340px', width: '280px', margin: 'auto' }}
-                                        cover={<img alt="example" src={`http://51.104.196.52:8090/${service.photos}`} style={{ height: '180px', width: '400px', objectFit: 'cover' }} />}
+                                        cover={<img
+                                            alt="example"
+                                            src={`http://51.104.196.52:8090/${service.photos}`}
+                                            style={{ height: '180px', width: '280px', objectFit: 'cover' }} />}
                                     >
                                         <Meta
                                             title={<div style={{ fontSize: '18px' }}>{service.title}</div>}

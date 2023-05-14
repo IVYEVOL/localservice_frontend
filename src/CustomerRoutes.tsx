@@ -32,8 +32,8 @@ function CustomerRoutes() {
           <Route path='viewservice/:id/payservice' element={<PayServiceWrapper />} /> 
           <Route path='messagelist/*'>
             <Route index element={<MesssageList />} ></Route>
-            <Route path='servicereviewmessage' element={<ServiceReviewMessage />} ></Route>
-            <Route path='requestupdatingmessage' element={<RequestUpdatingMessage />} ></Route>
+            <Route path='servicereviewmessage/:id/:id2' element={<ServiceReviewMessage />} ></Route>
+            <Route path='requestupdatingmessage/:id/:id2' element={<RequestUpdatingMessage />} ></Route>
           </Route>
           <Route path='bookinglist/*'>
             <Route index element={<BookingList />}></Route>

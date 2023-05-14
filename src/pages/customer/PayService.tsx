@@ -30,6 +30,7 @@ interface Service {
     longitude_latitude: string;
     mobile: string;
     user_id: number;
+    service_title: string;
 }
 interface PayServiceProps {
     serviceData: Service;
@@ -51,7 +52,7 @@ const layout = {
     wrapperCol: { span: 16 },
 };
 
-    
+
 
 const config = {
     rules: [{ type: 'object' as const, required: true, message: 'Please select time!' }],
@@ -127,7 +128,19 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
         axios.request({
             method: "POST",
             url: "http://51.104.196.52:8090/api/v1/order/add",
-            params: { customer_name:name, customer_email:email, customer_phone:phonenumber, postcode:Postcode,address:address, city:city,date:datetimepicker, description:description, customer_id: user.user_id ,service_id:serviceData.ID}
+            params: {
+                customer_name: name,
+                customer_email: email,
+                customer_phone: phonenumber,
+                postcode: Postcode, address: address,
+                city: city, date: datetimepicker,
+                description: description,
+                customer_id: user.user_id,
+                service_id: serviceData.ID,
+                provider_id: serviceData.user_id,
+                status: 'Pending',
+                service_title: serviceData.title
+            }
         }).then((res) => {
             alert("success");
             navigate('/');
@@ -148,7 +161,7 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
                 {...formItemLayout}
                 style={{ maxWidth: 600 }}
                 form={form}
-                onFinish={onFinish} 
+                onFinish={onFinish}
             >
                 <div className='contactdetails'> Contact Details</div>
                 <Form.Item name="name" label="Name" rules={[{ required: true }]}>
