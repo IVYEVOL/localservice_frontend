@@ -176,6 +176,17 @@ const AddService: React.FC = () => {
   });
   }
 
+  const navigateToProviderHome=()=>{
+    let url = 'http://51.104.196.52:9000/provider';
+    window.location.href=url
+  }
+
+  const navigateToProviderAddService=()=>{
+    let url = 'http://51.104.196.52:9000/provider/addservice';
+    window.location.href=url
+  }
+
+
   const postFormData  = async () => {
     getAuthorization();
     const title = form.getFieldValue("title");
@@ -218,10 +229,11 @@ const AddService: React.FC = () => {
           alert("success");
         }
       );
+      navigateToProviderHome();
     }else{
       console.log("status ==="+status)
           getAdminMessage();
-          
+          navigateToProviderAddService();
     }
   }
     
