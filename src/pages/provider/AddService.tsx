@@ -14,7 +14,7 @@ import {
   Upload,
 } from 'antd';
 import React, { useState } from 'react';
-import Axios from 'axios'
+import Axios, { AxiosResponse } from 'axios'
 import { getAuthorization } from '../../utils/tools';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -118,20 +118,33 @@ const AddService: React.FC = () => {
   };
 
   const [status, setStatus] = useState<string>();
-  const [message, setMessage] = useState<string>();
+  const [message, setMessage] = useState('1');
 
-  const getUserData = () => {
-    getAuthorization();
-    axios.request({
-      method: "GET",
-      url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id, 
-    }).then((ret) => {
-      //这个就是获取到的数据列表
-        setStatus(ret.data.data.status)
-        console.log("++++getUserData user_status:"+ret.data.data.status)
+  // const getUserData = () => {
+  //   getAuthorization();
+  //   axios.request({
+  //     method: "GET",
+  //     url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id, 
+  //   }).then((ret) => {
+  //     //这个就是获取到的数据列表
+  //       setStatus(ret.data.data.status)
+  //       console.log("++++getUserData user_status:"+ret.data.data.status)
+  //       console.log('status在这里'+status);
+        
        
-      }
-    );
+  //     }
+  //   );
+  // };
+  const getUserData = (): Promise<string> => {
+    getAuthorization();
+    return axios
+      .request({
+        method: "GET",
+        url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id, 
+      })
+      .then((ret: AxiosResponse) => {
+        return ret.data.data.status;
+      });
   };
 
   
@@ -144,17 +157,25 @@ const AddService: React.FC = () => {
     }).then((ret) => {
       
     const admin_messages = ret.data.data;
+    console.log("admin_messages: " + admin_messages);
+    
     if (admin_messages.length > 0) {
-      setMessage(admin_messages[admin_messages.length-1].message) 
-      console.log("First admin message:", message);
+      const a = admin_messages[admin_messages.length-1].message
+      setMessage(a) 
+      console.log('set 后');
+      
+      console.log(message);
+      
+      console.log("First admin message:", admin_messages[admin_messages.length-1].message);
       // Do something with the first admin message
+      alert("No permission to add services"+"\n\n\n"+"Admin request to description: "+ admin_messages[admin_messages.length-1].message);
     } else {
       console.log(admin_messages);
     }
   });
   }
 
-  const postFormData  = () => {
+  const postFormData  = async () => {
     getAuthorization();
     const title = form.getFieldValue("title");
   
@@ -177,6 +198,10 @@ const AddService: React.FC = () => {
     const description = form.getFieldValue("description");
    
    const availibility = form.getFieldValue("availibility");
+
+   const status = await getUserData() ;
+
+
   
    getUserData();
     
@@ -193,8 +218,9 @@ const AddService: React.FC = () => {
         }
       );
     }else{
+      console.log("status ==="+status)
           getAdminMessage();
-          alert("No permission to add services"+"Please:"+ message);
+          
     }
   }
     
