@@ -226,7 +226,7 @@ const AddService: React.FC = () => {
       axios.request({
         method: "POST",
         url: "http://51.104.196.52:8090/api/v1/service/add",
-        params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
+        params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
       }).then((res) => {
           alert("success");
           // navigate('/provider')
@@ -234,7 +234,7 @@ const AddService: React.FC = () => {
         }
       );
       
-      navigateToProviderHome();
+      // navigateToProviderHome();
     }else{
       console.log("status ==="+status)
           getAdminMessage();
