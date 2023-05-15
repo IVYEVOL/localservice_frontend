@@ -18,6 +18,7 @@ import Axios, { AxiosResponse } from 'axios'
 import { getAuthorization } from '../../utils/tools';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 
 const { Option } = Select;
@@ -177,6 +178,7 @@ const AddService: React.FC = () => {
   }
 
   const navigateToProviderHome=()=>{
+    // let url = 'http://51.104.196.52:9000/provider';
     let url = 'http://51.104.196.52:9000/provider';
     window.location.href=url
   }
@@ -185,7 +187,7 @@ const AddService: React.FC = () => {
     let url = 'http://51.104.196.52:9000/provider/addservice';
     window.location.href=url
   }
-
+  const navigate = useNavigate();
 
   const postFormData  = async () => {
     getAuthorization();
@@ -227,13 +229,16 @@ const AddService: React.FC = () => {
         params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
       }).then((res) => {
           alert("success");
+          navigate('/provider')
+          console.log("successsuccesssuccesssuccesssuccesssuccesssuccesssuccess")
         }
       );
+      
       navigateToProviderHome();
     }else{
       console.log("status ==="+status)
           getAdminMessage();
-          navigateToProviderAddService();
+          // navigateToProviderAddService();
     }
   }
     
