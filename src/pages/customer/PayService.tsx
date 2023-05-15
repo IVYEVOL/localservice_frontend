@@ -73,8 +73,6 @@ const onFinish = (fieldsValue: any) => {
     console.log('Received values of form: ', values);
 };
 
-
-
 const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
     console.log("servicedata")
     console.log(serviceData)
@@ -126,7 +124,7 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
         }
         const description = form.getFieldValue("description");
         if ('' == description || description == undefined) {
-            alert("address can not be empty");
+            alert("description can not be empty");
             return;
         }
         const address = form.getFieldValue("address");
@@ -151,7 +149,7 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
                 service_title: serviceData.title
             }
         }).then((res) => {
-            alert("success");
+            alert("Book success");
             navigate('/');
         }
         );
@@ -161,7 +159,7 @@ const PayService: React.FC<PayServiceProps> = ({ serviceData }) => {
     return (
         <div>
             <div>
-                <div ><img className='serviceimage' alt="Loading" src={`http://51.104.196.52:8090/upload/${serviceData.photos}`} /></div>
+                <div ><img className='serviceimage' alt="Loading" src={`http://51.104.196.52:8090/${serviceData.photos}`} /></div>
                 <div className='servicename'>{serviceData?.title}</div>
                 <div className='serviceprice'>￡{serviceData?.prices}</div>
             </div>

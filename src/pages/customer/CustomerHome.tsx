@@ -115,7 +115,7 @@ const ProductCard = () => {
         <div>
             <HeaderMenu onFilterCategory={filterServicesCategory} />
             <div style={{ padding: '24px', justifyContent: 'center' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', margin: '20px auto' }}><SearchCity onCityChange={filterServicesCity} /></div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginLeft:'20px' }}><SearchCity onCityChange={filterServicesCity} /></div>
                 {loading ? (
                     <div style={{ textAlign: 'center', marginTop: '40px' }}>
                         <h3>Loading...</h3>

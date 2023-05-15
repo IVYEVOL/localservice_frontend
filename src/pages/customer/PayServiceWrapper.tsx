@@ -22,7 +22,11 @@ interface Service {
     longitude_latitude: string;
     mobile: string;
     user_id: number;
+<<<<<<< HEAD
+    service_title: string; // Add service_title property
+=======
     service_title: string;
+>>>>>>> 98c681d61527efb0d3caf1cbdcb78815fbacca0c
 }
 
 
