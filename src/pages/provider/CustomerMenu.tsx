@@ -26,7 +26,7 @@ const items: MenuProps['items'] = [
   },
 
   {
-    label: <div style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}><img className="profile-avatar2" src='http://51.104.196.52:8090/upload/profile.jpg' alt="Profile" />IVY</div>,
+    label: <div style={{ border: 'none', fontWeight: 'bold' ,fontSize:16}}><img className="profile-avatar2" src='http://51.104.196.52:8090/upload/profile.jpg' alt="Profile" />Provider</div>,
     key: 'SubMenu',
     // icon: <SettingOutlined />,
     children: [
