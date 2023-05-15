@@ -184,7 +184,7 @@ const getServiceDataById = () => {
       }else{
           u = 'http://51.104.196.52:8090/' + data.photos
       }
-      
+    
       setImageUrl(u);
       console.log("u:"+u)
       console.log("data.photos:"+data)
