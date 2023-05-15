@@ -301,6 +301,8 @@ const AddService: React.FC = () => {
               required: true, 
               pattern: new RegExp(/^(?:(?:\+44\s*\d{10})|(?:0\d{4}\s*\d{6}))$/), 
               message: 'Please enter a valid UK mobile phone number' 
+
+              
             }
           ]}
 >
