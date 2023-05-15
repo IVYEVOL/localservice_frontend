@@ -86,11 +86,19 @@ const ServiceReview: React.FC<ServiceReviewProps> = ({reviewData}) => {
         axios.request({
           method: "POST",
           url: "http://51.104.196.52:8090/api/v1/update/info/message/add",
-          params: {user_id: reviewData.customer_id,order_id:reviewData.ID, status: "Completed", message: "Please add review"}
+          params: {user_id: reviewData.customer_id,order_id:reviewData.ID, status: "Pending", message: "Please add review"}
         }).then((res) => {
             alert("success");
           }
         );
+        axios.request({
+            method: "PATCH",
+            url: "http://51.104.196.52:8090/api/v1/update/info/message/add",
+            params: {status: "Pending"}
+          }).then((res) => {
+              alert("success");
+            }
+          );
       }
 
       const updateDescription  = () => {
@@ -109,7 +117,7 @@ const ServiceReview: React.FC<ServiceReviewProps> = ({reviewData}) => {
         axios.request({
             method: "POST",
             url: "http://51.104.196.52:8090/api/v1/update/info/message/add",
-            params: {user_id: reviewData.customer_id,order_id:reviewData.ID, status: "Update", message: "Please update descrition"}
+            params: {user_id: reviewData.customer_id,order_id:reviewData.ID, status: "Pending", message: "Please update descrition"}
           }).then((res) => {
               alert("success");
             }
