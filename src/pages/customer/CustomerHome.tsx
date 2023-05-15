@@ -141,7 +141,7 @@ const ProductCard = () => {
                                             title={<div style={{ fontSize: '18px' }}>{service.title}</div>}
                                             description={<div style={{ fontSize: '12px' }}>{service.city}</div>}
                                         />
-
+                                        <div  style={{ fontSize: '12px' }}></div>
                                         <div style={{ marginTop: '50px' }}>
                                             <span style={{ fontSize: '14px' }}>Price: </span>
                                             <div style={{ display: 'inline', fontWeight: 'bold', fontSize: '20px' }}>￡{service.prices}</div>

@@ -93,7 +93,7 @@ const MesssageList = () => {
             <div>
               Booking Date: {new Date(addinfo.CreatedAt).toISOString().substring(0, 10)} {new Date(addinfo.CreatedAt).toISOString().substring(11, 19)}
             </div>
-            <div>Provider request: {addinfo.request}</div>
+            <div>Provider request: {addinfo.message}</div>
           </Card>
         ))}
       </Card>
