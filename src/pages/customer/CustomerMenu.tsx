@@ -88,17 +88,17 @@ const navigate = useNavigate();const items: MenuProps['items'] = [
           type: 'group',
           children: [
             {
-              label: <NavLink to="profile">Profile</NavLink>,
+              label: <NavLink to="customer/profile">Profile</NavLink>,
               key: 'profile',
               style: { margin: 2 },
             },
             {
-              label: <NavLink to="messagelist">Message</NavLink>,
+              label: <NavLink to="customer/messagelist">Message</NavLink>,
               key: 'Message',
               style: { margin: 2 },
             },
             {
-              label: <NavLink to="bookinglist">Booking</NavLink>,
+              label: <NavLink to="customer/bookinglist">Booking</NavLink>,
               key: 'Booking',
               style: { margin: 2 },
             },

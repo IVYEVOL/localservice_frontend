@@ -18,6 +18,7 @@ import Axios, { AxiosResponse } from 'axios'
 import { getAuthorization } from '../../utils/tools';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 
 const { Option } = Select;
@@ -117,36 +118,20 @@ const AddService: React.FC = () => {
     return Promise.reject(new Error('Price must be greater than zero!'));
   };
 
-<<<<<<< HEAD
-  
-   const [message, setMessage] = useState<string>();
-  // const [status, setStatus] = useState<string>();
-  
-  // const getUserData = () => {
-    
-=======
   const [status, setStatus] = useState<string>();
   const [message, setMessage] = useState('1');
 
   // const getUserData = () => {
->>>>>>> 32ce9759f92949a80872270b4ae6a8fccc98a5ec
   //   getAuthorization();
   //   axios.request({
   //     method: "GET",
   //     url: "http://51.104.196.52:8090/api/v1/user/" + user.user_id, 
   //   }).then((ret) => {
   //     //这个就是获取到的数据列表
-<<<<<<< HEAD
-  //       // setStatus(ret.data.data.status)
-  //       const  status = ret.data.data.status
-  //       console.log("++++getUserData user_status:"+status)
-  //       return status
-=======
   //       setStatus(ret.data.data.status)
   //       console.log("++++getUserData user_status:"+ret.data.data.status)
   //       console.log('status在这里'+status);
         
->>>>>>> 32ce9759f92949a80872270b4ae6a8fccc98a5ec
        
   //     }
   //   );
@@ -192,9 +177,8 @@ const AddService: React.FC = () => {
   });
   }
 
-<<<<<<< HEAD
-=======
   const navigateToProviderHome=()=>{
+    // let url = 'http://51.104.196.52:9000/provider';
     let url = 'http://51.104.196.52:9000/provider';
     window.location.href=url
   }
@@ -203,9 +187,8 @@ const AddService: React.FC = () => {
     let url = 'http://51.104.196.52:9000/provider/addservice';
     window.location.href=url
   }
+  const navigate = useNavigate();
 
-
->>>>>>> 32ce9759f92949a80872270b4ae6a8fccc98a5ec
   const postFormData  = async () => {
     getAuthorization();
     const title = form.getFieldValue("title");
@@ -229,18 +212,12 @@ const AddService: React.FC = () => {
     const description = form.getFieldValue("description");
    
    const availibility = form.getFieldValue("availibility");
-<<<<<<< HEAD
-   
-   const status = await getUserData() ;
-   
-=======
 
    const status = await getUserData() ;
 
 
   
    getUserData();
->>>>>>> 32ce9759f92949a80872270b4ae6a8fccc98a5ec
     
     //token暂时写死
     // axios.defaults.headers.common['Authorization'] = "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NCwiRW1haWwiOiIyIiwic3ViIjoiVG9rZW4iLCJleHAiOjE2ODM2NTE3OTUsImlhdCI6MTY4MzY0OTk5NX0.VvujZG0p3I8Z75HK840QF777XLlRB9f0SKbSU5YyKLA";
@@ -249,20 +226,19 @@ const AddService: React.FC = () => {
       axios.request({
         method: "POST",
         url: "http://51.104.196.52:8090/api/v1/service/add",
-        params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
+        params: {user_id:user.user_id,title:title,longitude_latitude:longitude_latitude, city:city,country:country,description:description, prices:price.number, address:address, category:category, userid:user.user_id, mobile:mobile, areas_coverd1:areas_coverd1,availibility:availibility }
       }).then((res) => {
           alert("success");
+          // navigate('/provider')
+          console.log("successsuccesssuccesssuccesssuccesssuccesssuccesssuccess")
         }
       );
-      navigateToProviderHome();
+      
+      // navigateToProviderHome();
     }else{
-<<<<<<< HEAD
-         console.log("status ==="+status)
-=======
       console.log("status ==="+status)
->>>>>>> 32ce9759f92949a80872270b4ae6a8fccc98a5ec
           getAdminMessage();
-          navigateToProviderAddService();
+          // navigateToProviderAddService();
     }
   }
     
@@ -325,6 +301,8 @@ const AddService: React.FC = () => {
               required: true, 
               pattern: new RegExp(/^(?:(?:\+44\s*\d{10})|(?:0\d{4}\s*\d{6}))$/), 
               message: 'Please enter a valid UK mobile phone number' 
+
+              
             }
           ]}
 >

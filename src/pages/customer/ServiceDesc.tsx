@@ -32,9 +32,6 @@ interface ServiceDescProps {
     serviceData: Service;
 }
 
-
-
-
 const ServiceDesc: React.FC<ServiceDescProps> = ({ serviceData }) => {
 
 
@@ -65,10 +62,11 @@ const ServiceDesc: React.FC<ServiceDescProps> = ({ serviceData }) => {
             <div className='servicename'>{serviceData.title}</div>
             <div><img className='serviceimage' alt="Loading" src={`http://51.104.196.52:8090/${serviceData.photos}`} /></div>
             <div className='serviceprice'>￡{serviceData.prices}</div>
-            <div className='servicedesc'>Description: {serviceData.description}</div>
-            <div className='servicedesc'>Availability: {serviceData.city} {serviceData.availibility}</div>
-            <div className='servicedesc'>Service Address: {serviceData.address}</div>
-            <div className='servicedesc'>Phone: {serviceData.mobile}</div>
+            <div style={{ margin: 20, width: 600, marginLeft: 150 , fontSize:14}}>Description: {serviceData.description}</div>
+            <div style={{ margin: 20, width: 500, marginLeft: 150 ,fontSize:14}}></div>
+            <div style={{ margin: 20, width: 500, marginLeft: 150 , fontSize:14}}>Service Address: {serviceData.address}</div>
+            <div style={{ margin: 20, width: 500, marginLeft: 150 , fontSize:14}}>Phone: {serviceData.mobile}</div>
+            <div style={{ margin: 20, width: 500, marginLeft: 150 , fontSize:14}}>Availability: {serviceData.city} {serviceData.availibility}</div>
 
             {/* <div className='servicerate'>Rate：<Rate disabled defaultValue={3} /></div> */}
 

@@ -14,7 +14,7 @@ const RequestUpdatingMessage = () => {
   console.log('接收的id为' + orderID)
   const addinfoID = Number(id2); // 将id转换为number类型
 
-  const [servicetitle, setServicetitle] = useState("Loadig...")
+  const [servicetitle, setServicetitle] = useState("Loading...")
 
 
   const [description, setDescription] = useState('');
